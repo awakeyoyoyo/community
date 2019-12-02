@@ -2,12 +2,19 @@ package com.awakeyo.community.controller;
 
 import com.awakeyo.community.dto.GithubAccessTokenDTO;
 import com.awakeyo.community.dto.GithubUser;
+import com.awakeyo.community.dto.User;
+import com.awakeyo.community.mapper.UserMapper;
 import com.awakeyo.community.provider.GithubProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+import java.util.Date;
+import java.util.UUID;
 
 /**
  * @author awakeyoyoyo
@@ -17,6 +24,8 @@ import org.springframework.web.bind.annotation.RequestParam;
  */
 @Controller
 public class GitHubAuthorizeController {
+    @Autowired
+    private UserMapper userMapper;
     @Autowired
     private GithubProvider githubProvider;
     @Value("${github.client.id}")
@@ -34,7 +43,8 @@ public class GitHubAuthorizeController {
      */
     @GetMapping("/callback")
     public String callback(@RequestParam(name = "code") String code,
-                           @RequestParam(name="state") String state){
+                           @RequestParam(name="state") String state,
+                           HttpServletResponse response){
         GithubAccessTokenDTO githubAccessTokenDTO = new GithubAccessTokenDTO();
         githubAccessTokenDTO.setClient_id(clientId);
         githubAccessTokenDTO.setClient_secret(clientSecret);
@@ -44,8 +54,29 @@ public class GitHubAuthorizeController {
         //获取accesstoken
         String accessToken = githubProvider.getAccessToken(githubAccessTokenDTO);
         //利用accesstoken获取user信息
-        GithubUser user=githubProvider.getUser(accessToken);
-        System.out.println(user.getName());
-        return "index";
+        GithubUser githubUser=githubProvider.getUser(accessToken);
+        System.out.println(accessToken);
+        if (githubUser!=null){
+            //登陆成功写入cookie和session
+            User user=new User();
+            String token=UUID.randomUUID().toString();
+            user.setToken(token);
+            user.setName(githubUser.getName());
+            user.setAccountId(String.valueOf(githubUser.getId()));
+            user.setGmtCreate(new Date().getTime());
+            user.setGmtModified(user.getGmtCreate());
+            user.setBio(githubUser.getBio());
+            user.setAvatarUrl(githubUser.getAvatar_url());
+            userMapper.insert(user);
+            //设置cookie
+            Cookie cookie=new Cookie("token",token);
+            cookie.setMaxAge(60*60*24);
+            response.addCookie(cookie);
+            return "redirect:/";
+        }
+        else {
+            //登陆失败，重新登录
+            return "redirect:/";
+        }
     }
 }

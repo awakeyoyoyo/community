@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+<!--mybatis自动扫描包，自动定义别名，别名是类名 首字母大小写都可以-->
+    <typeAliases>
+        <package name="com.awakeyo.wangpengdemo.pojo"/>
+    </typeAliases>
+</configuration>

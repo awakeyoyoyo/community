@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+
+    <!-- 引入配置文件 -->
+    <properties resource="mybatis-config/generator.properties"/>
+    <!-- 指定数据连接驱动jar地址 -->
+     <classPathEntry location="${classPath}"/>
+    <!-- 一个数据库一个context -->
+    <context id="infoGuardian" targetRuntime="MyBatis3">
+        <!-- 注释 -->
+        <commentGenerator>
+            <!-- 是否取消注释 -->
+            <property name="suppressDate" value="true"/>
+            <!-- 是否生成注释代时间戳-->
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+
+        <!-- 连接数据库 -->
+        <jdbcConnection connectionURL="${url}"
+                        driverClass="${driverClassName}" userId="${username}" password="${password}"  />
+
+        <!-- 类型转换 -->
+        <javaTypeResolver>
+            <!-- 是否使用bigDecimal， false可自动转化以下类型（Long, Integer, Short, etc.） -->
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+
+        <!-- 生成实体类地址 -->
+        <javaModelGenerator targetPackage="${entityPath}"
+                            targetProject="${project}" >
+            <!-- 是否在当前路径下新加一层schema,eg：false路径cn.ffcs.test.domain"， true:cn.ffcs.test.domain".[schemaName] -->
+            <property name="enableSubPackages" value="false"/>
+            <!-- 是否针对string类型的字段在set的时候进行trim调用 -->
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+        <!-- mapper映射文件 -->
+        <sqlMapGenerator targetPackage="${xmlPath}"
+                         targetProject="${xmlproject}" >
+            <!-- 是否在当前路径下新加一层schema,eg：false路径cn.ffcs.test.domain"， true:cn.ffcs.test.domain".[schemaName] -->
+            <property name="enableSubPackages" value="false"/>
+        </sqlMapGenerator>
+
+        <!-- dao -->
+        <javaClientGenerator targetPackage="${daoPath}"
+                             targetProject="${project}" type="XMLMAPPER" >
+            <!-- 是否在当前路径下新加一层schema,eg：false路径cn.ffcs.test.domain"， true:cn.ffcs.test.domain".[schemaName] -->
+            <property name="enableSubPackages" value="false"/>
+        </javaClientGenerator>
+
+        <!-- 配置表信息，这里每生成一张表，就需要改变一次对应表名
+            schema：数据库名
+            tableName：表名
+            domainObjectName：实体类名
+            enable***ByExample：是否生成相应的动态语句
+            enableInsert：是否生成insert语句
+            enableUpdateByPrimaryKey：是否生成按照主键更新对象的语句（即update）
+            enableDeleteByPrimaryKey：是否生成按照主键删除对象的语句（即delete）
+            enableSelectByPrimaryKey：是否生成按照主键查询对象的语句（就是getById或get）
+            注：除了带example的属性，其他属性如果为false，一定不能显示配置，不然会报错：
+            There are no statements enabled for table mybatis.category, this table will be ignored.
+         -->
+        <table tableName="cm_User" domainObjectName="User"
+               enableInsert="true"
+               enableCountByExample="false"
+               enableUpdateByExample="false"
+               enableDeleteByExample="false"
+               enableSelectByExample="false"
+               selectByExampleQueryId="false"
+        ></table>
+        <!--        <table tableName="wg_message" domainObjectName="Message"-->
+<!--               enableInsert="true"-->
+<!--               enableCountByExample="false"-->
+<!--               enableUpdateByExample="false"-->
+<!--               enableDeleteByExample="false"-->
+<!--               enableSelectByExample="false"-->
+<!--               selectByExampleQueryId="false"-->
+<!--        ></table>-->
+<!--        <table tableName="wg_record" domainObjectName="Record"-->
+<!--               enableInsert="true"-->
+<!--               enableCountByExample="false"-->
+<!--               enableUpdateByExample="false"-->
+<!--               enableDeleteByExample="false"-->
+<!--               enableSelectByExample="false"-->
+<!--               selectByExampleQueryId="false"-->
+<!--        ></table>-->
+<!--        <table tableName="wg_place" domainObjectName="WgPlace"-->
+<!--               enableInsert="true"-->
+<!--               enableCountByExample="false"-->
+<!--               enableUpdateByExample="false"-->
+<!--               enableDeleteByExample="false"-->
+<!--               enableSelectByExample="false"-->
+<!--               selectByExampleQueryId="false"-->
+<!--        ></table>-->
+<!--        <table tableName="wg_collection" domainObjectName="WgCollection"-->
+<!--               enableInsert="true"-->
+<!--               enableCountByExample="false"-->
+<!--               enableUpdateByExample="false"-->
+<!--               enableDeleteByExample="false"-->
+<!--               enableSelectByExample="false"-->
+<!--               selectByExampleQueryId="false"-->
+<!--        ></table>-->
+    </context>
+</generatorConfiguration>
