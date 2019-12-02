@@ -4,6 +4,7 @@ import com.awakeyo.community.dto.GithubAccessTokenDTO;
 import com.awakeyo.community.dto.GithubUser;
 import com.awakeyo.community.provider.GithubProvider;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,6 +19,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class GitHubAuthorizeController {
     @Autowired
     private GithubProvider githubProvider;
+    @Value("${github.client.id}")
+    private String clientId;
+    @Value("${github.client.secret}")
+    private String clientSecret;
+    @Value("${github.redirect.uri}")
+    private String redirecUri;
     /**
      * Method Description
      * @author awakeyoyoyo
@@ -29,12 +36,14 @@ public class GitHubAuthorizeController {
     public String callback(@RequestParam(name = "code") String code,
                            @RequestParam(name="state") String state){
         GithubAccessTokenDTO githubAccessTokenDTO = new GithubAccessTokenDTO();
-        githubAccessTokenDTO.setClient_id("f25c1cabc9f06377fa85");
-        githubAccessTokenDTO.setClient_secret("1288c68cf3a12166b03f85ce31ec120ee60ab172");
+        githubAccessTokenDTO.setClient_id(clientId);
+        githubAccessTokenDTO.setClient_secret(clientSecret);
         githubAccessTokenDTO.setCode(code);
-        githubAccessTokenDTO.setRedirect_uri("http://localhost:8080/callback");
+        githubAccessTokenDTO.setRedirect_uri(redirecUri);
         githubAccessTokenDTO.setState(state);
+        //获取accesstoken
         String accessToken = githubProvider.getAccessToken(githubAccessTokenDTO);
+        //利用accesstoken获取user信息
         GithubUser user=githubProvider.getUser(accessToken);
         System.out.println(user.getName());
         return "index";
