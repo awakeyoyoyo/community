@@ -131,4 +131,16 @@
     from cm_User
     where token = #{token}
   </select>
+  <select id="selectByaccoun_id" parameterType="java.lang.String" resultType="java.lang.Integer">
+    select
+    1
+    from cm_User
+    where account_id = #{accountId}
+  </select>
+  <update id="updateTokenByAccoundId" parameterType="map" >
+    update cm_User
+    set
+      token = #{token,jdbcType=CHAR}
+    where account_id = #{accountId}
+  </update>
 </mapper>

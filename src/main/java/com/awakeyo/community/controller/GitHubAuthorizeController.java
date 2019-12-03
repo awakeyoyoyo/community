@@ -67,7 +67,11 @@ public class GitHubAuthorizeController {
             user.setGmtModified(user.getGmtCreate());
             user.setBio(githubUser.getBio());
             user.setAvatarUrl(githubUser.getAvatar_url());
-            userMapper.insert(user);
+            if (userMapper.selectByaccoun_id(user.getAccountId())<0){
+                userMapper.insert(user);
+            }else {
+                userMapper.updateTokenByAccoundId(token,user.getAccountId());
+            }
             //设置cookie
             Cookie cookie=new Cookie("token",token);
             cookie.setMaxAge(60*60*24);

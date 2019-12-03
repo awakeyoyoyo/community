@@ -1,6 +1,7 @@
 package com.awakeyo.community.mapper;
 
 import com.awakeyo.community.dto.User;
+import org.apache.ibatis.annotations.Param;
 
 public interface UserMapper {
     int deleteByPrimaryKey(Integer id);
@@ -16,4 +17,8 @@ public interface UserMapper {
     int updateByPrimaryKey(User record);
 
     User findByToken(String token);
+
+    void updateTokenByAccoundId(@Param("token") String token, @Param("accountId") String accountId);
+
+    int selectByaccoun_id(String accountId);
 }

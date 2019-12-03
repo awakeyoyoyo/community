@@ -63,23 +63,28 @@
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
 </nav>
+<!--<div class="alert alert-success" role="alert" th:text="${error}" th:if="${error!=null}"></div>-->
+<div class="alert alert-warning alert-dismissible msg-publish" role="alert" th:if="${error!=null}">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <strong>注意!</strong> <p th:text="${error}" ></p>
+</div>
 <div class="container-fluid main">
     <div class="row">
         <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
             <h2><span class="glyphicon glyphicon-book" aria-hidden="true"></span> 发起</h2>
             <hr>
-            <form action="#">
+            <form action="/publish" method="post">
                 <div class="form-group">
                     <label for="title">问题标题：(简单扼要)</label>
-                    <input name="title" type="text" class="form-control" id="title" placeholder="问题标题....">
+                    <input name="title" th:value="${title}" type="text" class="form-control" id="title" placeholder="问题标题....">
                 </div>
                 <div class="form-group">
                     <label for="description">问题补充(必填，请参照右侧提示)：</label>
-                    <textarea class="form-control" rows="10" id="description"></textarea>
+                    <textarea th:text="${description}" name="description" class="form-control" rows="10" id="description"></textarea>
                 </div>
                 <div class="form-group">
                     <label for="tag">添加标签：</label>
-                    <input name="title" type="text" class="form-control" id="tag" placeholder="输入标签 以，号分割">
+                    <input name="tag" th:value="${tag}" type="text" class="form-control" id="tag" placeholder="输入标签 以，号分割">
                 </div>
                 <button type="submit" class="btn btn-success btn-publish" > 发布 </button>
             </form>

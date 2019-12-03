@@ -11,6 +11,8 @@ class UserMapperTest {
     private UserMapper userMapper;
     @Test
     void selectByPrimaryKey() {
-        System.out.println(userMapper.selectByPrimaryKey(1));
+       System.out.println(userMapper.selectByaccoun_id("39197200"));
+       userMapper.updateTokenByAccoundId("asdasda","39197200");
     }
+
 }
