@@ -1,0 +1,13 @@
+ .main{
+     margin:30px;
+     margin-left: 60px;
+     margin-right: 60px;
+     background: snow;
+ }
+ body{
+     background: #efefef;
+ }
+ .btn-publish{
+     float: right;
+     margin-bottom: 15px;
+ }
