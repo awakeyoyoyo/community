@@ -20,7 +20,7 @@ import java.util.List;
  * @date 2019-11-30 21:13
  */
 @Controller
-public class HelloController {
+public class IndexController {
     @Autowired
     private UserMapper userMapper;
     @Autowired

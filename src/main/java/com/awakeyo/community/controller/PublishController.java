@@ -77,6 +77,9 @@ public class PublishController {
         question.setDecription(description);
         question.setTag(tag);
         question.setCreator(user.getId());
+        question.setLikeCount(0);
+        question.setViewCount(0);
+        question.setCommentCount(0);
         question.setGmtCreate(new Date().getTime());
         question.setGmtModified(new Date().getTime());
         questionMapper.insert(question);
