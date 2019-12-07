@@ -177,6 +177,14 @@
     from cm_Question Limit #{pageBegin},#{pageSize}
   </select>
 
+  <select id="selectListByUser"  resultMap="ResultMapWithBLOBs" parameterType="map">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from cm_Question Limit #{pageBegin},#{pageSize}
+  </select>
+
   <select id="selectAll"  resultType="java.lang.Integer" >
     select COUNT(*)
     from cm_Question

@@ -1,0 +1,75 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${sectionName}">个人中心 - 老兵之家</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <script src="/js/jq/jquery-3.4.1.min.js" type="application/javascript"></script>
+    <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/css/community.css">
+    <script src="/js/bootstrap.min.js" type="application/javascript"></script>
+</head>
+<body>
+<div th:insert="navigation::nav"></div>
+<div class="container-fluid main">
+    <div class="row">
+        <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+            <h2><span th:text="${sectionName}"></span></h2>
+            <hr>
+            <div class="media" th:each="question:${pageResult.reslts}">
+                <div class="media-left">
+                    <a href="#">
+                        <img class="media-object img-rounded img-public"
+                             th:src="${question.user.avatarUrl}" alt="...">
+                    </a>
+                </div>
+                <div class="media-body">
+                    <h4 class="media-heading" th:text="${question.title}"></h4>
+                    <br>
+                    <p th:text="${question.decription}"></p>
+                    <P class="text-desc" >
+                        <span th:text="${question.commentCount}"></span>个回复-
+                        <span th:text="${question.viewCount}"></span>浏览-
+                        <span th:text="${#dates.format(question.getGmtCreate(),'yyyy-MM-dd HH:mm:ss')}"></span>
+                    </P>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12" style="border-right: #9d9d9d solid 1px">
+            <br>
+            <br>
+            <br>
+            <br>
+            <div class="list-group">
+                <a href="/profile/questions"  th:class="${section=='questions'}?'list-group-item disabled':'list-group-item'">
+                    我的问题
+                </a>
+                <a href="/profile/replies" th:class="${section=='replies'}?'list-group-item disabled':'list-group-item'">
+                    <span class="badge">14</span>
+                    最新回复</a>
+            </div>
+            <hr>
+            <!--            个人宣传-->
+            <h3>站主:</h3>
+            <div>
+                <img  class="img-thumbnail img-index" src="https://avatars0.githubusercontent.com/u/39197200?v=4"
+                      alt="lqhao">
+                <div class="caption">
+                    <h4>Lqhao</h4>
+                    <P class="text-size text-color">Awakeyoyoyo</P>
+                    <div>
+                        <span class="glyphicon glyphicon-map-marker text-size "> 珠海</span>
+                    </div>
+                    <p>怕 你就输一辈子</p>
+                    <a href="mailto:#">lqh19980716@163.com</a>
+                    <a href="#">github</a>
+                    <a href="#">csdn</a>
+
+                </div>
+            </div>
+            <!--            个人宣传-->
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -23,4 +23,6 @@ public interface QuestionMapper {
     List<Question> selectList(@Param("pageBegin") Integer pageBegin, @Param("pageSize") Integer pageSize);
 
     Integer selectAll();
+
+    List<Question> selectListByUser(@Param("userId") Integer userId,@Param("pageBegin") Integer pageBegin, @Param("pageSize") Integer pageSize);
 }
