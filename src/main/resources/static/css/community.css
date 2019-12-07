@@ -34,3 +34,8 @@
  .text-color{
      color: #9d9d9d;
  }
+ .img-val {
+     height: 50px;
+     display: flex;
+     align-items: center;
+ }
