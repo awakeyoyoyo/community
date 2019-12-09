@@ -38,8 +38,8 @@ public class IndexController {
     @GetMapping("/")
     public String index(HttpServletRequest request,
                         Model model,
-                        @RequestParam(name = "pageNo",defaultValue = "1" ) Integer pageNo,
-                        @RequestParam(name = "pageSize",defaultValue ="5") Integer pageSize){
+                        @RequestParam(name = "pageNo",defaultValue = "1" ,required = false) Integer pageNo,
+                        @RequestParam(name = "pageSize",defaultValue ="5",required = false) Integer pageSize){
         Object obj;
         obj=request.getSession().getAttribute("user");
         if (obj==null) {

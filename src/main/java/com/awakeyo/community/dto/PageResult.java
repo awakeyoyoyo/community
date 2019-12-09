@@ -30,7 +30,7 @@ public class PageResult<T>{
     //
     private List<Integer> pages=new ArrayList<>();
 
-    public void init(Integer pageCount, Integer pageNo, Integer pageSize) {
+    public void init(Integer pageCount, Integer pageNo) {
         this.pageCount=pageCount;
         //init
         this.pageNo=pageNo;

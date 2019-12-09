@@ -53,7 +53,7 @@ public class QustionService {
             questionDTOS.add(questionDTO);
         }
         PageResult<QuestionDTO> pageResult=new PageResult<>();
-        pageResult.init(pageCount,pageNo,pageSize);
+        pageResult.init(pageCount,pageNo);
         pageResult.setReslts(questionDTOS);
         return pageResult;
     }
@@ -86,7 +86,7 @@ public class QustionService {
             questionDTOS.add(questionDTO);
         }
         PageResult<QuestionDTO> pageResult=new PageResult<>();
-        pageResult.init(pageCount,pageNo,pageSize);
+        pageResult.init(pageCount,pageNo);
         pageResult.setReslts(questionDTOS);
         return pageResult;
     }

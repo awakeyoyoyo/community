@@ -34,6 +34,33 @@
                     </P>
                 </div>
             </div>
+            <nav aria-label="Page navigation">
+                <ul class="pagination">
+                    <li>
+                        <a th:href="@{'/profile/'+${section}(pageNo=1)}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a th:href="@{'/profile/'+${section}(pageNo=${pageResult.pageNo-1})}" aria-label="Previous">
+                            <span aria-hidden="true">&lt;</span>
+                        </a>
+                    </li>
+                    <li th:class="${pageResult.pageNo==page}?'active':''" th:each="page:${pageResult.pages}">
+                        <a  th:href="@{'/profile/'+${section}(pageNo=${page})}" th:text="${page}"></a>
+                    </li>
+                    <li>
+                        <a th:href="@{'/profile/'+${section}(pageNo=${pageResult.pageNo+1})}" aria-label="Previous">
+                            <span aria-hidden="true">&gt;</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a th:href="@{'/profile/'+${section}(pageNo=${pageResult.pageCount})}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
         </div>
         <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12" style="border-right: #9d9d9d solid 1px">
             <br>
