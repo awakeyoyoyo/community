@@ -16,8 +16,8 @@
      margin-right: 40px;
  }
  .img-public{
-     width: 40px;
-     height: 40px;
+     width: 45px;
+     height: 45px;
  }
  .text-desc{
      font-size: 12px;
@@ -38,4 +38,8 @@
      height: 50px;
      display: flex;
      align-items: center;
+ }
+ .community-menu{
+     color: #999;
+     font-size: 12px;
  }

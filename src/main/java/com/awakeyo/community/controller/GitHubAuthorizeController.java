@@ -5,6 +5,7 @@ import com.awakeyo.community.dto.GithubUser;
 import com.awakeyo.community.dto.User;
 import com.awakeyo.community.mapper.UserMapper;
 import com.awakeyo.community.provider.GithubProvider;
+import com.awakeyo.community.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -25,7 +26,7 @@ import java.util.UUID;
 @Controller
 public class GitHubAuthorizeController {
     @Autowired
-    private UserMapper userMapper;
+    private UserService userService;
     @Autowired
     private GithubProvider githubProvider;
     @Value("${github.client.id}")
@@ -55,23 +56,16 @@ public class GitHubAuthorizeController {
         String accessToken = githubProvider.getAccessToken(githubAccessTokenDTO);
         //利用accesstoken获取user信息
         GithubUser githubUser=githubProvider.getUser(accessToken);
-        System.out.println(accessToken);
-        if (githubUser!=null){
+        if (githubUser!=null&&githubUser.getId()!=null){
             //登陆成功写入cookie和session
             User user=new User();
             String token=UUID.randomUUID().toString();
             user.setToken(token);
             user.setName(githubUser.getName());
             user.setAccountId(String.valueOf(githubUser.getId()));
-            user.setGmtCreate(new Date().getTime());
-            user.setGmtModified(user.getGmtCreate());
             user.setBio(githubUser.getBio());
             user.setAvatarUrl(githubUser.getAvatar_url());
-            if (userMapper.selectByaccoun_id(user.getAccountId())<0){
-                userMapper.insert(user);
-            }else {
-                userMapper.updateTokenByAccoundId(token,user.getAccountId());
-            }
+            userService.createOrUpdate(user);
             //设置cookie
             Cookie cookie=new Cookie("token",token);
             cookie.setMaxAge(60*60*24);

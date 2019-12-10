@@ -25,8 +25,6 @@ import java.util.List;
 @Controller
 public class IndexController {
     @Autowired
-    private UserMapper userMapper;
-    @Autowired
     private QustionService qustionService;
     /**
      * Method Description
@@ -36,27 +34,9 @@ public class IndexController {
      * @return java.lang.String
      */
     @GetMapping("/")
-    public String index(HttpServletRequest request,
-                        Model model,
+    public String index(Model model,
                         @RequestParam(name = "pageNo",defaultValue = "1" ,required = false) Integer pageNo,
                         @RequestParam(name = "pageSize",defaultValue ="5",required = false) Integer pageSize){
-        Object obj;
-        obj=request.getSession().getAttribute("user");
-        if (obj==null) {
-            Cookie[] cookies = request.getCookies();
-            for (Cookie c : cookies) {
-                if (c.getName().equals("token")) {
-                    String token = c.getValue();
-                    if (token != null) {
-                        User user = userMapper.findByToken(token);
-                        if (user != null) {
-                            request.getSession().setAttribute("user", user);
-                        }
-                        break;
-                    }
-                }
-            }
-        }
         PageResult<QuestionDTO> pageResult=qustionService.getList(pageNo,pageSize);
         model.addAttribute("pageResult",pageResult);
         return "index";

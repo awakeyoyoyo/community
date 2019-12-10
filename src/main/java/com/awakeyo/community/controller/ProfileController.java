@@ -24,8 +24,6 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 public class ProfileController {
     @Autowired
-    private UserMapper userMapper;
-    @Autowired
     private QustionService qustionService;
     @GetMapping("/profile/{action}")
     public String profile(@PathVariable(name = "action")String action,
@@ -33,26 +31,8 @@ public class ProfileController {
                           HttpServletRequest request,
                           @RequestParam(name = "pageNo",defaultValue = "1" ) Integer pageNo,
                           @RequestParam(name = "pageSize",defaultValue ="5") Integer pageSize){
-        Object obj;
         User user;
         user=(User)request.getSession().getAttribute("user");
-        if (user==null) {
-            Cookie[] cookies = request.getCookies();
-            if (cookies!=null&&cookies.length!=0) {
-                for (Cookie c : cookies) {
-                    if (c.getName().equals("token")) {
-                        String token = c.getValue();
-                        if (token != null) {
-                            user = userMapper.findByToken(token);
-                            if (user != null) {
-                                request.getSession().setAttribute("user", user);
-                            }
-                            break;
-                        }
-                    }
-                }
-            }
-        }
         if (user==null){
             model.addAttribute("error","用户未登陆");
             return "redirect:/";

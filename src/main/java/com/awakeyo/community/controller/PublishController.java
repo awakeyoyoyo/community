@@ -4,10 +4,12 @@ import com.awakeyo.community.dto.Question;
 import com.awakeyo.community.dto.User;
 import com.awakeyo.community.mapper.QuestionMapper;
 import com.awakeyo.community.mapper.UserMapper;
+import com.awakeyo.community.service.QustionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -26,7 +28,17 @@ public class PublishController {
     @Autowired
     private QuestionMapper questionMapper;
     @Autowired
-    private UserMapper userMapper;
+    private QustionService qustionService;
+    @GetMapping("/publish/{id}")
+    public String edit(@PathVariable(name = "id") Integer id,Model model){
+        Question question=questionMapper.selectByPrimaryKey(id);
+        model.addAttribute("title",question.getTitle());
+        model.addAttribute("description",question.getDecription());
+        model.addAttribute("tag",question.getTag());
+        model.addAttribute("id",question.getId());
+        return "publish";
+    }
+
     @GetMapping("/publish")
     public String publish(){
         return "publish";
@@ -36,26 +48,15 @@ public class PublishController {
             @RequestParam(value = "title",required = false) String title,
             @RequestParam(value = "description",required = false) String description,
             @RequestParam(value = "tag",required = false) String tag,
+            @RequestParam(value = "id") Integer id,
             HttpServletRequest request,
             Model model
     ){
         model.addAttribute("title",title);
         model.addAttribute("description",description);
         model.addAttribute("tag",tag);
-        User user=null;
-        Cookie[] cookies = request.getCookies();
-        for (Cookie c : cookies) {
-            if (c.getName().equals("token")) {
-                String token = c.getValue();
-                if (token != null) {
-                    user = userMapper.findByToken(token);
-                    if (user != null) {
-                        request.getSession().setAttribute("user", user);
-                    }
-                    break;
-                }
-            }
-        }
+        User user;
+        user=(User)request.getSession().getAttribute("user");
         if (user==null){
             model.addAttribute("error","用户未登陆！！！！");
             return "publish";
@@ -80,9 +81,8 @@ public class PublishController {
         question.setLikeCount(0);
         question.setViewCount(0);
         question.setCommentCount(0);
-        question.setGmtCreate(new Date().getTime());
-        question.setGmtModified(new Date().getTime());
-        questionMapper.insert(question);
+        question.setId(id);
+        qustionService.insertOrUpdate(question);
         return "redirect:/";
     }
 }

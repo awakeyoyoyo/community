@@ -24,7 +24,9 @@
                     </a>
                 </div>
                 <div class="media-body">
-                    <h4 class="media-heading" th:text="${question.title}"></h4>
+                    <h4 class="media-heading" >
+                        <a th:href="@{'/question/'+${question.id}}" th:text="${question.title}"></a>
+                    </h4>
                     <br>
                     <p th:text="${question.decription}"></p>
                     <P class="text-desc" >
@@ -33,6 +35,7 @@
                         <span th:text="${#dates.format(question.getGmtCreate(),'yyyy-MM-dd HH:mm:ss')}"></span>
                     </P>
                 </div>
+                <hr>
             </div>
             <nav aria-label="Page navigation">
                 <ul class="pagination">
@@ -88,9 +91,11 @@
                         <span class="glyphicon glyphicon-map-marker text-size "> 珠海</span>
                     </div>
                     <p>怕 你就输一辈子</p>
+                    <a href="https://blog.csdn.net/awake_lqh">csdn</a>
+                    <br>
+                    <a href="https://github.com/Awakeyoyoyo">github</a>
+                    <br>
                     <a href="mailto:#">lqh19980716@163.com</a>
-                    <a href="#">github</a>
-                    <a href="#">csdn</a>
 
                 </div>
             </div>
