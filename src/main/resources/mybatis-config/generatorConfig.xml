@@ -63,14 +63,14 @@
             注：除了带example的属性，其他属性如果为false，一定不能显示配置，不然会报错：
             There are no statements enabled for table mybatis.category, this table will be ignored.
          -->
-        <table tableName="cm_Question" domainObjectName="Question"
-               enableInsert="true"
-               enableCountByExample="false"
-               enableUpdateByExample="false"
-               enableDeleteByExample="false"
-               enableSelectByExample="false"
-               selectByExampleQueryId="false"
-        ></table>
+<!--        <table tableName="cm_Question" domainObjectName="Question"-->
+<!--               enableInsert="true"-->
+<!--               enableCountByExample="false"-->
+<!--               enableUpdateByExample="false"-->
+<!--               enableDeleteByExample="false"-->
+<!--               enableSelectByExample="true"-->
+<!--               selectByExampleQueryId="false"-->
+<!--        ></table>-->
         <!--        <table tableName="wg_message" domainObjectName="Message"-->
 <!--               enableInsert="true"-->
 <!--               enableCountByExample="false"-->
