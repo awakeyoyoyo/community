@@ -125,4 +125,17 @@ public class QustionService {
             }
         }
     }
+
+    public QuestionDTO getByIdAndIncView(Integer id) {
+        int row= questionMapper.updateViewCount(id);
+        if (row<=0){
+            throw new CustomizeException(QuestionErrorCode.QUESTION_NOT_FOUND.getMessage());
+        }
+        QuestionDTO questionDTO=new QuestionDTO();
+        Question question=questionMapper.selectByPrimaryKey(id);
+        BeanUtils.copyProperties(question,questionDTO);
+        User user=userMapper.selectByPrimaryKey(question.getCreator());
+        questionDTO.setUser(user);
+        return questionDTO;
+    }
 }

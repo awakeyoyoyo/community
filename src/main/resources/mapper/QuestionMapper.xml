@@ -190,4 +190,10 @@
     select COUNT(*)
     from cm_Question
   </select>
+  <update id="updateViewCount" parameterType="java.lang.Integer" >
+    update cm_Question
+    set
+      view_count = view_count+1
+    where id = #{id,jdbcType=INTEGER}
+  </update>
 </mapper>
