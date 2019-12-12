@@ -4,6 +4,8 @@ import com.awakeyo.community.dto.PageResult;
 import com.awakeyo.community.dto.Question;
 import com.awakeyo.community.dto.QuestionDTO;
 import com.awakeyo.community.dto.User;
+import com.awakeyo.community.exception.CustomizeException;
+import com.awakeyo.community.exception.QuestionErrorCode;
 import com.awakeyo.community.mapper.QuestionMapper;
 import com.awakeyo.community.mapper.UserMapper;
 import org.springframework.beans.BeanUtils;
@@ -94,6 +96,9 @@ public class QustionService {
 
     public QuestionDTO getById(Integer id) {
         Question question=questionMapper.selectByPrimaryKey(id);
+        if (question==null){
+            throw new CustomizeException(QuestionErrorCode.QUESTION_NOT_FOUND.getMessage());
+        }
         QuestionDTO questionDTO=new QuestionDTO();
         BeanUtils.copyProperties(question,questionDTO);
         User user=userMapper.selectByPrimaryKey(question.getCreator());
@@ -108,8 +113,16 @@ public class QustionService {
             questionMapper.insert(question);
         }
         else {
-            question.setGmtModified(new Date().getTime());
-            questionMapper.updateByPrimaryKey(question);
+            Question updateQuestion=new Question();
+            updateQuestion.setId(question.getId());
+            updateQuestion.setDecription(question.getDecription());
+            updateQuestion.setTitle(question.getTitle());
+            updateQuestion.setTag(question.getTag());
+            updateQuestion.setGmtModified(new Date().getTime());
+            int row=questionMapper.updateByPrimaryKeySelective(updateQuestion);
+            if (row!=1){
+                throw new CustomizeException(QuestionErrorCode.QUESTION_NOT_FOUND.getMessage());
+            }
         }
     }
 }

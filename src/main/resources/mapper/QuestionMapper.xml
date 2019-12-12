@@ -160,13 +160,14 @@
   <update id="updateByPrimaryKey" parameterType="com.awakeyo.community.dto.Question">
     update cm_Question
     set title = #{title,jdbcType=VARCHAR},
-      gmt_create = #{gmtCreate,jdbcType=BIGINT},
+       gmt_create = #{gmtCreate,jdbcType=BIGINT},
       gmt_modified = #{gmtModified,jdbcType=BIGINT},
       creator = #{creator,jdbcType=INTEGER},
       comment_count = #{commentCount,jdbcType=INTEGER},
       view_count = #{viewCount,jdbcType=INTEGER},
       like_count = #{likeCount,jdbcType=INTEGER},
-      tag = #{tag,jdbcType=VARCHAR}
+      tag = #{tag,jdbcType=VARCHAR},
+      decription = #{decription,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="selectList"  resultMap="ResultMapWithBLOBs" parameterType="map">

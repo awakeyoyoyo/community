@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>老兵之家</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <script src="/js/jq/jquery-3.4.1.min.js" type="application/javascript"></script>
+    <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/css/community.css">
+    <script src="/js/bootstrap.min.js" type="application/javascript"></script>
+</head>
+<body>
+<div th:insert="navigation::nav"></div>
+<div class="container-fluid main">
+    <div class="page-header">
+        <h1 th:text="${status}+' gg出错了！！！'">gg出错了！！！</h1>
+    </div>
+    <p th:text="${message}">未知错误</p>
+    <p><a class="btn btn-primary btn-sm" href="/" role="button">回到首页</a></p>
+
+</div>
+</body>
+</html>
