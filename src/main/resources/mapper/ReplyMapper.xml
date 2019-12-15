@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.awakeyo.community.mapper.ReplyMapper">
+  <resultMap id="BaseResultMap" type="com.awakeyo.community.pojo.Reply">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="comment_id" jdbcType="BIGINT" property="commentId" />
+    <result column="form_uid" jdbcType="VARCHAR" property="formUid" />
+    <result column="to_uid" jdbcType="VARCHAR" property="toUid" />
+    <result column="gmt_create" jdbcType="BIGINT" property="gmtCreate" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="reply_like" jdbcType="INTEGER" property="replyLike" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, comment_id, form_uid, to_uid, gmt_create, content, reply_like
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from cm_reply
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from cm_reply
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.awakeyo.community.pojo.Reply">
+    insert into cm_reply (id, comment_id, form_uid, 
+      to_uid, gmt_create, content, 
+      reply_like)
+    values (#{id,jdbcType=BIGINT}, #{commentId,jdbcType=BIGINT}, #{formUid,jdbcType=VARCHAR}, 
+      #{toUid,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=BIGINT}, #{content,jdbcType=VARCHAR}, 
+      #{replyLike,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.awakeyo.community.pojo.Reply">
+    insert into cm_reply
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="commentId != null">
+        comment_id,
+      </if>
+      <if test="formUid != null">
+        form_uid,
+      </if>
+      <if test="toUid != null">
+        to_uid,
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="replyLike != null">
+        reply_like,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="commentId != null">
+        #{commentId,jdbcType=BIGINT},
+      </if>
+      <if test="formUid != null">
+        #{formUid,jdbcType=VARCHAR},
+      </if>
+      <if test="toUid != null">
+        #{toUid,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtCreate != null">
+        #{gmtCreate,jdbcType=BIGINT},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="replyLike != null">
+        #{replyLike,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.awakeyo.community.pojo.Reply">
+    update cm_reply
+    <set>
+      <if test="commentId != null">
+        comment_id = #{commentId,jdbcType=BIGINT},
+      </if>
+      <if test="formUid != null">
+        form_uid = #{formUid,jdbcType=VARCHAR},
+      </if>
+      <if test="toUid != null">
+        to_uid = #{toUid,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create = #{gmtCreate,jdbcType=BIGINT},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="replyLike != null">
+        reply_like = #{replyLike,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.awakeyo.community.pojo.Reply">
+    update cm_reply
+    set comment_id = #{commentId,jdbcType=BIGINT},
+      form_uid = #{formUid,jdbcType=VARCHAR},
+      to_uid = #{toUid,jdbcType=VARCHAR},
+      gmt_create = #{gmtCreate,jdbcType=BIGINT},
+      content = #{content,jdbcType=VARCHAR},
+      reply_like = #{replyLike,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <select id="selectByCommentId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from cm_reply
+    where comment_id = #{commentId}
+  </select>
+</mapper>

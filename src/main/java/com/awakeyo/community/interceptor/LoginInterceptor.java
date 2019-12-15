@@ -1,6 +1,6 @@
 package com.awakeyo.community.interceptor;
 
-import com.awakeyo.community.dto.User;
+import com.awakeyo.community.pojo.dto.User;
 import com.awakeyo.community.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

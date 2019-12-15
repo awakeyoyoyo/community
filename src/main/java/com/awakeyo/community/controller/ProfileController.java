@@ -1,9 +1,8 @@
 package com.awakeyo.community.controller;
 
-import com.awakeyo.community.dto.PageResult;
-import com.awakeyo.community.dto.QuestionDTO;
-import com.awakeyo.community.dto.User;
-import com.awakeyo.community.mapper.UserMapper;
+import com.awakeyo.community.pojo.PageResult;
+import com.awakeyo.community.pojo.dto.QuestionDTO;
+import com.awakeyo.community.pojo.dto.User;
 import com.awakeyo.community.service.QustionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
 /**

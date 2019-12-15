@@ -1,4 +1,4 @@
-package com.awakeyo.community.dto;
+package com.awakeyo.community.pojo;
 
 import lombok.Data;
 

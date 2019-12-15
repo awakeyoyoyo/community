@@ -1,15 +1,9 @@
-package com.awakeyo.community.dto;
+package com.awakeyo.community.pojo;
 
 import lombok.Data;
 
-/**
- * @author awakeyoyoyo
- * @className QuestionDTO
- * @description TODO
- * @date 2019-12-04 23:06
- */
 @Data
-public class QuestionDTO {
+public class Question {
     private Integer id;
 
     private String title;
@@ -29,5 +23,5 @@ public class QuestionDTO {
     private String tag;
 
     private String decription;
-    private User user;
+
 }

@@ -1,14 +1,12 @@
 package com.awakeyo.community.mapper;
 
-import com.awakeyo.community.dto.Question;
+import com.awakeyo.community.pojo.Question;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Date;
-import java.util.zip.DataFormatException;
 
-import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 class UserMapperTest {
     @Autowired

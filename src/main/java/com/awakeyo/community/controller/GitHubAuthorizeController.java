@@ -1,9 +1,8 @@
 package com.awakeyo.community.controller;
 
-import com.awakeyo.community.dto.GithubAccessTokenDTO;
-import com.awakeyo.community.dto.GithubUser;
-import com.awakeyo.community.dto.User;
-import com.awakeyo.community.mapper.UserMapper;
+import com.awakeyo.community.pojo.dto.GithubAccessTokenDTO;
+import com.awakeyo.community.pojo.GithubUser;
+import com.awakeyo.community.pojo.dto.User;
 import com.awakeyo.community.provider.GithubProvider;
 import com.awakeyo.community.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Date;
 import java.util.UUID;
 
 /**

@@ -1,8 +1,8 @@
 package com.awakeyo.community.provider;
 
 import com.alibaba.fastjson.JSON;
-import com.awakeyo.community.dto.GithubAccessTokenDTO;
-import com.awakeyo.community.dto.GithubUser;
+import com.awakeyo.community.pojo.dto.GithubAccessTokenDTO;
+import com.awakeyo.community.pojo.GithubUser;
 import okhttp3.*;
 import org.springframework.stereotype.Component;
 

@@ -1,6 +1,6 @@
 package com.awakeyo.community.mapper;
 
-import com.awakeyo.community.dto.User;
+import com.awakeyo.community.pojo.dto.User;
 import org.apache.ibatis.annotations.Param;
 
 public interface UserMapper {
@@ -21,4 +21,6 @@ public interface UserMapper {
     void updateTokenByAccoundId(@Param("token") String token, @Param("accountId") String accountId);
 
     int selectByaccoun_id(String accountId);
+
+    User selectUserByaccoun_id(String fromUid);
 }

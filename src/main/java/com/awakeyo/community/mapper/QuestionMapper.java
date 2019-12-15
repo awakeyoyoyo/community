@@ -1,6 +1,6 @@
 package com.awakeyo.community.mapper;
 
-import com.awakeyo.community.dto.Question;
+import com.awakeyo.community.pojo.Question;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

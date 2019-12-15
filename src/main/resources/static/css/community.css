@@ -19,10 +19,19 @@
      width: 45px;
      height: 45px;
  }
+ .img-comment{
+     width: 25px;
+     height: 25px;
+ }
  .text-desc{
      font-size: 12px;
      font-weight: normal;
      color: #999999;
+ }
+ .text-import{
+     font-size: 14px;
+     font-weight: normal;
+     color: #000000;
  }
  .img-index{
      width: 260px;

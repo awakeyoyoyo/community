@@ -1,9 +1,9 @@
 package com.awakeyo.community.service;
 
-import com.awakeyo.community.dto.PageResult;
-import com.awakeyo.community.dto.Question;
-import com.awakeyo.community.dto.QuestionDTO;
-import com.awakeyo.community.dto.User;
+import com.awakeyo.community.pojo.PageResult;
+import com.awakeyo.community.pojo.Question;
+import com.awakeyo.community.pojo.dto.QuestionDTO;
+import com.awakeyo.community.pojo.dto.User;
 import com.awakeyo.community.exception.CustomizeException;
 import com.awakeyo.community.exception.QuestionErrorCode;
 import com.awakeyo.community.mapper.QuestionMapper;

@@ -19,7 +19,7 @@ import java.util.Map;
  * @description TODO
  * @date 2019-12-12 21:40
  */
-@Controller
+//@Controller
 @RequestMapping("${server.error.path:${error.path:/error}}")
 public class CustomizeErrorController implements ErrorController {
     @Override
