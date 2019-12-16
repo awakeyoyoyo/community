@@ -8,7 +8,7 @@ import java.util.List;
 public interface CommentMapper {
     int deleteByPrimaryKey(Long id);
 
-    int insert(Comment record);
+    Long insert(Comment record);
 
     int insertSelective(Comment record);
 

@@ -2,10 +2,12 @@ package com.awakeyo.community.service;
 
 import com.awakeyo.community.common.ResponseCode;
 import com.awakeyo.community.common.ServerResponse;
+import com.awakeyo.community.mapper.QuestionMapper;
 import com.awakeyo.community.pojo.Comment;
 import com.awakeyo.community.mapper.CommentMapper;
 import com.awakeyo.community.mapper.ReplyMapper;
 import com.awakeyo.community.mapper.UserMapper;
+import com.awakeyo.community.pojo.Question;
 import com.awakeyo.community.pojo.Reply;
 import com.awakeyo.community.pojo.dto.CommentDTO;
 import com.awakeyo.community.pojo.dto.ReplyDTO;
@@ -13,6 +15,7 @@ import com.awakeyo.community.pojo.dto.User;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
@@ -30,23 +33,32 @@ public class CommentReplyService {
     private CommentMapper commentMapper;
     @Autowired
     private ReplyMapper replyMapper;
-
+    @Autowired
+    private QuestionMapper questionMapper;
+    @Transactional
     public ServerResponse writeComent(Comment comment) {
+
         if (comment.getContent()==null||comment.getContent().trim().isEmpty()){
-            return ServerResponse.createByErrorMessage(ResponseCode.ERROR.getDesc());
+            return ServerResponse.createByErrorMessage("no content");
         }
 
         int row =userMapper.selectByaccoun_id(comment.getFromUid());
         if (row <0) {
-            return ServerResponse.createByErrorMessage(ResponseCode.ERROR.getDesc());
+            return ServerResponse.createByErrorMessage("no user");
+        }
+        Question question=questionMapper.selectByPrimaryKey(comment.getTopicId());
+        if (question==null){
+            return ServerResponse.createByErrorMessage("no question");
         }
         //写评论。
         comment.setGmtCreate(new Date().getTime());
         comment.setCommentLike(0);
-        row=commentMapper.insertSelective(comment);
-        if (row<0){
+        Long commentId=commentMapper.insert(comment);
+        if (commentId<0){
             return ServerResponse.createByErrorMessage(ResponseCode.ERROR.getDesc());
         }
+        comment.setId(commentId);
+        questionMapper.updateReplyCountByTopicId(comment.getTopicId());
         CommentDTO commentDTO=new CommentDTO();
         BeanUtils.copyProperties(comment,commentDTO);
         User user =userMapper.selectUserByaccoun_id(comment.getFromUid());

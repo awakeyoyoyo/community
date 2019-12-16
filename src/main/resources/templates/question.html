@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="/css/community.css">
     <script src="/js/bootstrap.min.js" type="application/javascript"></script>
+    <script src="/js/comment.js" type="application/javascript"></script>
 </head>
 <body>
 <div th:insert="navigation::nav"></div>
@@ -30,26 +31,38 @@
             </a>
             <hr  >
 
-            <form action="/publish" method="post">
-                <input type="hidden" name="id" th:value="${id}">
+            <form action="/comment " method="post">
+                <input type="hidden" id="topicId" th:value="${question.id}">
                 <div class="form-group">
-                    <label for="title">要评论点什么?</label>
-                    <input name="title" th:value="${title}" type="text" class="form-control " id="title" placeholder="想对作者说点什么">
+                    <label for="content">要评论点什么?</label>
+                    <div class="media" >
+                        <div class="media-left">
+                                <img class="media-object img-rounded img-public"
+                                     th:src="${question.user.avatarUrl}" alt="...">
+                        </div>
+                        <div class="media-body midia-body" >
+                            <h5 class="media-heading" >
+                                <span th:text="${question.user.name}"></span>
+                            </h5>
+                        </div>
+                    </div>
+                    <input type="text" class="form-control comment " id="content" placeholder="想对作者说点什么">
                 </div>
-                <button type="submit" class="btn btn-success btn-publish" >评论</button>
+                <div id="btn"  class="btn btn-success btn-publish" onclick="postComment()" >评论</div>
             </form>
 
             <br>
             <br>
             <HR>
             <div class=" panel-default">
+                <div id="comment">
                 <div class="media" >
                     <div class="media-left">
                             <img class="media-object img-circle img-comment"
                                  src="/2.jpg" alt="...">
                     </div>
                     <div class="media-body">
-                        <h5 class="media-heading" style="margin-top: 5px">
+                        <h5 class="media-heading " style="margin-top: 5px">
                             <span ><P class="text-desc" >
                                 <span class="text-import">lqhao</span>
                                 <span>&nbsp&nbsp&nbsp</span>
@@ -79,6 +92,7 @@
                         </h5>
                     </div>
                     <span style="margin-left:30px">这里是回复了</span>
+                </div>
                 </div>
             </div>
             <hr>

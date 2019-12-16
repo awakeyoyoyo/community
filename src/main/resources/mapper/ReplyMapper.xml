@@ -23,7 +23,7 @@
     delete from cm_reply
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.awakeyo.community.pojo.Reply">
+  <insert id="insert" parameterType="com.awakeyo.community.pojo.Reply" useGeneratedKeys="true" keyProperty="id">
     insert into cm_reply (id, comment_id, form_uid, 
       to_uid, gmt_create, content, 
       reply_like)

@@ -196,4 +196,11 @@
       view_count = view_count+1
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <update id="updateReplyCountByTopicId" parameterType="java.lang.Integer" >
+    update cm_Question
+    set
+      comment_count = comment_count+1
+    where id = #{topicId}
+  </update>
 </mapper>

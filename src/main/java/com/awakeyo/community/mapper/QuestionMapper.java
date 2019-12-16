@@ -27,4 +27,6 @@ public interface QuestionMapper {
     List<Question> selectListByUser(@Param("userId") Integer userId,@Param("pageBegin") Integer pageBegin, @Param("pageSize") Integer pageSize);
 
     Integer updateViewCount(Integer id);
+
+    Integer updateReplyCountByTopicId(Integer topicId);
 }

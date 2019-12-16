@@ -22,7 +22,7 @@
     delete from cm_comment
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.awakeyo.community.pojo.Comment">
+  <insert id="insert" parameterType="com.awakeyo.community.pojo.Comment" useGeneratedKeys="true" keyProperty="id">
     insert into cm_comment (id, topic_id, content, 
       from_uid, gmt_create, comment_like
       )

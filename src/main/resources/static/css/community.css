@@ -7,6 +7,9 @@
  body{
      background: #eee;
  }
+ .midia-body{
+     padding-top: 10px;
+ }
  .btn-publish{
      float: right;
      margin-bottom: 15px;
@@ -51,4 +54,7 @@
  .community-menu{
      color: #999;
      font-size: 12px;
+ }
+ .comment{
+     margin-top: 10px;
  }
