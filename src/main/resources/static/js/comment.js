@@ -12,6 +12,7 @@ function postComment(){
         success:function (response) {
             if (response.status==200) {
                 alert("success");
+                //todo
                 updateComment(response.data);
             }
             else {
@@ -25,6 +26,7 @@ function postComment(){
     alert(content);
     alert(questionId);
 }
+//todo
 function buildComentAndReply(Data) {
     $.ajax({
         url: "http://localhost:8080/comments/question/" + questionId,
@@ -41,45 +43,19 @@ function buildComentAndReply(Data) {
         },
 
     })
-    // <div id="comment">
-//         <div class="media" >
-//         <div class="media-left">
-//         <img class="media-object img-circle img-comment"
-//     src="/2.jpg" alt="...">
-//         </div>
-//         <div class="media-body">
-//         <h5 class="media-heading " style="margin-top: 5px">
-//         <span ><P class="text-desc" >
-//         <span class="text-import">lqhao</span>
-//         <span>&nbsp&nbsp&nbsp</span>
-//         <span >一天前</span>
-//         </P></span>
-//     </h5>
-//     </div>
-//     <span style="margin-left:30px">这里就是评论了</span>
-//         </div>
 }
 
 function updateComment(data) {
+    //todo
     var questionId = data.topicId;
     var commentId=data.id;
     var fromUserName=data.fromUser.name;
     var fromUserAccountId=data.fromUser.accountId;
     var gmtCreate=data.gmtCreate;
-    var $newElement=${}}
 
 }
-// $.ajax({
-//     url:"http://localhost/8080/comments/question/",
-//     type:"post",
-//     data:{
-//         topicId:"1",
-//         content:'123',
-//     }
-// })
 
 
-$('#btn_commit').click(function () {
-
-
-})
+function reply(obj) {
+    
+}

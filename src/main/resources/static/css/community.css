@@ -58,3 +58,7 @@
  .comment{
      margin-top: 10px;
  }
+ .comment-reply{
+     font-size: 12px;
+     float: right;
+ }
