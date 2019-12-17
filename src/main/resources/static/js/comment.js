@@ -1,3 +1,42 @@
+
+function initComentAndReply() {
+    var questionId=$("#topicId").val();
+    $.ajax({
+        url: "http://localhost:8080/comments/question/" + questionId,
+        type: "get",
+        success: function (response) {
+            if (response.status == 200) {
+                var data = response.data;
+                buildComentAndReply(data);
+            } else {
+                alert("fail");
+                alert(response.msg);
+            }
+            console.log(response);
+        },
+    })
+};
+// (function ($) {
+//     alert('start');
+// function reply(fromId,commentId) {
+//     console.log(111)
+//     alert("1111")
+//     $("#comment_btn").val("回复");
+// }
+// })(jQuery);
+function clearReply(){
+    $("#comment_btn").text("评论");
+    $("#comment_btn").removeClass("btn-warning");
+    $("#clearReply").hide();
+}
+function replyReply(obj) {
+
+    alert(obj.getAttribute("fromUserAId"))
+    $("#comment_btn").text("回复");
+    $("#comment_btn").addClass("btn-warning");
+    $("#clearReply").show();
+};
+
 function postComment(){
     var questionId=$("#topicId").val();
     var content=$("#content").val();
@@ -12,8 +51,7 @@ function postComment(){
         success:function (response) {
             if (response.status==200) {
                 alert("success");
-                //todo
-                updateComment(response.data);
+                $("#comments").load("/comments/question/"+questionId)
             }
             else {
                 alert("fail");
@@ -23,39 +61,4 @@ function postComment(){
         },
 
     })
-    alert(content);
-    alert(questionId);
-}
-//todo
-function buildComentAndReply(Data) {
-    $.ajax({
-        url: "http://localhost:8080/comments/question/" + questionId,
-        type: "get",
-        success: function (response) {
-            if (response.status == 200) {
-                var data = response.data;
-                buildComentAndReply(data);
-            } else {
-                alert("fail");
-                alert(response.msg);
-            }
-            console.log(response);
-        },
-
-    })
-}
-
-function updateComment(data) {
-    //todo
-    var questionId = data.topicId;
-    var commentId=data.id;
-    var fromUserName=data.fromUser.name;
-    var fromUserAccountId=data.fromUser.accountId;
-    var gmtCreate=data.gmtCreate;
-
-}
-
-
-function reply(obj) {
-    
-}
+};

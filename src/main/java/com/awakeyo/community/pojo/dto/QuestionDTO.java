@@ -2,6 +2,8 @@ package com.awakeyo.community.pojo.dto;
 
 import lombok.Data;
 
+import java.util.List;
+
 /**
  * @author awakeyoyoyo
  * @className QuestionDTO
@@ -29,5 +31,9 @@ public class QuestionDTO {
     private String tag;
 
     private String decription;
+
     private User user;
+
+    private List<CommentDTO> commentDTOs;
+
 }

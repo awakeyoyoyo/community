@@ -14,22 +14,22 @@
 <div th:insert="navigation::nav"></div>
 <div class="container-fluid main">
     <div class="row">
-        <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+        <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12 left-box">
             <h3><span th:text="${question.title}"></span></h3>
-            <P class="text-desc" >
+            <P class="text-desc bottom-box" >
                 作者：<span th:text="${question.user.name}"></span> |
                 发布时间：<span th:text="${#dates.format(question.getGmtCreate(),'yyyy-MM-dd HH:mm:ss')}"></span> |
                 阅读数：<span th:text="${question.viewCount}"></span>
+                <a  th:href="@{'/publish/'+${question.id}}" th:if="${session.user!=null&&session.user.id==question.creator}" class="community-menu " >
+                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                     编辑
+                </a>
             </P>
-            <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12" >
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" th:text="${question.decription}">
-            </div >
-            <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12" >
-            <a  th:href="@{'/publish/'+${question.id}}" th:if="${session.user!=null&&session.user.id==question.creator}" class="community-menu" >
-                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                编辑
-            </a>
-            <hr  >
+
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 " th:text="${question.decription}"></div>
+
+
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bottom-box" style="margin-top: 100px"></div>
 
             <form action="/comment " method="post">
                 <input type="hidden" id="topicId" th:value="${question.id}">
@@ -48,61 +48,67 @@
                     </div>
                     <input type="text" class="form-control comment " id="content" placeholder="想对作者说点什么">
                 </div>
-                <div id="btn"  class="btn btn-success btn-publish" onclick="postComment()" >评论</div>
-            </form>
+                <div id="comment_btn"  class="btn btn-success  btn-publish" onclick="postComment()" >评论</div>
+                <div style="display: none" id="clearReply"><a href="javascript:void(0);" onclick="clearReply()" class="claerReply" >取消回复</a></div>
 
+            </form>
+            <h4 style="margin-top: 80px">
+                <SPAN th:text="${question.commentCount}"> </SPAN>个评论
+            </h4>
+            <div class="bottom-box"></div>
             <br>
-            <br>
-            <HR>
-            <div class=" panel-default">
-                <div id="comment">
+            <div class=" panel-default bottom-box " id="comments" th:fragment="comments">
+                <div id="comment" th:each="comment:${question.commentDTOs}" class="bottom-box margin-bottom">
                 <div class="media" >
                     <div class="media-left">
                             <img class="media-object img-circle img-comment"
-                                 src="/2.jpg" alt="...">
+                                 th:src="${comment.getFromUser().avatarUrl}" alt="...">
                     </div>
                     <div class="media-body">
                         <h5 class="media-heading " style="margin-top: 5px">
                             <span ><P class="text-desc" >
-                                <span class="text-import">lqhao</span>
+                                <span class="text-import" th:text="${comment.getFromUser().name}">lqhao</span>
                                 <span>&nbsp&nbsp&nbsp</span>
-                                <span >一天前</span>
-                                <a class="comment-reply">回复</a>
+                                <span th:text="${#dates.format(comment.gmtCreate,'yyyy-MM-dd HH:mm:ss')}">一天前</span>
+<!--                                <a href="#" class="comment-reply"-->
+<!--                                   th:attr="fromUserAId=${comment.fromUser.accountId},commentId=${comment.id}"-->
+<!--                                   οnclick="replyReply(this);">回复</a>-->
+
+                          <a href="#" th:attr="fromUserAId=${comment.fromUser.accountId},commentId=${comment.id}" class="comment-reply" onclick="replyReply(this);" >回复</a>
+
                             </P></span>
-
                         </h5>
-
                     </div>
-                    <span style="margin-left:30px">这里就是评论了</span>
+                    <span style="margin-left:30px" th:text="${comment.content}">这里就是评论了</span>
                 </div>
 
-                <div class="media" style="margin-left: 30px" >
+                <div class="media reply-common" th:each="reply:${comment.replyDTOS}" th:if="${comment.replyDTOS!=null}">
                     <div class="media-left">
                         <img class="media-object img-circle img-comment"
-                             src="/2.jpg" alt="...">
+                             th:src="${reply.fromUser.avatarUrl}" alt="...">
                     </div>
                     <div class="media-body">
                         <h5 class="media-heading" style="margin-top: 5px">
                             <span ><P class="text-desc" >
-                                <span class="text-import">lqhao</span>
+                                <span class="text-import" th:text="${reply.fromUser.name}">lqhao</span>
                                 <span>&nbsp&nbsp&nbsp</span>
                                 <span>回复</span>
                                 <span>&nbsp&nbsp&nbsp</span>
-                                <span class="text-import">lqhao</span>
+                                <span class="text-import" th:text="${reply.toUser.name}">lqhao</span>
                                 <span>&nbsp&nbsp&nbsp</span>
-                                <span>一天前</span>
-                                <a class="comment-reply">回复</a>
+                                <span th:text="${#dates.format(reply.gmtCreate,'yyyy-MM-dd HH:mm:ss')}">一天前</span>
+                                <a href="#" class="comment-reply" th:attr="fromUserAId=${reply.fromUser.accountId},commentId=${comment.id}" onclick="replyReply(this);" >回复</a>
                             </P></span>
                         </h5>
                     </div>
-                    <span style="margin-left:30px">这里是回复了</span>
+                    <span style="margin-left:30px" th:text="${reply.content}">这里是回复了</span>
                 </div>
                 </div>
             </div>
-            <hr>
+
         </div>
-        <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12 ">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bottom-box">
                 <h4>发起人:</h4>
                 <div class="media" >
                     <div class="media-left">
@@ -120,7 +126,6 @@
                 </div>
             </div>
             <br>
-            <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <h4>
                     相关问题：

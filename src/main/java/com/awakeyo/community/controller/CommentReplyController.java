@@ -1,15 +1,21 @@
 package com.awakeyo.community.controller;
 
 import com.awakeyo.community.common.ServerResponse;
+import com.awakeyo.community.exception.CustomizeException;
 import com.awakeyo.community.pojo.Comment;
 import com.awakeyo.community.pojo.Reply;
+import com.awakeyo.community.pojo.dto.CommentDTO;
+import com.awakeyo.community.pojo.dto.QuestionDTO;
 import com.awakeyo.community.pojo.dto.User;
 import com.awakeyo.community.service.CommentReplyService;
+import com.awakeyo.community.service.QustionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * @author awakeyoyoyo
@@ -21,6 +27,8 @@ import javax.servlet.http.HttpServletRequest;
 public class CommentReplyController {
     @Autowired
     private CommentReplyService commentReplyService;
+    @Autowired
+    private QustionService qustionService;
     @PostMapping("/comment")
     @ResponseBody
     public ServerResponse docoment(Comment comment, HttpServletRequest request)
@@ -46,14 +54,19 @@ public class CommentReplyController {
     }
 
     @GetMapping("/comments/{type}/{topicId}")
-    @ResponseBody
-    public ServerResponse getCommentsReplyTopicId(@PathVariable("type") String type,
+    public String getCommentsReplyTopicId(@PathVariable("type") String type,
                                                   @PathVariable("topicId") Integer topId,
-                                                  HttpServletRequest request){
+                                                  HttpServletRequest request,
+                                          Model model){
 //        User user= (User)request.getSession().getAttribute("user");
 //        if (user==null){
 //            return ServerResponse.createByErrorMessage("NEED_LOGIN");
 //        }
-        return commentReplyService.getCommentsReplyTopicId(type,topId);
+        QuestionDTO questionDTO=qustionService.getByIdAndIncView(topId);
+        if (questionDTO==null){
+            throw new CustomizeException("别乱调戏接口-。-");
+        }
+        model.addAttribute("question",questionDTO);
+        return "question::comments";
     }
 }

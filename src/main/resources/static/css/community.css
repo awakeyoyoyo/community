@@ -3,6 +3,7 @@
      margin-left: 60px;
      margin-right: 60px;
      background: snow;
+     border: #e5e5e5 2px solid;
  }
  body{
      background: #eee;
@@ -61,4 +62,24 @@
  .comment-reply{
      font-size: 12px;
      float: right;
+ }
+ .reply-common{
+     margin-left: 30px;
+     border-left: #999999 3px solid;
+     padding-left: 10px;
+ }
+ .left-box{
+     border-right: #e5e5e5 3px solid;
+ }
+ .bottom-box{
+     border-bottom: #e5e5e5 2px solid;
+     padding-bottom: 2px;
+ }
+ .margin-bottom{
+     margin-top: 10px;
+ }
+ .claerReply{
+     float: right;
+     margin: 8px;
+     font-size: 14px;
  }

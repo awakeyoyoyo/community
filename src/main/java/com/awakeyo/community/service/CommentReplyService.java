@@ -90,7 +90,7 @@ public class CommentReplyService {
         return ServerResponse.createBySuccess(replyDTO);
     }
 
-    public ServerResponse getCommentsReplyTopicId(String type, Integer topId) {
+    public List<CommentDTO> getCommentsReplyTopicId(String type, Integer topId) {
         if ("question".equals(type)){
             List<Comment> comments=commentMapper.selectByTopId(topId);
             List<CommentDTO> commentDTOS=new ArrayList<>();
@@ -98,10 +98,10 @@ public class CommentReplyService {
                 CommentDTO commentDTO=initCommentDTO(comment);
                 commentDTOS.add(commentDTO);
             }
-            return ServerResponse.createBySuccess(commentDTOS);
+            return commentDTOS;
         }
         else {
-            return ServerResponse.createByError();
+            return null;
         }
     }
 

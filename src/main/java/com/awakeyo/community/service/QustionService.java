@@ -1,7 +1,9 @@
 package com.awakeyo.community.service;
 
+import com.awakeyo.community.pojo.Comment;
 import com.awakeyo.community.pojo.PageResult;
 import com.awakeyo.community.pojo.Question;
+import com.awakeyo.community.pojo.dto.CommentDTO;
 import com.awakeyo.community.pojo.dto.QuestionDTO;
 import com.awakeyo.community.pojo.dto.User;
 import com.awakeyo.community.exception.CustomizeException;
@@ -28,6 +30,8 @@ public class QustionService {
     private UserMapper userMapper;
     @Autowired
     private QuestionMapper questionMapper;
+    @Autowired
+    private CommentReplyService commentReplyService;
     public PageResult<QuestionDTO> getList(Integer pageNo, Integer pageSize) {
 
         Integer itemCount=questionMapper.selectAll();
@@ -136,6 +140,12 @@ public class QustionService {
         BeanUtils.copyProperties(question,questionDTO);
         User user=userMapper.selectByPrimaryKey(question.getCreator());
         questionDTO.setUser(user);
+        //评论回复=。=
+        List<CommentDTO> comments=commentReplyService.getCommentsReplyTopicId("question",question.getId());
+        if (comments==null){
+            throw new CustomizeException("别乱调戏接口-。-");
+        }
+        questionDTO.setCommentDTOs(comments);
         return questionDTO;
     }
 }
