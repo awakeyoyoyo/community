@@ -45,11 +45,11 @@ public class CommentReplyController {
     @ResponseBody
     public ServerResponse doReply(Reply reply, HttpServletRequest request)
     {
-//        User user= (User)request.getSession().getAttribute("user");
-//        if (user==null){
-//            return ServerResponse.createByErrorMessage("NEED_LOGIN");
-//        }
-//        reply.setFormUid(user.getAccountId());
+        User user= (User)request.getSession().getAttribute("user");
+        if (user==null){
+            return ServerResponse.createByErrorMessage("NEED_LOGIN");
+        }
+        reply.setFormUid(user.getAccountId());
         return commentReplyService.writeReply(reply);
     }
 
@@ -58,10 +58,10 @@ public class CommentReplyController {
                                                   @PathVariable("topicId") Integer topId,
                                                   HttpServletRequest request,
                                           Model model){
-//        User user= (User)request.getSession().getAttribute("user");
-//        if (user==null){
-//            return ServerResponse.createByErrorMessage("NEED_LOGIN");
-//        }
+        User user= (User)request.getSession().getAttribute("user");
+        if (user==null){
+            throw new CustomizeException("请登录兄dei");
+        }
         QuestionDTO questionDTO=qustionService.getByIdAndIncView(topId);
         if (questionDTO==null){
             throw new CustomizeException("别乱调戏接口-。-");

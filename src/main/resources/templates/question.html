@@ -34,7 +34,7 @@
             <form action="/comment " method="post">
                 <input type="hidden" id="topicId" th:value="${question.id}">
                 <div class="form-group">
-                    <label for="content">要评论点什么?</label>
+                    <label for="content" id="Writetips">要评论点什么?</label>
                     <div class="media" >
                         <div class="media-left">
                                 <img class="media-object img-rounded img-public"
@@ -81,8 +81,8 @@
                     </div>
                     <span style="margin-left:30px" th:text="${comment.content}">这里就是评论了</span>
                 </div>
-
-                <div class="media reply-common" th:each="reply:${comment.replyDTOS}" th:if="${comment.replyDTOS!=null}">
+                    <div id="replys" class="reply-common">
+                <div class="media" th:each="reply:${comment.replyDTOS}" th:if="${comment.replyDTOS!=null}">
                     <div class="media-left">
                         <img class="media-object img-circle img-comment"
                              th:src="${reply.fromUser.avatarUrl}" alt="...">
@@ -103,6 +103,7 @@
                     </div>
                     <span style="margin-left:30px" th:text="${reply.content}">这里是回复了</span>
                 </div>
+                    </div>
                 </div>
             </div>
 

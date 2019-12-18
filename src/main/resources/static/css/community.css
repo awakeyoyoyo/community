@@ -64,7 +64,8 @@
      float: right;
  }
  .reply-common{
-     margin-left: 30px;
+     margin-top: 10px;
+     margin-left: 15px;
      border-left: #999999 3px solid;
      padding-left: 10px;
  }
