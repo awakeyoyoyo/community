@@ -6,7 +6,7 @@
      border: #e5e5e5 2px solid;
  }
  body{
-     background: #eee;
+     background: #698474;
  }
  .midia-body{
      padding-top: 10px;
@@ -55,6 +55,7 @@
  .community-menu{
      color: #999;
      font-size: 12px;
+     float: right;
  }
  .comment{
      margin-top: 10px;
@@ -83,4 +84,29 @@
      float: right;
      margin: 8px;
      font-size: 14px;
+ }
+ .question-tag{
+     margin: 2px;
+
+ }
+ .weight-less{
+     width: 80px;
+     overflow: hidden; /* 超出的部分隐藏起来 */
+ }
+ .height-less{
+     height: 100px;
+     overflow: hidden;
+     text-overflow: ellipsis;
+ }
+ .color-aaaa{
+     background: #698474;
+ }
+ .color-bbbb{
+     background: #889e81;
+ }
+ .color-cccc{
+     background: #bac7a7;
+ }
+ .color-dddd{
+     background: #e5e4cc;
  }

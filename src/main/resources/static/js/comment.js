@@ -50,6 +50,10 @@ function postReply(formUAID,commentId){
    // alert("postReply:"+formUAID+"-"+commentId)
     var questionId=$("#topicId").val();
     var content=$("#content").val();
+    if (!content){
+        alert("不能回复空内容")
+        return
+    }
     $("#content").val("");
     $.ajax({
         url:"http://localhost:8080/reply",
@@ -78,7 +82,10 @@ function postReply(formUAID,commentId){
 function postComment(){
     var questionId=$("#topicId").val();
     var content=$("#content").val();
-    $("#content").val("");
+    if (!content){
+        alert("不能回复空内容")
+        return
+    }
     $.ajax({
         url:"http://localhost:8080/comment",
         type:"post",

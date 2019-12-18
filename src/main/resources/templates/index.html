@@ -12,7 +12,7 @@
 <body>
 <div th:insert="navigation::nav"></div>
 <div class="container-fluid main">
-    <div class="row">
+    <div class="row color-cccc">
         <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12 left-box">
             <h2 class="bottom-box"><span class="glyphicon glyphicon-list" aria-hidden="true"></span> 发现</h2>
 
@@ -26,10 +26,10 @@
                 <div class="media-body ">
 
                     <h4 class="media-heading" >
-                        <a th:href="@{'/question/'+${question.id}}" th:text="${question.title}"></a>
+                        <a th:href="@{'/question/'+${question.id}}"  class="weight-less" th:text="${question.title}"></a>
                     </h4>
                     <br>
-                    <p th:text="${question.decription}"></p>
+                    <p class="height-less" th:text="${question.decription}"></p>
                     <P class="text-desc" >
                         <span th:text="${question.commentCount}"></span>个回复-
                         <span th:text="${question.viewCount}"></span>浏览-

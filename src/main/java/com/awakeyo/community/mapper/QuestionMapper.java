@@ -29,4 +29,6 @@ public interface QuestionMapper {
     Integer updateViewCount(Integer id);
 
     Integer updateReplyCountByTopicId(Integer topicId);
+
+    List<Question> selectRelated(@Param("id") Integer id,@Param("tag") String tag);
 }

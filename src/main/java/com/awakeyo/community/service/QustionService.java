@@ -13,6 +13,7 @@ import com.awakeyo.community.mapper.UserMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -62,6 +63,7 @@ public class QustionService {
         PageResult<QuestionDTO> pageResult=new PageResult<>();
         pageResult.init(pageCount,pageNo);
         pageResult.setReslts(questionDTOS);
+
         return pageResult;
     }
 
@@ -147,5 +149,14 @@ public class QustionService {
         }
         questionDTO.setCommentDTOs(comments);
         return questionDTO;
+    }
+
+    public List<Question> selectRelater(Integer id, String tag) {
+        if (StringUtils.isEmpty(tag)){
+            return new ArrayList<>();
+        }
+        tag=StringUtils.replace(tag,",","|");
+        List<Question> questions=questionMapper.selectRelated(id,tag);
+        return questions;
     }
 }

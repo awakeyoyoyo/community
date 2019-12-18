@@ -1,5 +1,6 @@
 package com.awakeyo.community.controller;
 
+import com.awakeyo.community.pojo.Question;
 import com.awakeyo.community.pojo.dto.QuestionDTO;
 import com.awakeyo.community.service.QustionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+
+import java.util.List;
 
 /**
  * @author awakeyoyoyo
@@ -22,7 +25,10 @@ public class QuestionController {
     public String question(@PathVariable(name = "id") Integer id,
                         Model model){
         QuestionDTO questionDTO=qustionService.getByIdAndIncView(id);
+        List<Question> questions=qustionService.selectRelater(id,questionDTO.getTag());
+        model.addAttribute("relateQuestions",questions);
         model.addAttribute("question",questionDTO);
         return "question";
     }
+
 }
