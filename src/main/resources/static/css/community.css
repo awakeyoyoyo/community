@@ -59,6 +59,8 @@
  }
  .comment{
      margin-top: 10px;
+     /*margin-bottom: 10px;*/
+     padding-bottom: 10px;
  }
  .comment-reply{
      font-size: 12px;
@@ -109,4 +111,9 @@
  }
  .color-dddd{
      background: #e5e4cc;
+ }
+ .public-selectTag{
+     display: none;
+     margin-top: 10px;
+
  }

@@ -16,14 +16,6 @@ function initComentAndReply() {
         },
     })
 };
-// (function ($) {
-//     alert('start');
-// function reply(fromId,commentId) {
-//     console.log(111)
-//     alert("1111")
-//     $("#comment_btn").val("回复");
-// }
-// })(jQuery);
 function clearReply(){
     var $comment_btn=$("#comment_btn");
     $comment_btn.text("评论");
@@ -31,9 +23,14 @@ function clearReply(){
     $("#clearReply").hide();
     $comment_btn.attr("onclick","postComment()");
     $("#Writetips").val("要评论点什么？");
+    $("#content").val("");
     $("#content").attr("placeholder","想对作者说些什么");
+}
 
-
+function clearComment(){
+    $("#Writetips").val("要评论点什么？");
+    $("#content").val("");
+    $("#content").attr("placeholder","想对作者说些什么");
 }
 function replyReply(obj) {
     var $comment_btn=$("#comment_btn");
@@ -54,7 +51,6 @@ function postReply(formUAID,commentId){
         alert("不能回复空内容")
         return
     }
-    $("#content").val("");
     $.ajax({
         url:"http://localhost:8080/reply",
         type:"post",
@@ -107,4 +103,26 @@ function postComment(){
         },
 
     })
+    clearComment();
 };
+
+
+function SelectTag(value){
+    var previous=$("#tag").val();
+    if (previous.indexOf(value)!=-1){
+        alert("已经添加了 别再点啦")
+    }else {
+        if (previous) {
+            $("#tag").val(previous + ',' + value);
+        } else {
+            $("#tag").val(value);
+        }
+    }
+}
+function showSelectTag() {
+    $("#SelectTag").show();
+}
+
+function closeSelectTag() {
+    $("#SelectTag").hide();
+}

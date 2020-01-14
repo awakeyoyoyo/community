@@ -59,13 +59,13 @@
 
             </form>
 
-            <div class=" panel-default bottom-box " id="comments" th:fragment="comments">
+            <div class=" panel-default " id="comments" th:fragment="comments">
                 <h4 style="margin-top: 80px">
                     <SPAN th:text="${question.commentCount}"> </SPAN>个评论
                 </h4>
-                <div class="bottom-box"></div>
-                <div id="comment" th:each="comment:${question.commentDTOs}" class="bottom-box margin-bottom">
-                <div class="media" >
+                <div id="comment" th:if="${question.commentDTOs!=null}" th:each="comment:${question.commentDTOs}" class=" margin-bottom comment">
+                    <div class="bottom-box"></div>
+                    <div class="media" >
                     <div class="media-left">
                             <img class="media-object img-circle img-comment"
                                  th:src="${comment.getFromUser().avatarUrl}" alt="...">

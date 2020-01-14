@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="/css/community.css">
     <script src="/js/bootstrap.min.js" type="application/javascript"></script>
-
+    <script src="/js/comment.js" type="application/javascript"></script>
     <style>
         .test {
             height: 50px;
@@ -22,8 +22,10 @@
 <div th:insert="navigation::nav"></div>
 <!--<div class="alert alert-success" role="alert" th:text="${error}" th:if="${error!=null}"></div>-->
 <div class="alert alert-warning alert-dismissible msg-publish" role="alert" th:if="${error!=null}">
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-    <strong>注意!</strong> <p th:text="${error}" ></p>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span>
+    </button>
+    <strong>注意!</strong>
+    <p th:text="${error}"></p>
 </div>
 <div class="container-fluid main">
     <div class="row">
@@ -34,17 +36,57 @@
                 <input type="hidden" name="id" th:value="${id}">
                 <div class="form-group">
                     <label for="title">问题标题：(简单扼要)</label>
-                    <input name="title" th:value="${title}" type="text" class="form-control" id="title" placeholder="问题标题....">
+                    <input autocomplete="off" name="title" th:value="${title}" type="text" class="form-control"
+                           id="title" placeholder="问题标题....">
                 </div>
                 <div class="form-group">
                     <label for="description">问题补充(必填，请参照右侧提示)：</label>
-                    <textarea th:text="${description}" name="description" class="form-control" rows="10" id="description"></textarea>
+                    <textarea th:text="${description}" name="description" class="form-control" rows="10"
+                              id="description"></textarea>
                 </div>
                 <div class="form-group">
                     <label for="tag">添加标签：</label>
-                    <input name="tag" th:value="${tag}" type="text" class="form-control" id="tag" placeholder="输入标签 以，号分割">
+                    <input autocomplete="off" name="tag" th:value="${tag}" type="text" class="form-control" id="tag"
+                           onclick="showSelectTag()"
+                           placeholder="输入标签 以，号分割">
+                    <div id="SelectTag"  class="public-selectTag">
+                            <!-- Nav tabs -->
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">吹水系列</a></li>
+                                <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">前端系列</a></li>
+                                <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">后台系列</a></li>
+                                <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">其他</a></li>
+                            </ul>
+
+                            <!-- Tab panes -->
+                            <div class="tab-content">
+
+                                <div role="tabpanel" class="tab-pane active" id="home">
+                                    <span class="label label-info"><span class="glyphicon glyphicon-tags" onclick="SelectTag('烦恼')">烦恼</span></span>
+                                    <span class="label label-info"><span class="glyphicon glyphicon-tags" onclick="SelectTag('生活')">生活</span></span>
+                                    <span class="label label-info"><span class="glyphicon glyphicon-tags" onclick="SelectTag('逗比')">逗比</span></span>
+
+                                </div>
+                                <div role="tabpanel" class="tab-pane" id="profile">
+                                    <span class="label label-info"><span class="glyphicon glyphicon-tags" onclick="SelectTag('html')">html</span></span>
+                                    <span class="label label-info"><span class="glyphicon glyphicon-tags" onclick="SelectTag('css')">css</span></span>
+                                    <span class="label label-info"><span class="glyphicon glyphicon-tags" onclick="SelectTag('jquery')">jquery</span></span>
+                                    <span class="label label-info"><span class="glyphicon glyphicon-tags" onclick="SelectTag('vue.js')">vue.js</span></span>
+                                </div>
+                                <div role="tabpanel" class="tab-pane" id="messages">
+                                    <span class="label label-info"><span class="glyphicon glyphicon-tags" onclick="SelectTag('java')">java</span></span>
+                                    <span class="label label-info"><span class="glyphicon glyphicon-tags" onclick="SelectTag('Spring')">spring</span></span>
+                                    <span class="label label-info"><span class="glyphicon glyphicon-tags" onclick="SelectTag('Springboot')">Springboot</span></span>
+                                    <span class="label label-info"><span class="glyphicon glyphicon-tags" onclick="SelectTag('Mybatis')">Mybatis</span></span>
+                                </div>
+                                <div role="tabpanel" class="tab-pane" id="settings">
+                                    <span class="label label-info"><span class="glyphicon glyphicon-tags" onclick="SelectTag('拼图')">拼图</span></span>
+                                </div>
+                            </div>
+                        </div>
+
                 </div>
-                <button type="submit" class="btn btn-success btn-publish" > 发布 </button>
+                <button type="submit" class="btn btn-success btn-publish"> 发布</button>
             </form>
         </div>
         <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
