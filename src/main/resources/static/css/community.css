@@ -115,5 +115,8 @@
  .public-selectTag{
      display: none;
      margin-top: 10px;
-
+     padding-top: 10px;
+ }
+ .public-selectTag .label-info {
+    margin-right: 10px;
  }

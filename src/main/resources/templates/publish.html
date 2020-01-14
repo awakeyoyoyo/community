@@ -52,35 +52,18 @@
                     <div id="SelectTag"  class="public-selectTag">
                             <!-- Nav tabs -->
                             <ul class="nav nav-tabs" role="tablist">
-                                <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">吹水系列</a></li>
-                                <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">前端系列</a></li>
-                                <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">后台系列</a></li>
-                                <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">其他</a></li>
+                                <li role="presentation"  th:each="tagx:${tags}">
+                                    <a th:href="${'#'+tagx.getCategoryName()}"
+                                       aria-controls="home" role="tab" data-toggle="tab" th:text="${tagx.getCategoryName()}">吹水系列</a></li>
                             </ul>
 
                             <!-- Tab panes -->
                             <div class="tab-content">
-
-                                <div role="tabpanel" class="tab-pane active" id="home">
-                                    <span class="label label-info"><span class="glyphicon glyphicon-tags" onclick="SelectTag('烦恼')">烦恼</span></span>
-                                    <span class="label label-info"><span class="glyphicon glyphicon-tags" onclick="SelectTag('生活')">生活</span></span>
-                                    <span class="label label-info"><span class="glyphicon glyphicon-tags" onclick="SelectTag('逗比')">逗比</span></span>
-
-                                </div>
-                                <div role="tabpanel" class="tab-pane" id="profile">
-                                    <span class="label label-info"><span class="glyphicon glyphicon-tags" onclick="SelectTag('html')">html</span></span>
-                                    <span class="label label-info"><span class="glyphicon glyphicon-tags" onclick="SelectTag('css')">css</span></span>
-                                    <span class="label label-info"><span class="glyphicon glyphicon-tags" onclick="SelectTag('jquery')">jquery</span></span>
-                                    <span class="label label-info"><span class="glyphicon glyphicon-tags" onclick="SelectTag('vue.js')">vue.js</span></span>
-                                </div>
-                                <div role="tabpanel" class="tab-pane" id="messages">
-                                    <span class="label label-info"><span class="glyphicon glyphicon-tags" onclick="SelectTag('java')">java</span></span>
-                                    <span class="label label-info"><span class="glyphicon glyphicon-tags" onclick="SelectTag('Spring')">spring</span></span>
-                                    <span class="label label-info"><span class="glyphicon glyphicon-tags" onclick="SelectTag('Springboot')">Springboot</span></span>
-                                    <span class="label label-info"><span class="glyphicon glyphicon-tags" onclick="SelectTag('Mybatis')">Mybatis</span></span>
-                                </div>
-                                <div role="tabpanel" class="tab-pane" id="settings">
-                                    <span class="label label-info"><span class="glyphicon glyphicon-tags" onclick="SelectTag('拼图')">拼图</span></span>
+                                <div role="tabpanel" class="tab-pane" th:id="${tagx.getCategoryName()}" th:each="tagx:${tags}">
+                                    <span class="label label-info" th:each="tagxx:${tagx.getTags()}">
+                                        <span class="glyphicon glyphicon-tags"
+                                              th:text="${tagxx}" onclick="SelectTag(this)" th:data-tag="${tagxx}">烦恼</span>
+                                    </span>
                                 </div>
                             </div>
                         </div>

@@ -107,8 +107,9 @@ function postComment(){
 };
 
 
-function SelectTag(value){
+function SelectTag(obj){
     var previous=$("#tag").val();
+    value=obj.getAttribute("data-tag");
     if (previous.indexOf(value)!=-1){
         alert("已经添加了 别再点啦")
     }else {

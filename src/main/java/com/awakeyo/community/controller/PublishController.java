@@ -1,5 +1,6 @@
 package com.awakeyo.community.controller;
 
+import com.awakeyo.community.cache.TagCache;
 import com.awakeyo.community.pojo.Question;
 import com.awakeyo.community.pojo.dto.User;
 import com.awakeyo.community.mapper.QuestionMapper;
@@ -7,6 +8,7 @@ import com.awakeyo.community.service.QustionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,12 +35,13 @@ public class PublishController {
         model.addAttribute("description",question.getDecription());
         model.addAttribute("tag",question.getTag());
         model.addAttribute("id",question.getId());
-        model.addAttribute("tags","");
+        model.addAttribute("tags", TagCache.getInstance().get());
         return "publish";
     }
 
     @GetMapping("/publish")
-    public String publish(){
+    public String publish(Model model){
+        model.addAttribute("tags", TagCache.getInstance().get());
         return "publish";
     }
     @PostMapping("/publish")
@@ -53,6 +56,7 @@ public class PublishController {
         model.addAttribute("title",title);
         model.addAttribute("description",description);
         model.addAttribute("tag",tag);
+        model.addAttribute("tags", TagCache.getInstance().get());
         User user;
         user=(User)request.getSession().getAttribute("user");
         if (user==null){
@@ -69,6 +73,12 @@ public class PublishController {
         }
         if (tag==null||tag==""){
             model.addAttribute("error","标签不能为空！！！！");
+
+            return "publish";
+        }
+        String invalid=TagCache.getInstance().filterInvalid(tag);
+        if (!StringUtils.isEmpty(invalid)){
+            model.addAttribute("error","输入非法标签"+invalid);
             return "publish";
         }
         Question question=new Question();
@@ -81,6 +91,8 @@ public class PublishController {
         question.setCommentCount(0);
         question.setId(id);
         qustionService.insertOrUpdate(question);
+        model.addAttribute("tags", TagCache.getInstance().get());
+
         return "redirect:/";
     }
 }
