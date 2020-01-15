@@ -118,5 +118,7 @@
      padding-top: 10px;
  }
  .public-selectTag .label-info {
-    margin-right: 10px;
+     white-space: normal;
+     margin:3px 3px;
+     display: inline-block;
  }

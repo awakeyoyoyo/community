@@ -121,6 +121,8 @@ function SelectTag(obj){
     }
 }
 function showSelectTag() {
+    $('li[name="tabs"]').eq(0).addClass('active');
+    $('div[name="tags"]').eq(0).addClass('active');
     $("#SelectTag").show();
 }
 

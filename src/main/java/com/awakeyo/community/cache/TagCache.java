@@ -40,7 +40,7 @@ public class TagCache {
 
         TagDTO other=new TagDTO();
         other.setCategoryName("其他");
-        other.setTags(Arrays.asList("=。=","-。-","=。-"));
+        other.setTags(Arrays.asList("=。=","-。-","=。-","=。=","-。-","=。-","=。=","-。-","=。-","=。=","-。-","=。-","=。=","-。-","=。-","=。=","-。-","=。-","=。=","-。-","=。-"));
         tagDTOS.add(other);
     }
     public static TagCache getInstance(){
