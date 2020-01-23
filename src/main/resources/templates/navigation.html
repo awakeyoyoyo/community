@@ -24,9 +24,9 @@
                     <button type="submit" class="btn btn-default" style="background: #e5e4cc;color: #ccc">搜索</button>
                 </form>
                 <ul class="nav navbar-nav navbar-right">
-
+                    <li th:if="${session.user!=null}"><a href="/profile/replies">通知 <span class="badge">42</span></a></li>
                     <li  th:if="${session.user!=null}">
-                        <a href="/publish">发布</a>
+                        <a href="/publish">提问</a>
                     </li>
                     <div class="nav navbar-nav  img-val" th:if="${session.user!=null}">
                         <img height="40px" alt="Brand" class="img-rounded center-block" th:src="${session.user.avatarUrl}">
