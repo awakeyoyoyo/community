@@ -20,5 +20,5 @@ public interface CommentMapper {
 
     List<Comment> selectByTopId(Integer topId);
 
-
+    Integer selectQuestionId(Long commentId);
 }

@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.awakeyo.community.mapper.NotificationMapper">
+  <resultMap id="BaseResultMap" type="com.awakeyo.community.pojo.Notification">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="notifier" jdbcType="INTEGER" property="notifier" />
+    <result column="reciver" jdbcType="INTEGER" property="reciver" />
+    <result column="outerId" jdbcType="INTEGER" property="outerid" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="gmt_create" jdbcType="BIGINT" property="gmtCreate" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="notifier_name" jdbcType="VARCHAR" property="notifierName" />
+    <result column="outer_title" jdbcType="VARCHAR" property="outerTitle" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, notifier, reciver, outerId, type, gmt_create, status, notifier_name, outer_title
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from cm_notification
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from cm_notification
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.awakeyo.community.pojo.Notification">
+    insert into cm_notification (id, notifier, reciver, 
+      outerId, type, gmt_create, 
+      status, notifier_name, outer_title
+      )
+    values (#{id,jdbcType=INTEGER}, #{notifier,jdbcType=INTEGER}, #{reciver,jdbcType=INTEGER}, 
+      #{outerid,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, #{gmtCreate,jdbcType=BIGINT}, 
+      #{status,jdbcType=INTEGER}, #{notifierName,jdbcType=VARCHAR}, #{outerTitle,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.awakeyo.community.pojo.Notification">
+    insert into cm_notification
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="notifier != null">
+        notifier,
+      </if>
+      <if test="reciver != null">
+        reciver,
+      </if>
+      <if test="outerid != null">
+        outerId,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="notifierName != null">
+        notifier_name,
+      </if>
+      <if test="outerTitle != null">
+        outer_title,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="notifier != null">
+        #{notifier,jdbcType=INTEGER},
+      </if>
+      <if test="reciver != null">
+        #{reciver,jdbcType=INTEGER},
+      </if>
+      <if test="outerid != null">
+        #{outerid,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="gmtCreate != null">
+        #{gmtCreate,jdbcType=BIGINT},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="notifierName != null">
+        #{notifierName,jdbcType=VARCHAR},
+      </if>
+      <if test="outerTitle != null">
+        #{outerTitle,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.awakeyo.community.pojo.Notification">
+    update cm_notification
+    <set>
+      <if test="notifier != null">
+        notifier = #{notifier,jdbcType=INTEGER},
+      </if>
+      <if test="reciver != null">
+        reciver = #{reciver,jdbcType=INTEGER},
+      </if>
+      <if test="outerid != null">
+        outerId = #{outerid,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create = #{gmtCreate,jdbcType=BIGINT},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="notifierName != null">
+        notifier_name = #{notifierName,jdbcType=VARCHAR},
+      </if>
+      <if test="outerTitle != null">
+        outer_title = #{outerTitle,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.awakeyo.community.pojo.Notification">
+    update cm_notification
+    set notifier = #{notifier,jdbcType=INTEGER},
+      reciver = #{reciver,jdbcType=INTEGER},
+      outerId = #{outerid,jdbcType=INTEGER},
+      type = #{type,jdbcType=INTEGER},
+      gmt_create = #{gmtCreate,jdbcType=BIGINT},
+      status = #{status,jdbcType=INTEGER},
+      notifier_name = #{notifierName,jdbcType=VARCHAR},
+      outer_title = #{outerTitle,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectAll"  resultType="java.lang.Integer" >
+    select COUNT(*)
+    from cm_notification
+    where reciver=#{id}
+  </select>
+  <select id="selectListByUser"  resultMap="BaseResultMap" parameterType="map">
+    select
+    <include refid="Base_Column_List" />
+    from cm_notification where reciver=#{userId}
+    order by gmt_create desc Limit #{pageBegin},#{pageSize}
+  </select>
+</mapper>

@@ -1,12 +1,12 @@
 package com.awakeyo.community.service;
 
+import com.awakeyo.community.common.NotificationStatusEnum;
+import com.awakeyo.community.common.NotificationTypeEnum;
 import com.awakeyo.community.common.ResponseCode;
 import com.awakeyo.community.common.ServerResponse;
-import com.awakeyo.community.mapper.QuestionMapper;
+import com.awakeyo.community.mapper.*;
 import com.awakeyo.community.pojo.Comment;
-import com.awakeyo.community.mapper.CommentMapper;
-import com.awakeyo.community.mapper.ReplyMapper;
-import com.awakeyo.community.mapper.UserMapper;
+import com.awakeyo.community.pojo.Notification;
 import com.awakeyo.community.pojo.Question;
 import com.awakeyo.community.pojo.Reply;
 import com.awakeyo.community.pojo.dto.CommentDTO;
@@ -35,9 +35,11 @@ public class CommentReplyService {
     private ReplyMapper replyMapper;
     @Autowired
     private QuestionMapper questionMapper;
+    @Autowired
+    private NotificationMapper notificationMapper;
     @Transactional
     public ServerResponse writeComent(Comment comment) {
-
+        //todo 枚举类来处理异常消息
         if (comment.getContent()==null||comment.getContent().trim().isEmpty()){
             return ServerResponse.createByErrorMessage("no content");
         }
@@ -63,9 +65,28 @@ public class CommentReplyService {
         BeanUtils.copyProperties(comment,commentDTO);
         User user =userMapper.selectUserByaccoun_id(comment.getFromUid());
         commentDTO.setFromUser(user);
+        //发送通知
+        createCommentNotify(question, user);
         return ServerResponse.createBySuccess(commentDTO);
     }
 
+    private void createCommentNotify(Question quesction, User user) {
+        Notification notification=new Notification();
+        notification.setGmtCreate(new Date().getTime());
+        notification.setType(NotificationTypeEnum.REPLY_QUESTION.getType());
+        //问题的id
+        notification.setOuterid(quesction.getId());
+        //写通知的人
+        notification.setNotifier(user.getId());
+        notification.setStatus(NotificationStatusEnum.UNREAD.getStatus());
+        //接受通知的人
+        notification.setReciver(quesction.getCreator());
+        notification.setOuterTitle(quesction.getTitle());
+        notification.setNotifierName(user.getName());
+        notificationMapper.insert(notification);
+    }
+
+    @Transactional
     public ServerResponse writeReply(Reply reply) {
         //todo 数据校验
         if (reply.getContent()==null||reply.getContent().trim().isEmpty()){
@@ -87,7 +108,24 @@ public class CommentReplyService {
         BeanUtils.copyProperties(reply,replyDTO);
         replyDTO.setFromUser(formUser);
         replyDTO.setToUser(toUser);
+        //发送通知
+        Long commentId=reply.getCommentId();
+        Integer questionId=commentMapper.selectQuestionId(commentId);
+        createReplyNotify(reply.getContent(),formUser,questionId, NotificationTypeEnum.REPLY_COMMENT, toUser.getId());
         return ServerResponse.createBySuccess(replyDTO);
+    }
+
+    private void createReplyNotify(String outterTitle,User formUser, Integer questionId, NotificationTypeEnum replyComment, Integer id) {
+        Notification notification = new Notification();
+        notification.setGmtCreate(new Date().getTime());
+        notification.setType(replyComment.getType());
+        notification.setOuterid(questionId);
+        notification.setNotifier(formUser.getId());
+        notification.setStatus(NotificationStatusEnum.UNREAD.getStatus());
+        notification.setReciver(id);
+        notification.setNotifierName(formUser.getName());
+        notification.setOuterTitle(outterTitle);
+        notificationMapper.insert(notification);
     }
 
     public List<CommentDTO> getCommentsReplyTopicId(String type, Integer topId) {

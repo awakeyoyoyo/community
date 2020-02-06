@@ -110,4 +110,10 @@
     from cm_comment
     where topic_id= #{topId}
   </select>
+  <select id="selectQuestionId" parameterType="java.lang.Long" resultType="Integer">
+    select
+    topic_id
+    from cm_comment
+    where id= #{commentId}
+  </select>
 </mapper>

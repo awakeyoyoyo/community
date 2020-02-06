@@ -4,7 +4,6 @@ import com.awakeyo.community.common.ServerResponse;
 import com.awakeyo.community.exception.CustomizeException;
 import com.awakeyo.community.pojo.Comment;
 import com.awakeyo.community.pojo.Reply;
-import com.awakeyo.community.pojo.dto.CommentDTO;
 import com.awakeyo.community.pojo.dto.QuestionDTO;
 import com.awakeyo.community.pojo.dto.User;
 import com.awakeyo.community.service.CommentReplyService;
