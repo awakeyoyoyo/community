@@ -1,12 +1,16 @@
 package com.awakeyo.community.controller;
 import com.awakeyo.community.pojo.PageResult;
 import com.awakeyo.community.pojo.dto.QuestionDTO;
+import com.awakeyo.community.pojo.dto.User;
+import com.awakeyo.community.service.NotificationService;
 import com.awakeyo.community.service.QustionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import javax.servlet.http.HttpSession;
 
 /**
  * @author awakeyoyoyo
@@ -18,6 +22,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class IndexController {
     @Autowired
     private QustionService qustionService;
+    @Autowired
+    private NotificationService notificationService;
     /**
      * Method Description
      * @author awakeyoyoyo
@@ -28,9 +34,15 @@ public class IndexController {
     @GetMapping("/")
     public String index(Model model,
                         @RequestParam(name = "pageNo",defaultValue = "1" ,required = false) Integer pageNo,
-                        @RequestParam(name = "pageSize",defaultValue ="5",required = false) Integer pageSize){
+                        @RequestParam(name = "pageSize",defaultValue ="5",required = false) Integer pageSize,
+                        HttpSession session){
         PageResult<QuestionDTO> pageResult=qustionService.getList(pageNo,pageSize);
         model.addAttribute("pageResult",pageResult);
+        User user=(User)session.getAttribute("user");
+        if (user!=null){
+            Long unreadCount=notificationService.getUnreadCount(user.getId());
+            model.addAttribute("unreadCount",unreadCount);
+        }
         return "index";
     }
 

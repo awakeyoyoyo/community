@@ -149,4 +149,16 @@
     from cm_notification where reciver=#{userId}
     order by gmt_create desc Limit #{pageBegin},#{pageSize}
   </select>
+
+  <select id="selectByUserIdUnread"  resultType="java.lang.Long" >
+    select COUNT(*)
+    from cm_notification
+    where reciver=#{id} and status=0
+  </select>
+  <update id="readNotification" parameterType="map">
+    update cm_notification
+    set
+      status = 1
+    where id = #{id,jdbcType=INTEGER} and reciver=#{userId}
+  </update>
 </mapper>

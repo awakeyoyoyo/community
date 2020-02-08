@@ -8,6 +8,7 @@ import com.awakeyo.community.pojo.Notification;
 import com.awakeyo.community.pojo.PageResult;
 import com.awakeyo.community.pojo.dto.NotificationDTO;
 import com.awakeyo.community.pojo.dto.User;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -50,7 +51,6 @@ public class NotificationService {
         List<Notification> notifications=notificationMapper.selectListByUser(id,pageBegin,pageSize);
         List<NotificationDTO> notificationDTOS=new ArrayList<>();
         PageResult<NotificationDTO> pageResult=new PageResult<>();
-        pageResult.init(pageCount,pageNo);
         if (notifications.size()==0){
             return  pageResult;
         }
@@ -68,6 +68,14 @@ public class NotificationService {
         pageResult.init(pageCount,pageNo);
         pageResult.setReslts(notificationDTOS);
         return pageResult;
+    }
+
+    public Long getUnreadCount(Integer id) {
+        return notificationMapper.selectByUserIdUnread(id);
+    }
+
+    public void read(@Param("id") Integer id, @Param("userId") Integer userId) {
+         notificationMapper.readNotification(id,userId);
     }
 //    public List<Notification> getNotifilerByUserid(Integer id) {
 //        List<Notification> notifications=notificationMapper.selectListByUserStatus(id,pageBegin,pageSize);

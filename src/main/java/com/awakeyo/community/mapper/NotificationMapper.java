@@ -20,4 +20,8 @@ public interface NotificationMapper {
     List<Notification> selectListByUser(@Param("userId") Integer userId, @Param("pageBegin") Integer pageBegin, @Param("pageSize") Integer pageSize);
 
     Integer selectAll(Integer id);
+
+    Long selectByUserIdUnread(Integer id);
+
+    void readNotification(Integer id, Integer userId);
 }

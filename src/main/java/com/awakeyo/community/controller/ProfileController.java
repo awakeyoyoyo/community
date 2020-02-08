@@ -52,7 +52,8 @@ public class ProfileController {
             PageResult<NotificationDTO> pageResult=notificationService.getListByUserid(user.getId(),pageNo,pageSize);
             model.addAttribute("pageResult",pageResult);
         }
-
+        Long unreadCount=notificationService.getUnreadCount(user.getId());
+        model.addAttribute("unreadCount",unreadCount);
         return "/profile";
     }
 }
