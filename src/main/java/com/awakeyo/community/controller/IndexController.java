@@ -34,15 +34,9 @@ public class IndexController {
     @GetMapping("/")
     public String index(Model model,
                         @RequestParam(name = "pageNo",defaultValue = "1" ,required = false) Integer pageNo,
-                        @RequestParam(name = "pageSize",defaultValue ="5",required = false) Integer pageSize,
-                        HttpSession session){
+                        @RequestParam(name = "pageSize",defaultValue ="5",required = false) Integer pageSize){
         PageResult<QuestionDTO> pageResult=qustionService.getList(pageNo,pageSize);
         model.addAttribute("pageResult",pageResult);
-        User user=(User)session.getAttribute("user");
-        if (user!=null){
-            Long unreadCount=notificationService.getUnreadCount(user.getId());
-            model.addAttribute("unreadCount",unreadCount);
-        }
         return "index";
     }
 

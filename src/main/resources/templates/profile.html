@@ -100,7 +100,7 @@
                     我的问题
                 </a>
                 <a href="/profile/replies" th:class="${section=='replies'}?'list-group-item disabled':'list-group-item'">
-                    <span class="badge" th:text="${unreadCount}"></span>
+                    <span class="badge" th:text="${session.unreadCount}"></span>
                     最新通知
                 </a>
             </div>

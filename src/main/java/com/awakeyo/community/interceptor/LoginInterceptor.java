@@ -1,7 +1,9 @@
 package com.awakeyo.community.interceptor;
 
+import com.awakeyo.community.pojo.Notification;
 import com.awakeyo.community.pojo.dto.User;
 import com.awakeyo.community.mapper.UserMapper;
+import com.awakeyo.community.service.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -21,24 +23,30 @@ import javax.servlet.http.HttpServletResponse;
 public class LoginInterceptor implements HandlerInterceptor {
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private NotificationService notificationService;
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        Object obj;
-        obj=request.getSession().getAttribute("user");
+        User obj;
+        obj=(User)request.getSession().getAttribute("user");
         if (obj==null) {
             Cookie[] cookies = request.getCookies();
             for (Cookie c : cookies) {
                 if (c.getName().equals("token")) {
                     String token = c.getValue();
                     if (token != null) {
-                        User user = userMapper.findByToken(token);
-                        if (user != null) {
-                            request.getSession().setAttribute("user", user);
+                        obj = userMapper.findByToken(token);
+                        if (obj != null) {
+                            request.getSession().setAttribute("user", obj);
                         }
                         break;
                     }
                 }
             }
+        }
+        if (obj!=null){
+            Long unreadCount=notificationService.getUnreadCount(obj.getId());
+            request.getSession().setAttribute("unreadCount",unreadCount);
         }
         return true;
     }
