@@ -18,6 +18,16 @@
                  width  : "100%",
                  height : 500,
                 path   : "editormd/lib/",
+                imageUpload    : true,
+                imageFormats   : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+                imageUploadURL : "./image/upload",
+                value:"\"Enjoy Markdown! coding now...\"\n" +
+                    "- [Markdown Syntax](http://daringfireball.net/projects/markdown/syntax/ \"Markdown Syntax\")\n" +
+                    "- [Mastering Markdown](https://guides.github.com/features/mastering-markdown/ \"Mastering Markdown\")\n" +
+                    "- [Markdown Basics](https://help.github.com/articles/markdown-basics/ \"Markdown Basics\")\n" +
+                    "- [GitHub Flavored Markdown](https://help.github.com/articles/github-flavored-markdown/ \"GitHub Flavored Markdown\")\n" +
+                    "- [Markdown 语法说明（简体中文）](http://www.markdown.cn/ \"Markdown 语法说明（简体中文）\")\n" +
+                    "- [Markdown 語法說明（繁體中文）](http://markdown.tw/ \"Markdown 語法說明（繁體中文）\")"
             });
         });
     </script>
@@ -54,7 +64,9 @@
                 <div class="form-group" id="test-editor">
                     <label for="description">问题补充(必填，请参照右侧提示)：</label>
                     <textarea th:text="${description}" name="description" class="form-control" rows="10"
-                              style="display:none;" id="description"></textarea>
+                              style="display:none;" id="description">
+
+                    </textarea>
                 </div>
                 <div class="form-group">
                     <label for="tag">添加标签：</label>
