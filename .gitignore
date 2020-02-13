@@ -1,10 +1,10 @@
 HELP.md
-application.properties
 target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**
 !**/src/test/**
-
+###安全隐私###
+src/main/resources/config/application.properties
 ### STS ###
 .apt_generated
 .classpath
