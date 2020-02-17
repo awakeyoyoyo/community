@@ -31,4 +31,8 @@ public interface QuestionMapper {
     Integer updateReplyCountByTopicId(Integer topicId);
 
     List<Question> selectRelated(@Param("id") Integer id,@Param("tag") String tag);
+
+    Integer selectAllSearch(String search);
+
+    List<Question> selectListSearch(@Param("search") String search, @Param("pageBegin") Integer pageBegin, @Param("pageSize") Integer pageSize);
 }
