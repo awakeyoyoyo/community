@@ -40,25 +40,25 @@
             <nav aria-label="Page navigation">
                 <ul class="pagination">
                     <li>
-                        <a th:href="@{/(pageNo=1)}" aria-label="Previous">
+                        <a th:href="@{/(pageNo=1,search=${search})}" aria-label="Previous">
                             <span aria-hidden="true">&laquo;</span>
                         </a>
                     </li>
                     <li>
-                        <a th:href="@{/(pageNo=${pageResult.pageNo-1})}" aria-label="Previous">
+                        <a th:href="@{/(pageNo=${pageResult.pageNo-1},search=${search})}" aria-label="Previous">
                             <span aria-hidden="true">&lt;</span>
                         </a>
                     </li>
                     <li th:class="${pageResult.pageNo==page}?'active':''" th:each="page:${pageResult.pages}">
-                        <a  th:href="@{/(pageNo=${page})}" th:text="${page}"></a>
+                        <a  th:href="@{/(pageNo=${page},search=${search})}" th:text="${page}"></a>
                     </li>
                     <li>
-                        <a th:href="@{/(pageNo=${pageResult.pageNo+1})}" aria-label="Previous">
+                        <a th:href="@{/(pageNo=${pageResult.pageNo+1},search=${search})}" aria-label="Previous">
                             <span aria-hidden="true">&gt;</span>
                         </a>
                     </li>
                     <li>
-                        <a th:href="@{/(pageNo=${pageResult.pageCount})}" aria-label="Next">
+                        <a th:href="@{/(pageNo=${pageResult.pageCount},search=${search})}" aria-label="Next">
                             <span aria-hidden="true">&raquo;</span>
                         </a>
                     </li>

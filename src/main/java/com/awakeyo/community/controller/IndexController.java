@@ -43,10 +43,12 @@ public class IndexController {
         PageResult<QuestionDTO> pageResult;
         if (!StringUtils.isEmpty(search)) {
             pageResult = qustionService.getListSearch(search, pageNo, pageSize);
+
         } else {
             pageResult = qustionService.getList(pageNo, pageSize);
         }
         model.addAttribute("pageResult", pageResult);
+        model.addAttribute("search", search);
         return "index";
     }
 
