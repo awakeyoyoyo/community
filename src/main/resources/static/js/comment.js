@@ -1,4 +1,20 @@
-
+var t = null;
+function time(creatTime)
+{
+    clearTimeout(t);//清除定时器
+    dt = new Date();
+    dt=dt-creatTime;
+    var y=dt.getFullYear();
+    var d=dt.getDay();
+    var h=dt.getHours();//获取时
+    var m=dt.getMinutes();//获取分
+    var s=dt.getSeconds();//获取秒
+    document.getElementById("showTime").innerHTML =  "本站已经存活了："+h+"时"+m+"分"+s+"秒";
+    t = setTimeout(time,1000); //设定定时器，循环运行
+}
+function initFooterTime() {
+//todo
+}
 function initComentAndReply() {
     var questionId=$("#topicId").val();
     $.ajax({
