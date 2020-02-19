@@ -6,7 +6,7 @@
      border: #e5e5e5 2px solid;
  }
  body{
-     background: #698474;
+     background: #e7e7e7;
  }
  .midia-body{
      padding-top: 10px;
@@ -101,7 +101,7 @@
      text-overflow: ellipsis;
  }
  .color-aaaa{
-     background: #698474;
+     background: #FFFFFF;
  }
  .color-bbbb{
      background: #889e81;
@@ -123,6 +123,6 @@
      display: inline-block;
  }
 .footer{
-    padding: 10px 25%;
+    padding: 10px 27%;
     color: #666;
 }
