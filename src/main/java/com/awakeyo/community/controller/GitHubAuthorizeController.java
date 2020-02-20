@@ -5,6 +5,7 @@ import com.awakeyo.community.pojo.GithubUser;
 import com.awakeyo.community.pojo.dto.User;
 import com.awakeyo.community.provider.GithubProvider;
 import com.awakeyo.community.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -22,6 +23,7 @@ import java.util.UUID;
  * @date 2019-12-01 19:57
  */
 @Controller
+@Slf4j
 public class GitHubAuthorizeController {
     @Autowired
     private UserService userService;
@@ -72,6 +74,7 @@ public class GitHubAuthorizeController {
         }
         else {
             //登陆失败，重新登录
+            log.error("githubAuthorController-callback-error:githubUser={},",githubUser);
             return "redirect:/";
         }
     }

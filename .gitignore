@@ -5,6 +5,7 @@ target/
 !**/src/test/**
 ###安全隐私###
 src/main/resources/config/application.properties
+logs/
 ### STS ###
 .apt_generated
 .classpath
