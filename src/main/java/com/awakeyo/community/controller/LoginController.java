@@ -23,4 +23,8 @@ public class LoginController {
         response.addCookie(cookie);
         return "redirect:/";
     }
+    @GetMapping("/phoneLogin")
+    public String logout(){
+        return "login";
+    }
 }

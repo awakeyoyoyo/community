@@ -10,6 +10,42 @@
     <script src="js/bootstrap.min.js" type="application/javascript"></script>
 </head>
 <div th:insert="navigation::nav"></div>
+<div style="height: 200px;width: 100%;background: #ffffff;"></div>
+<div class="container-fluid main" style="margin-top: 0px;">
+    <div class="row">
+        <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12 " style="border-right: #9d9d9d">
+        </div>
+        <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 left-box color-aaaa textbox textComentSize middleBox" style="height: 400px;padding-top: 60px" >
+            <div class="form-group">
+                <label for="exampleInputEmail1">手机号</label>
+                <input type="email" class="form-control" id="exampleInputEmail1" placeholder="phone Number">
+            </div>
+            <br>
+
+            <div class="form-group">
+                <label for="exampleInputPassword1">密码</label>
+                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+            </div>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox"> 记住我
+                </label>
+            </div>
+            <br>
+            <button type="submit" class="btn btn-default">登陆</button>
+            <div class="btn-info textComentSize forgetPwd">
+                <a href="#" class="btn-info">忘记密码？</a>
+
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12" style="border-right: #9d9d9d">
+        </div>
+    </div>
+</div>
+
 <div th:insert="footer::foot"></div>
 </body>
 </html>
+<form>
+
+</form>
