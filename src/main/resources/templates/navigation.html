@@ -57,9 +57,20 @@
                             <li><a href="/logout">退出登陆</a></li>
                         </ul>
                     </li>
-                    <li th:if="${session.user==null}">
-                        <a href="https://github.com/login/oauth/authorize?client_id=f25c1cabc9f06377fa85&redirect_uri=http://localhost:8080/callback&scope=user&state=111">登陆</a>
+                    <li class="dropdown" th:if="${session.user==null}">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+                           role="button" aria-haspopup="true" aria-expanded="false">
+                            <span >登陆</span>
+                            <span class="caret">
+                        </span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="https://github.com/login/oauth/authorize?client_id=f25c1cabc9f06377fa85&redirect_uri=http://localhost:8080/callback&scope=user&state=111">github登陆</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="/logout">手机号登陆</a></li>
+                        </ul>
                     </li>
+
                 </ul>
 
             </div><!-- /.navbar-collapse -->

@@ -2,7 +2,6 @@
      margin:30px;
      margin-left: 60px;
      margin-right: 60px;
-     background: snow;
      border: #e5e5e5 2px solid;
  }
  body{
@@ -74,6 +73,8 @@
  }
  .left-box{
      border-right: #e5e5e5 3px solid;
+     border-left: #e5e5e5 3px solid;
+
  }
  .bottom-box{
      border-bottom: #e5e5e5 2px solid;
@@ -126,3 +127,21 @@
     padding: 10px 27%;
     color: #666;
 }
+.right-box{
+    background: #e7e7e7;
+}
+ .textbox{
+     padding: 7px 5px;
+     padding-left: 15px ;
+     margin-bottom: 10px;
+     border-radius: 5px;
+ }
+ .laoMei{
+     margin-top: 25px;
+     margin-left:50px;
+     padding: 7px 10px;
+     font-size: 20px;
+ }
+ .web-ul li{
+     margin-top: 6px;
+ }
