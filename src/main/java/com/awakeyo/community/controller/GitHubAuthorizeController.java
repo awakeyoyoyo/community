@@ -1,8 +1,8 @@
 package com.awakeyo.community.controller;
 
+import com.awakeyo.community.pojo.User;
 import com.awakeyo.community.pojo.dto.GithubAccessTokenDTO;
 import com.awakeyo.community.pojo.GithubUser;
-import com.awakeyo.community.pojo.dto.User;
 import com.awakeyo.community.provider.GithubProvider;
 import com.awakeyo.community.service.UserService;
 import lombok.extern.slf4j.Slf4j;

@@ -1,9 +1,8 @@
 package com.awakeyo.community.advice;
 
 import com.alibaba.fastjson.JSON;
-import com.awakeyo.community.common.ServerResponse;
+import com.awakeyo.community.common.WebResponse;
 import com.awakeyo.community.exception.CustomizeException;
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.http.HttpStatus;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -14,8 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author awakeyoyoyo
@@ -32,12 +29,12 @@ public class GlobalExceptionHandler {
     ){
         String contentType=request.getContentType();
         if ("application/json".equals(contentType)){
-            ServerResponse serverResponse;
+            WebResponse serverResponse;
             if (e instanceof CustomizeException){
-                serverResponse=ServerResponse.createByErrorMessage(e.getMessage());
+                serverResponse= WebResponse.createByErrorMessage(e.getMessage());
             }
             else{
-              serverResponse=ServerResponse.createByErrorMessage("老兵之家炸了，稍后再来看吧");
+              serverResponse= WebResponse.createByErrorMessage("老兵之家炸了，稍后再来看吧");
             }
             try {
                 response.setContentType("application/json");

@@ -1,11 +1,11 @@
 package com.awakeyo.community.controller;
 
-import com.awakeyo.community.common.ServerResponse;
+import com.awakeyo.community.common.WebResponse;
 import com.awakeyo.community.exception.CustomizeException;
 import com.awakeyo.community.pojo.Comment;
 import com.awakeyo.community.pojo.Reply;
+import com.awakeyo.community.pojo.User;
 import com.awakeyo.community.pojo.dto.QuestionDTO;
-import com.awakeyo.community.pojo.dto.User;
 import com.awakeyo.community.service.CommentReplyService;
 import com.awakeyo.community.service.QustionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 
 /**
  * @author awakeyoyoyo
@@ -30,11 +29,11 @@ public class CommentReplyController {
     private QustionService qustionService;
     @PostMapping("/comment")
     @ResponseBody
-    public ServerResponse docoment(Comment comment, HttpServletRequest request)
+    public WebResponse docoment(Comment comment, HttpServletRequest request)
     {
         User user= (User)request.getSession().getAttribute("user");
         if (user==null){
-            return ServerResponse.createByErrorMessage("NEED_LOGIN");
+            return WebResponse.createByErrorMessage("NEED_LOGIN");
         }
         comment.setFromUid(user.getAccountId());
         return commentReplyService.writeComent(comment);
@@ -42,11 +41,11 @@ public class CommentReplyController {
 
     @PostMapping("/reply")
     @ResponseBody
-    public ServerResponse doReply(Reply reply, HttpServletRequest request)
+    public WebResponse doReply(Reply reply, HttpServletRequest request)
     {
         User user= (User)request.getSession().getAttribute("user");
         if (user==null){
-            return ServerResponse.createByErrorMessage("NEED_LOGIN");
+            return WebResponse.createByErrorMessage("NEED_LOGIN");
         }
         reply.setFormUid(user.getAccountId());
         return commentReplyService.writeReply(reply);

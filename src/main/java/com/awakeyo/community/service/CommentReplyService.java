@@ -3,15 +3,11 @@ package com.awakeyo.community.service;
 import com.awakeyo.community.common.NotificationStatusEnum;
 import com.awakeyo.community.common.NotificationTypeEnum;
 import com.awakeyo.community.common.ResponseCode;
-import com.awakeyo.community.common.ServerResponse;
+import com.awakeyo.community.common.WebResponse;
 import com.awakeyo.community.mapper.*;
-import com.awakeyo.community.pojo.Comment;
-import com.awakeyo.community.pojo.Notification;
-import com.awakeyo.community.pojo.Question;
-import com.awakeyo.community.pojo.Reply;
+import com.awakeyo.community.pojo.*;
 import com.awakeyo.community.pojo.dto.CommentDTO;
 import com.awakeyo.community.pojo.dto.ReplyDTO;
-import com.awakeyo.community.pojo.dto.User;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,26 +34,26 @@ public class CommentReplyService {
     @Autowired
     private NotificationMapper notificationMapper;
     @Transactional
-    public ServerResponse writeComent(Comment comment) {
+    public WebResponse writeComent(Comment comment) {
         //todo 枚举类来处理异常消息
         if (comment.getContent()==null||comment.getContent().trim().isEmpty()){
-            return ServerResponse.createByErrorMessage("no content");
+            return WebResponse.createByErrorMessage("no content");
         }
 
         int row =userMapper.selectByaccoun_id(comment.getFromUid());
         if (row <0) {
-            return ServerResponse.createByErrorMessage("no user");
+            return WebResponse.createByErrorMessage("no user");
         }
         Question question=questionMapper.selectByPrimaryKey(comment.getTopicId());
         if (question==null){
-            return ServerResponse.createByErrorMessage("no question");
+            return WebResponse.createByErrorMessage("no question");
         }
         //写评论。
         comment.setGmtCreate(new Date().getTime());
         comment.setCommentLike(0);
         Long commentId=commentMapper.insert(comment);
         if (commentId<0){
-            return ServerResponse.createByErrorMessage(ResponseCode.ERROR.getDesc());
+            return WebResponse.createByErrorMessage(ResponseCode.ERROR.getDesc());
         }
         comment.setId(commentId);
         questionMapper.updateReplyCountByTopicId(comment.getTopicId());
@@ -67,7 +63,7 @@ public class CommentReplyService {
         commentDTO.setFromUser(user);
         //发送通知
         createCommentNotify(question, user);
-        return ServerResponse.createBySuccess(commentDTO);
+        return WebResponse.createBySuccess(commentDTO);
     }
 
     private void createCommentNotify(Question quesction, User user) {
@@ -87,18 +83,18 @@ public class CommentReplyService {
     }
 
     @Transactional
-    public ServerResponse writeReply(Reply reply) {
+    public WebResponse writeReply(Reply reply) {
         //todo 数据校验
         if (reply.getContent()==null||reply.getContent().trim().isEmpty()){
-            return ServerResponse.createByErrorMessage(ResponseCode.ERROR.getDesc());
+            return WebResponse.createByErrorMessage(ResponseCode.ERROR.getDesc());
         }
         if (reply.getCommentId()==null){
-            return ServerResponse.createByErrorMessage(ResponseCode.ERROR.getDesc());
+            return WebResponse.createByErrorMessage(ResponseCode.ERROR.getDesc());
         }
         User formUser =userMapper.selectUserByaccoun_id(reply.getFormUid());
         User toUser =userMapper.selectUserByaccoun_id(reply.getToUid());
         if (formUser== null||toUser==null) {
-            return ServerResponse.createByErrorMessage(ResponseCode.ERROR.getDesc());
+            return WebResponse.createByErrorMessage(ResponseCode.ERROR.getDesc());
         }
         //回复
         reply.setReplyLike(0);
@@ -112,7 +108,7 @@ public class CommentReplyService {
         Long commentId=reply.getCommentId();
         Integer questionId=commentMapper.selectQuestionId(commentId);
         createReplyNotify(reply.getContent(),formUser,questionId, NotificationTypeEnum.REPLY_COMMENT, toUser.getId());
-        return ServerResponse.createBySuccess(replyDTO);
+        return WebResponse.createBySuccess(replyDTO);
     }
 
     private void createReplyNotify(String outterTitle,User formUser, Integer questionId, NotificationTypeEnum replyComment, Integer id) {

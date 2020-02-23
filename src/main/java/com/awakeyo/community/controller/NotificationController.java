@@ -1,7 +1,6 @@
 package com.awakeyo.community.controller;
 
-import com.awakeyo.community.pojo.dto.NotificationDTO;
-import com.awakeyo.community.pojo.dto.User;
+import com.awakeyo.community.pojo.User;
 import com.awakeyo.community.service.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

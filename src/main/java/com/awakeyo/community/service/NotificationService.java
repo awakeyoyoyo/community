@@ -1,13 +1,11 @@
 package com.awakeyo.community.service;
 
-import com.awakeyo.community.common.NotificationStatusEnum;
 import com.awakeyo.community.common.NotificationTypeEnum;
 import com.awakeyo.community.mapper.NotificationMapper;
 import com.awakeyo.community.mapper.UserMapper;
 import com.awakeyo.community.pojo.Notification;
 import com.awakeyo.community.pojo.PageResult;
 import com.awakeyo.community.pojo.dto.NotificationDTO;
-import com.awakeyo.community.pojo.dto.User;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +13,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 /**
  * @author awakeyoyoyo

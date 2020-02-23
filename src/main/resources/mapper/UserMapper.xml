@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.awakeyo.community.mapper.UserMapper">
-  <resultMap id="BaseResultMap" type="com.awakeyo.community.pojo.dto.User">
+  <resultMap id="BaseResultMap" type="com.awakeyo.community.pojo.User">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="account_id" jdbcType="VARCHAR" property="accountId" />
     <result column="name" jdbcType="VARCHAR" property="name" />
@@ -10,9 +10,10 @@
     <result column="gmt_modified" jdbcType="BIGINT" property="gmtModified" />
     <result column="bio" jdbcType="VARCHAR" property="bio" />
     <result column="avatar_url" jdbcType="VARCHAR" property="avatarUrl" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, account_id, name, token, gmt_create, gmt_modified, bio, avatar_url
+    id, account_id, name, token, gmt_create, gmt_modified, bio, avatar_url, password
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -24,15 +25,17 @@
     delete from cm_User
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.awakeyo.community.pojo.dto.User">
+  <insert id="insert" parameterType="com.awakeyo.community.pojo.User">
     insert into cm_User (id, account_id, name, 
       token, gmt_create, gmt_modified, 
-      bio, avatar_url)
+      bio, avatar_url, password
+      )
     values (#{id,jdbcType=INTEGER}, #{accountId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
       #{token,jdbcType=CHAR}, #{gmtCreate,jdbcType=BIGINT}, #{gmtModified,jdbcType=BIGINT}, 
-      #{bio,jdbcType=VARCHAR}, #{avatarUrl,jdbcType=VARCHAR})
+      #{bio,jdbcType=VARCHAR}, #{avatarUrl,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}
+      )
   </insert>
-  <insert id="insertSelective" parameterType="com.awakeyo.community.pojo.dto.User">
+  <insert id="insertSelective" parameterType="com.awakeyo.community.pojo.User">
     insert into cm_User
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -58,6 +61,9 @@
       </if>
       <if test="avatarUrl != null">
         avatar_url,
+      </if>
+      <if test="password != null">
+        password,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -85,9 +91,12 @@
       <if test="avatarUrl != null">
         #{avatarUrl,jdbcType=VARCHAR},
       </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.awakeyo.community.pojo.dto.User">
+  <update id="updateByPrimaryKeySelective" parameterType="com.awakeyo.community.pojo.User">
     update cm_User
     <set>
       <if test="accountId != null">
@@ -111,10 +120,13 @@
       <if test="avatarUrl != null">
         avatar_url = #{avatarUrl,jdbcType=VARCHAR},
       </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.awakeyo.community.pojo.dto.User">
+  <update id="updateByPrimaryKey" parameterType="com.awakeyo.community.pojo.User">
     update cm_User
     set account_id = #{accountId,jdbcType=VARCHAR},
       name = #{name,jdbcType=VARCHAR},
@@ -122,7 +134,8 @@
       gmt_create = #{gmtCreate,jdbcType=BIGINT},
       gmt_modified = #{gmtModified,jdbcType=BIGINT},
       bio = #{bio,jdbcType=VARCHAR},
-      avatar_url = #{avatarUrl,jdbcType=VARCHAR}
+      avatar_url = #{avatarUrl,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="findByToken" parameterType="java.lang.String" resultMap="BaseResultMap">
@@ -132,17 +145,17 @@
     where token = #{token}
   </select>
   <select id="selectByaccoun_id" parameterType="java.lang.String" resultType="java.lang.Integer">
-    select
-    1
-    from cm_User
-    where account_id = #{accountId}
-  </select>
+  select
+  1
+  from cm_User
+  where account_id = #{accountId}
+</select>
   <update id="updateTokenByAccoundId" parameterType="map" >
-    update cm_User
-    set
-      token = #{token,jdbcType=CHAR}
-    where account_id = #{accountId}
-  </update>
+  update cm_User
+  set
+    token = #{token,jdbcType=CHAR}
+  where account_id = #{accountId}
+</update>
 
   <select id="selectUserByaccoun_id" parameterType="java.lang.String" resultMap="BaseResultMap">
     select
@@ -150,4 +163,11 @@
     from cm_User
     where account_id = #{fromUid}
   </select>
+  <select id="selectByPhoneAndPassowrd" parameterType="map" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from cm_User
+    where account_id = #{phone} and password=#{password}
+  </select>
+
 </mapper>

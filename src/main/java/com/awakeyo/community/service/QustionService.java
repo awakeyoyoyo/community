@@ -1,15 +1,14 @@
 package com.awakeyo.community.service;
 
-import com.awakeyo.community.pojo.Comment;
+import com.awakeyo.community.mapper.UserMapper;
 import com.awakeyo.community.pojo.PageResult;
 import com.awakeyo.community.pojo.Question;
+import com.awakeyo.community.pojo.User;
 import com.awakeyo.community.pojo.dto.CommentDTO;
 import com.awakeyo.community.pojo.dto.QuestionDTO;
-import com.awakeyo.community.pojo.dto.User;
 import com.awakeyo.community.exception.CustomizeException;
 import com.awakeyo.community.exception.QuestionErrorCode;
 import com.awakeyo.community.mapper.QuestionMapper;
-import com.awakeyo.community.mapper.UserMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

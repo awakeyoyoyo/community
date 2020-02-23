@@ -1,5 +1,6 @@
 package com.awakeyo.community.pojo.dto;
 
+import com.awakeyo.community.pojo.User;
 import lombok.Data;
 
 /**
