@@ -152,6 +152,26 @@
      float: right;margin-right: 10px;margin-top: 5px;padding: 2px 2px;padding-left: 7px;
      border-radius: 5px;
  }
- .middleBox{
-     padding:20px 20px;
+ .middleBox {
+     padding: 20px 20px;
+ }
+ .inputSize{
+     width: 600px;
+ }
+ .inputMxgSize{
+     width: 400px;
+ }
+ .btn-Mxg{
+     padding: 7px 10px;
+     border-radius: 10px;
+     margin-top: -37px;
+     margin-right: 100px;
+     float: right;
+ }
+
+ .inputSize-forget{
+     width: 500px;
+ }
+ .inputMxgSize-forget{
+     width: 300px;
  }

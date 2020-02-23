@@ -24,7 +24,13 @@ public class LoginController {
         return "redirect:/";
     }
     @GetMapping("/phoneLogin")
-    public String logout(){
+    public String loginHtml(){
         return "login";
     }
+
+    @GetMapping("/phoneRegister")
+    public String registerHtml(){
+        return "register";
+    }
+
 }
