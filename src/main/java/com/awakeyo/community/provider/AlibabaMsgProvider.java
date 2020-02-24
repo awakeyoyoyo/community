@@ -9,6 +9,9 @@ import com.aliyuncs.exceptions.ServerException;
 import com.aliyuncs.http.MethodType;
 import com.aliyuncs.profile.DefaultProfile;
 import com.awakeyo.community.util.NumberUtil;
+import com.awakeyo.community.util.RedisUtil;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -18,8 +21,11 @@ import org.springframework.stereotype.Service;
  * @date 2020-02-23 22:51
  */
 @Service
+@Slf4j
 public class AlibabaMsgProvider {
-    public void sendMsg(){
+    @Autowired
+    private RedisUtil redisUtil;
+    public void sendMsg(String phone){
         DefaultProfile profile = DefaultProfile.getProfile("cn-hangzhou", "<accessKeyId>", "<accessSecret>");
         IAcsClient client = new DefaultAcsClient(profile);
         CommonRequest request = new CommonRequest();
@@ -28,7 +34,7 @@ public class AlibabaMsgProvider {
         request.setVersion("2017-05-25");
         request.setAction("SendSms");
         request.putQueryParameter("RegionId", "cn-hangzhou");
-        request.putQueryParameter("PhoneNumbers", "13316311153");
+        request.putQueryParameter("PhoneNumbers", phone);
         request.putQueryParameter("SignName", "与我常在blog");
         request.putQueryParameter("TemplateCode", "SMS_184121028");
         String code=NumberUtil.randomNumber();
@@ -36,10 +42,13 @@ public class AlibabaMsgProvider {
         try {
             CommonResponse response = client.getCommonResponse(request);
             System.out.println(response.getData());
-            //todo redis缓存验证码 并且设置时间
+            //存入缓存中5分钟
+            redisUtil.set(phone,code,60*5);
         } catch (ServerException e) {
+            log.error("发送验证码失败错误信息{}",e.getMessage());
             e.printStackTrace();
         } catch (ClientException e) {
+            log.error("发送验证码失败，错误信息{}",e.getMessage());
             e.printStackTrace();
         }
     }

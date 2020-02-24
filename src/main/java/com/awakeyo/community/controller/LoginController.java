@@ -48,6 +48,10 @@ public class LoginController {
 
 
     }
+    @PostMapping("/register")
+    public String register(){
+        return null;
+    }
     @GetMapping("/phoneLogin")
     public String loginHtml(){
         return "login";
