@@ -20,7 +20,7 @@ public interface UserMapper {
 
     void updateTokenByAccoundId(@Param("token") String token, @Param("accountId") String accountId);
 
-    int selectByaccoun_id(String accountId);
+    Integer selectByaccoun_id(String accountId);
 
     User selectUserByaccoun_id(String fromUid);
 

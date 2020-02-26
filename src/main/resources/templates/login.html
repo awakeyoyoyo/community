@@ -34,7 +34,7 @@
             </div>
             <div class="checkbox">
                 <label>
-                    <input type="checkbox" name="remember"> 记住我
+                    <input type="checkbox" name="remember" checked="checked" > 记住我
                 </label>
             </div>
             <br>
@@ -55,7 +55,16 @@
                 <strong>注意!</strong>
                 <p th:text="${errorMxg}"></p>
             </div>
+            <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12" style="border-right: #9d9d9d">
+                <div class="alert alert-info alert-dismissible msg-publish" role="alert" th:if="${Mxg!=null}">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span>
+                    </button>
+                    <strong>注意!</strong>
+                    <p th:text="${Mxg}"></p>
+                </div>
+            </div>
         </div>
+
     </div>
 </div>
 <div th:insert="footer::foot"></div>

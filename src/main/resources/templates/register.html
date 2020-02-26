@@ -21,30 +21,48 @@
             </div>
         </div>
         <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 left-box color-aaaa textbox textComentSize middleBox" style="height: 400px;padding-top: 30px" >
+            <form method="post" action="/register">
             <div class="form-group">
-                <label for="exampleInputEmail1">手机号</label>
-                <input type="email" class="form-control inputSize" id="exampleInputEmail1" placeholder="手机号">
+                <label >手机号:</label>
+                <input type="text" class="form-control inputSize" name="phone"  placeholder="手机号">
             </div>
 
             <div class="form-group">
-                <label for="exampleInputPassword1">验证码</label>
+                <label>验证码:</label>
                 <br>
-                <input type="password" class="form-control inputMxgSize" id="InputMessage" placeholder="验证码" >
-                <button class="btn-info btn-Mxg" >获取验证码</button>
+                <input type="text" class="form-control inputMxgSize" name="code"  placeholder="验证码" >
+                <button class="btn-info btn-Mxg ">获取验证码</button>
+<!--btn-primary disabled="disabled"-->
             </div>
 
             <div class="form-group" style="margin-top: 10px">
-                <label for="exampleInputPassword1">用户名:</label>
-                <input type="password" class="form-control inputSize" id="userName" placeholder="用户名">
+                <label >用户名:</label>
+                <input type="text" class="form-control inputSize" name="username"  placeholder="用户名">
             </div>
 
             <div class="form-group">
-                <label for="exampleInputPassword1">密码</label>
-                <input type="password" class="form-control inputSize" id="exampleInputPassword1" placeholder="密码">
+                <label >密码</label>
+                <input type="password" class="form-control inputSize" name="password"  placeholder="密码">
             </div>
             <button type="submit" class="btn btn-default">注册</button>
+            </form>
         </div>
         <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12" style="border-right: #9d9d9d">
+
+            <div class="alert alert-warning alert-dismissible msg-publish" role="alert" th:if="${errorMxg!=null}">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                <strong>注意!</strong>
+                <p th:text="${errorMxg}"></p>
+            </div>
+            <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12" style="border-right: #9d9d9d">
+                <div class="alert alert-info alert-dismissible msg-publish" role="alert" th:if="${Mxg!=null}">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span>
+                    </button>
+                    <strong>哟西!</strong>
+                    <p th:text="${Mxg}"></p>
+                </div>
+            </div>
         </div>
     </div>
 </div>

@@ -1,6 +1,7 @@
 package com.awakeyo.community.util;
 
 import com.awakeyo.community.pojo.User;
+import com.github.afkbrb.avatar.Avatar;
 import org.junit.Test;
 import org.junit.internal.runners.JUnit4ClassRunner;
 import org.junit.runner.RunWith;
@@ -30,8 +31,7 @@ public class RedisTest {
    }
     @Test
     public void test2(){
-        User user1=(User)redisUtil.get("user");
-        System.out.println(user1.getName());
-
+        Avatar avatar = new Avatar();
+        avatar.saveAsPNG("avatar.png");
     }
 }

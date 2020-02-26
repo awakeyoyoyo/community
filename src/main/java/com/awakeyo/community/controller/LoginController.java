@@ -2,6 +2,7 @@ package com.awakeyo.community.controller;
 
 import com.awakeyo.community.common.WebResponse;
 import com.awakeyo.community.pojo.User;
+import com.awakeyo.community.pojo.dto.RegisterDto;
 import com.awakeyo.community.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -35,10 +36,21 @@ public class LoginController {
     @PostMapping("/login")
     public String login(@RequestParam(name = "loginPhone")String phone,
                         @RequestParam("password") String password,
-                        @RequestParam("remember") boolean remember,
+                        @RequestParam(name = "remember",defaultValue = "true") boolean remember,
                         HttpServletResponse response, HttpServletRequest request, Model model){
+        if (phone.isEmpty()){
+            model.addAttribute("errorMxg","手机号不能为空");
+            return "login";
+        }
+        if (password.isEmpty()){
+            model.addAttribute("errorMxg","密码不能为空");
+            return "login";
+        }
         WebResponse<User> webResponse=userService.login(phone,password,remember,response);
         if (webResponse.isSuccess()){
+            if (remember){
+                //todo记住我哦
+            }
             request.getSession().setAttribute("user",webResponse.getData());
             return "redirect:/";
         }else {
@@ -49,8 +61,31 @@ public class LoginController {
 
     }
     @PostMapping("/register")
-    public String register(){
-        return null;
+    public String register(RegisterDto registerDto,Model model){
+        if (registerDto.getPhone().isEmpty()){
+            model.addAttribute("errorMxg","手机号不能为空");
+            return "register";
+        }
+        if (registerDto.getCode().isEmpty()){
+            model.addAttribute("errorMxg","验证码不能为空");
+            return "register";
+        }
+        if (registerDto.getUsername().isEmpty()){
+            model.addAttribute("errorMxg","用户名不能为空");
+            return "register";
+        }
+        if (registerDto.getPassword().isEmpty()){
+            model.addAttribute("errorMxg","密码不能为空");
+            return "register";
+        }
+        WebResponse webResponse=userService.register(registerDto);
+        if (webResponse.isSuccess()){
+            model.addAttribute("Mxg","注册好了请登录试试看");
+            return  "login";
+        }else {
+            model.addAttribute("errorMxg",webResponse.getMsg());
+            return  "register";
+        }
     }
     @GetMapping("/phoneLogin")
     public String loginHtml(){

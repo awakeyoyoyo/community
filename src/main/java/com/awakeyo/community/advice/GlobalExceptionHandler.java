@@ -3,6 +3,7 @@ package com.awakeyo.community.advice;
 import com.alibaba.fastjson.JSON;
 import com.awakeyo.community.common.WebResponse;
 import com.awakeyo.community.exception.CustomizeException;
+import com.awakeyo.community.exception.RedisException;
 import org.springframework.http.HttpStatus;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -32,9 +33,10 @@ public class GlobalExceptionHandler {
             WebResponse serverResponse;
             if (e instanceof CustomizeException){
                 serverResponse= WebResponse.createByErrorMessage(e.getMessage());
-            }
-            else{
-              serverResponse= WebResponse.createByErrorMessage("老兵之家炸了，稍后再来看吧");
+            } else if (e instanceof RedisException) {
+                serverResponse= WebResponse.createByErrorMessage(e.getMessage());
+            } else {
+                serverResponse = WebResponse.createByErrorMessage("老兵之家炸了，稍后再来看吧");
             }
             try {
                 response.setContentType("application/json");
@@ -54,7 +56,9 @@ public class GlobalExceptionHandler {
             model.addAttribute("status", status.value());
             if (e instanceof CustomizeException) {
                 model.addAttribute("message", e.getMessage());
-            } else {
+            } else if (e instanceof RedisException) {
+                model.addAttribute("message", e.getMessage());
+            }else {
                 model.addAttribute("message", "老兵之家炸了，稍后再来看吧");
             }
             return new ModelAndView("error");
