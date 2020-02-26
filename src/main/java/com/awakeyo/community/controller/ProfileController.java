@@ -42,12 +42,14 @@ public class ProfileController {
         }
         if ("questions".equals(action)){
             model.addAttribute("section","questions");
-            model.addAttribute("sectionName","我的提问");
+            model.addAttribute("sectionName","提问");
+            model.addAttribute("title","提问 - 与我常在's blog");
             PageResult<QuestionDTO> pageResult=qustionService.getListByUserid(user.getId(),pageNo,pageSize);
             model.addAttribute("pageResult",pageResult);
         }else if ("replies".equals(action)){
             model.addAttribute("section","replies");
-            model.addAttribute("sectionName","我的通知");
+            model.addAttribute("sectionName","通知");
+            model.addAttribute("title","通知 - 与我常在's blog");
             PageResult<NotificationDTO> pageResult=notificationService.getListByUserid(user.getId(),pageNo,pageSize);
             model.addAttribute("pageResult",pageResult);
         }
