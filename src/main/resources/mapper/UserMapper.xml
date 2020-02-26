@@ -155,7 +155,13 @@
   set
     token = #{token,jdbcType=CHAR}
   where account_id = #{accountId}
-</update>
+    </update>
+  <update id="updatePasswordByPhone" parameterType="map" >
+  update cm_User
+  set
+    password = #{newPassword}
+  where account_id = #{phone}
+    </update>
 
   <select id="selectUserByaccoun_id" parameterType="java.lang.String" resultMap="BaseResultMap">
     select

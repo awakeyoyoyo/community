@@ -50,4 +50,17 @@ public class RedisUtil {
     public Object get(String key) {
         return redisTemplate.opsForValue().get(key);
     }
+
+    /**
+     * 实现命令 : DELETE key
+     * 删除一个key&value
+     *
+     * @param key
+     * @return boolean
+     */
+    public  boolean del(final String key) {
+
+        Boolean ret = redisTemplate.delete(key);
+        return ret != null && ret;
+    }
 }

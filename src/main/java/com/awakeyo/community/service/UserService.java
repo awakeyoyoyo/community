@@ -4,6 +4,7 @@ import com.awakeyo.community.common.WebResponse;
 import com.awakeyo.community.exception.RedisException;
 import com.awakeyo.community.mapper.UserMapper;
 import com.awakeyo.community.pojo.User;
+import com.awakeyo.community.pojo.dto.ChangePwdDto;
 import com.awakeyo.community.pojo.dto.RegisterDto;
 import com.awakeyo.community.util.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,7 @@ public class UserService {
     private UserMapper userMapper;
     @Autowired
     private RedisUtil redisUtil;
+
     public void createOrUpdate(User user) {
         if (userMapper.selectByaccoun_id(user.getAccountId())==null){
             user.setGmtCreate(new Date().getTime());
@@ -67,7 +69,10 @@ public class UserService {
         if (targetCode==null){
             return WebResponse.createByErrorMessage("验证码已经过期，请重新发送");
         }
-        if (targetCode==registerDto.getCode()){
+        if (targetCode.equals(registerDto.getCode())){
+            if (userMapper.selectByaccoun_id(registerDto.getPhone())!=null){
+                return WebResponse.createByErrorMessage("该手机已经注册了,请勿重新注册");
+            }
             User user=new User();
             user.setName(registerDto.getUsername());
             user.setGmtCreate(new Date().getTime());
@@ -80,10 +85,37 @@ public class UserService {
             user.setAccountId(registerDto.getPhone());
             user.setGmtModified(new Date().getTime());
             userMapper.insert(user);
+            redisUtil.del(registerDto.getPhone());
             return WebResponse.createBySuccess();
         }else {
             return WebResponse.createByErrorMessage("验证码错误，请重新输入");
         }
 
+    }
+
+    public WebResponse chargePwd(ChangePwdDto changePwdDto) {
+        String targetCode=null;
+        if (userMapper.selectByaccoun_id(changePwdDto.getPhone()) == null) {
+            return WebResponse.createByErrorMessage("这个手机都没注册过，就来修改密码,别捣乱兄弟");
+        }
+        try {
+            targetCode=(String) redisUtil.get(changePwdDto.getPhone());
+        }catch (Exception e){
+            throw new RedisException("Redis服务器炸了兄弟。。请帮忙联系一下站主");
+        }
+        if (targetCode==null){
+            return WebResponse.createByErrorMessage("验证码已经过期，请重新发送");
+        }
+        if (targetCode.equals(changePwdDto.getCode())) {
+           Integer rowcount= userMapper.updatePasswordByPhone(changePwdDto.getPhone(),changePwdDto.getNewPassword());
+            if (rowcount<=0){
+                return WebResponse.createByErrorMessage("修改密码失败请稍后再试试");
+            }
+            else {
+                return WebResponse.createBySuccessMessage("修改密码成功现在就登陆试试吧");
+            }
+        }else {
+            return WebResponse.createByErrorMessage("验证码错误，请重新输入");
+        }
     }
 }

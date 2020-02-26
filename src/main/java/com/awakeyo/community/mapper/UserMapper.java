@@ -25,4 +25,6 @@ public interface UserMapper {
     User selectUserByaccoun_id(String fromUid);
 
     User selectByPhoneAndPassowrd(@Param("phone") String phone,@Param("password") String password);
+
+    Integer updatePasswordByPhone(@Param("phone")String phone, @Param("newPassword")String newPassword);
 }

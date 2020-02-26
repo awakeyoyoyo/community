@@ -1,4 +1,38 @@
 var t = null;
+function sendcode() {
+    var value=$("input[name='phone']").val();
+    if(!(/^1[3456789]\d{9}$/.test(value))){
+        alert("请输入正确手机号")
+    }else {
+        $.ajax({
+            url: "http://localhost:8080/getCode?phone="+value,
+            type: "get",
+            success: function (response) {
+                if (response.status == 200) {
+                } else {
+                    alert("发送失败，服务器可能炸了请稍后再试试");
+                }
+                console.log(response);
+            },
+        })
+        btnCheck();
+    }
+
+
+}
+function btnCheck() {
+    var time = 60;
+    $("#GetCode").attr("disabled", "disabled");
+    var timer = setInterval(function () {
+        if (time == 0) {
+            clearInterval(timer);
+            $("#GetCode").val("获取验证码");
+        } else {
+            $("#GetCode").val(time + "秒后可重新发送");
+            time--;
+        }
+    }, 1000);
+}
 function time(creatTime)
 {
     clearTimeout(t);//清除定时器

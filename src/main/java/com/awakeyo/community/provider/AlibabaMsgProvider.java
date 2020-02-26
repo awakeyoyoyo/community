@@ -12,6 +12,7 @@ import com.awakeyo.community.util.NumberUtil;
 import com.awakeyo.community.util.RedisUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 /**
@@ -25,8 +26,12 @@ import org.springframework.stereotype.Service;
 public class AlibabaMsgProvider {
     @Autowired
     private RedisUtil redisUtil;
+    @Value("${alibabaoss.accessKeyId}")
+    private String accessKeyId;
+    @Value("${alibabaoss.accessKeySecret}")
+    private String accessKeySecret;
     public void sendMsg(String phone){
-        DefaultProfile profile = DefaultProfile.getProfile("cn-hangzhou", "<accessKeyId>", "<accessSecret>");
+        DefaultProfile profile = DefaultProfile.getProfile("cn-hangzhou",accessKeyId,accessKeySecret);
         IAcsClient client = new DefaultAcsClient(profile);
         CommonRequest request = new CommonRequest();
         request.setMethod(MethodType.POST);
