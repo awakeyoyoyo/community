@@ -71,10 +71,12 @@
      border-left: #999999 3px solid;
      padding-left: 10px;
  }
- .left-box{
+ .middle-box{
+     position:relative;
      border-right: #e5e5e5 3px solid;
      border-left: #e5e5e5 3px solid;
-
+     height: 625px;
+     border-radius: 5px;
  }
  .bottom-box{
      border-bottom: #e5e5e5 2px solid;
@@ -136,6 +138,12 @@
      margin-bottom: 10px;
      border-radius: 5px;
  }
+ .musicBox{
+     padding: 5px 20px;
+     padding-left: 10px;
+     margin-bottom: 10px;
+     border-radius: 5px;
+ }
  .laoMei{
      margin-top: 25px;
      margin-left:50px;
@@ -179,3 +187,8 @@
  .inputMxgSize-forget{
      width: 300px;
  }
+ .PageStyle{
+     position:absolute;
+     bottom:0;
+ }
+ .left-box{}
