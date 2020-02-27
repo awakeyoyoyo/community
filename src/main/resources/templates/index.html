@@ -11,18 +11,24 @@
 </head>
 <body>
 <div th:insert="navigation::nav"></div>
+<div class="" style="height: 200px;width: 100%;text-align: center">
+    <img class="img-title img-rounded boxShadow" src="/images/daitu.png" alt="...">
+    <img class="img-title img-rounded boxShadow" src="/images/didala.png" alt="...">
+    <img class="img-title img-rounded boxShadow" src="/images/peipei.png" alt="...">
+    <img class="img-title img-rounded boxShadow" src="/images/you.png" alt="...">
+</div>
 <div class="container-fluid main">
     <div class="row">
         <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12 left-box " style="border-right: #9d9d9d">
 
-            <div class="color-aaaa musicBox">
+            <div class="color-aaaa musicBox boxShadow">
                 <h4>我很清楚，我冇计错数，5首！</h4>
                 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
                 <script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script>
                 <div id="aplayer" class="aplayer"  data-id="4884354768" data-server="netease" data-type="playlist" data-fixed="false" data-listfolded="true" data-order="list" data-theme="#F58EA8" style="width: 100%"></div>
                 <script src="https://unpkg.com/meting@1.2/dist/Meting.min.js"></script>
             </div>
-            <div class="color-aaaa textbox">
+            <div class="color-aaaa textbox boxShadow">
                 <h3>站主:</h3>
                 <div>
                     <img  class="img-thumbnail img-index" src="http://oss.awakeyoyoyo.com/community/39197200.jpeg"
@@ -44,30 +50,112 @@
             </div>
 
         </div>
-        <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 middle-box color-aaaa">
-            <h2 class="bottom-box" style="padding-bottom: 20px"><span class="glyphicon glyphicon-list" aria-hidden="true"></span> 发现</h2>
-            <div class="media bottom-box" th:each="question:${pageResult.reslts}">
-                <div class="media-left">
-                    <a href="#">
-                        <img class="media-object img-rounded img-public"
-                            th:src="${question.user.avatarUrl}" alt="...">
-                    </a>
+        <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 middle-box-index " >
+<!--            博客-->
+            <div class="panel panel-info">
+                <div class="panel-heading" style="padding: 3px 10px">
+                    <h4><a href="#" class="blogtext">comparator和comparable的区别</a></h4>
                 </div>
-                <div class="media-body ">
+                <div class="panel-body">
+                    <P class="text-desc " >
+                        <span class="glyphicon  glyphicon-user" aria-hidden="true"></span>
+                        作者：<span>lqhao</span> |
+                        <span class="glyphicon glyphicon glyphicon-calendar" aria-hidden="true"></span>
 
-                    <h4 class="media-heading" >
-                        <a th:href="@{'/question/'+${question.id}}"  class="weight-less" th:text="${question.title}"></a>
-                    </h4>
-                    <br>
-                    <P class="text-desc" >
-                        <span th:text="${question.commentCount}"></span>个回复-
-                        <span th:text="${question.viewCount}"></span>浏览-
-                        <span th:text="${#dates.format(question.getGmtCreate(),'yyyy-MM-dd HH:mm:ss')}"></span>
-                        </P>
+                        发布时间：<span >2019-07-16</span> |
+                        <span class="glyphicon glyphicon-signal" aria-hidden="true"></span>
+                        阅读数：<span >20</span>
+                        <br>
+                    </P>
+<!--                    -->
+                    <p class="blogtext">
+                        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp comparator和comparable都是用来实现集合中元素的排序比较的。Comparator位于包java.util下，而Comparable位于包java.lang下。他们之间的区别在于用法上。Comparator 是一个专用的比较器，当这个对象不支持自比较或者自比较函数不能满足你的要求时，你可以写一个比较器来完成两个对象之间大小的比较。Comparable 是一个对象本身就已经支持自比较所需要实现的接口（如 String、Integer 自己就可以完成比较大小操作，已经实现了Comparable接口），对自己写的类实现这一接口来实现按自己规则排序。总结起来就是comparator在外。comparable在内...
+                    </p>
+                    <p><h5><a href="#" class="blogtext bottom-box btn-aaaa">阅读全文<span class="glyphicon glyphicon-menu-right"></span></a></h5></p>
+                    <a class="btn-aaaa" href="#" ><span class="label label-info question-tag ">
+                    <span class=" question-tag glyphicon glyphicon-tags"></span>
+                        <span class="label label-info" >java</span>
+                    </span></a>
+                    <a href="#" class="btn-aaaa" ><span class="label label-info question-tag ">
+                    <span class=" question-tag glyphicon glyphicon-tags"></span>
+                        <span class="label label-info" >java</span>
+                    </span></a>
+                    <a href="#" class="btn-aaaa"><span class="label label-info question-tag ">
+                    <span class=" question-tag glyphicon glyphicon-tags"></span>
+                        <span class="label label-info" >java</span>
+                    </span></a>
                 </div>
-
             </div>
-            <nav aria-label="Page navigation " class="PageStyle" >
+            <div class="panel panel-info">
+                <div class="panel-heading" style="padding: 3px 10px">
+                    <h4><a href="#" class="blogtext">comparator和comparable的区别</a></h4>
+                </div>
+                <div class="panel-body">
+                    <P class="text-desc " >
+                        <span class="glyphicon  glyphicon-user" aria-hidden="true"></span>
+                        作者：<span>lqhao</span> |
+                        <span class="glyphicon glyphicon glyphicon-calendar" aria-hidden="true"></span>
+
+                        发布时间：<span >2019-07-16</span> |
+                        <span class="glyphicon glyphicon-signal" aria-hidden="true"></span>
+                        阅读数：<span >20</span>
+                        <br>
+                    </P>
+                    <!--                    -->
+                    <p class="blogtext">
+                        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp comparator和comparable都是用来实现集合中元素的排序比较的。Comparator位于包java.util下，而Comparable位于包java.lang下。他们之间的区别在于用法上。Comparator 是一个专用的比较器，当这个对象不支持自比较或者自比较函数不能满足你的要求时，你可以写一个比较器来完成两个对象之间大小的比较。Comparable 是一个对象本身就已经支持自比较所需要实现的接口（如 String、Integer 自己就可以完成比较大小操作，已经实现了Comparable接口），对自己写的类实现这一接口来实现按自己规则排序。总结起来就是comparator在外。comparable在内...
+                    </p>
+                    <p><h5><a href="#" class="blogtext bottom-box btn-aaaa">阅读全文<span class="glyphicon glyphicon-menu-right"></span></a></h5></p>
+                    <a class="btn-aaaa" href="#" ><span class="label label-info question-tag ">
+                    <span class=" question-tag glyphicon glyphicon-tags"></span>
+                        <span class="label label-info" >java</span>
+                    </span></a>
+                    <a href="#" class="btn-aaaa" ><span class="label label-info question-tag ">
+                    <span class=" question-tag glyphicon glyphicon-tags"></span>
+                        <span class="label label-info" >java</span>
+                    </span></a>
+                    <a href="#" class="btn-aaaa"><span class="label label-info question-tag ">
+                    <span class=" question-tag glyphicon glyphicon-tags"></span>
+                        <span class="label label-info" >java</span>
+                    </span></a>
+                </div>
+            </div>
+            <div class="panel panel-info">
+                <div class="panel-heading"style="padding: 3px 10px">
+                    <h4><a href="#" class="blogtext">comparator和comparable的区别</a></h4>
+                </div>
+                <div class="panel-body">
+                    <P class="text-desc " >
+                        <span class="glyphicon  glyphicon-user" aria-hidden="true"></span>
+                        作者：<span>lqhao</span> |
+                        <span class="glyphicon glyphicon glyphicon-calendar" aria-hidden="true"></span>
+
+                        发布时间：<span >2019-07-16</span> |
+                        <span class="glyphicon glyphicon-signal" aria-hidden="true"></span>
+                        阅读数：<span >20</span>
+                        <br>
+                    </P>
+                    <!--                    -->
+                    <p class="blogtext">
+                        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp comparator和comparable都是用来实现集合中元素的排序比较的。Comparator位于包java.util下，而Comparable位于包java.lang下。他们之间的区别在于用法上。Comparator 是一个专用的比较器，当这个对象不支持自比较或者自比较函数不能满足你的要求时，你可以写一个比较器来完成两个对象之间大小的比较。Comparable 是一个对象本身就已经支持自比较所需要实现的接口（如 String、Integer 自己就可以完成比较大小操作，已经实现了Comparable接口），对自己写的类实现这一接口来实现按自己规则排序。总结起来就是comparator在外。comparable在内...
+                    </p>
+                    <p><h5><a href="#" class="blogtext bottom-box btn-aaaa">阅读全文<span class="glyphicon glyphicon-menu-right"></span></a></h5></p>
+                    <a class="btn-aaaa" href="#" ><span class="label label-info question-tag ">
+                    <span class=" question-tag glyphicon glyphicon-tags"></span>
+                        <span class="label label-info" >java</span>
+                    </span></a>
+                    <a href="#" class="btn-aaaa" ><span class="label label-info question-tag ">
+                    <span class=" question-tag glyphicon glyphicon-tags"></span>
+                        <span class="label label-info" >java</span>
+                    </span></a>
+                    <a href="#" class="btn-aaaa"><span class="label label-info question-tag ">
+                    <span class=" question-tag glyphicon glyphicon-tags"></span>
+                        <span class="label label-info" >java</span>
+                    </span></a>
+                </div>
+            </div>
+
+            <nav aria-label="Page navigation " class="PageStyle-blog">
                 <ul class="pagination">
                     <li>
                         <a th:href="@{/(pageNo=1,search=${search})}" aria-label="Previous">
@@ -96,34 +184,34 @@
             </nav>
         </div>
         <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12" style="border-right: #9d9d9d">
-            <div class="textbox bg-danger" >
+            <div class="textbox bg-danger boxShadow" >
                 <div class="laoMei">
                 <p>没有如果</p>
                 <p style="margin-left: 40px">错过便是错过。</p>
                     <p style="margin-left: 170px;font-size: 20px">---lqh</p>
                 </div>
             </div>
-            <div class="textbox color-aaaa">
+            <div class="textbox color-aaaa boxShadow">
                 <h3>热门话题：</h3>
                 <ul class="web-ul">
                     <li>
-                        <a href="#">如何使用spingboot</a>
+                        <a href="#" class="btn-aaaa">如何使用spingboot</a>
                     </li>
 
                     <li>
-                        <a href="#">如何使用spingboot</a>
+                        <a href="#" class="btn-aaaa">如何使用spingboot</a>
                     </li>
 
                     <li>
-                        <a href="#">如何使用spingboot</a>
+                        <a href="#" class="btn-aaaa">如何使用spingboot</a>
                     </li>
 
                     <li>
-                        <a href="#">如何使用spingboot</a>
+                        <a href="#" class="btn-aaaa">如何使用spingboot</a>
                     </li>
                 </ul>
             </div>
-            <div class="textbox color-aaaa">
+            <div class="textbox color-aaaa boxShadow">
                 <h3>网站信息</h3>
                 <ul class="web-ul">
                     <li>

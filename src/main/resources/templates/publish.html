@@ -42,6 +42,12 @@
 </head>
 <body>
 <div th:insert="navigation::nav"></div>
+<div class="" style="height: 200px;width: 100%;text-align: center">
+    <img class="img-title img-rounded boxShadow" src="/images/daitu.png" alt="...">
+    <img class="img-title img-rounded boxShadow" src="/images/didala.png" alt="...">
+    <img class="img-title img-rounded boxShadow" src="/images/peipei.png" alt="...">
+    <img class="img-title img-rounded boxShadow" src="/images/you.png" alt="...">
+</div>
 <!--<div class="alert alert-success" role="alert" th:text="${error}" th:if="${error!=null}"></div>-->
 <div class="alert alert-warning alert-dismissible msg-publish" role="alert" th:if="${error!=null}">
     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span>
@@ -49,7 +55,7 @@
     <strong>注意!</strong>
     <p th:text="${error}"></p>
 </div>
-<div class="container-fluid main color-aaaa">
+<div class="container-fluid main color-aaaa boxShadow">
     <div class="row">
         <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12 left-box">
             <h2><span class="glyphicon glyphicon-book" aria-hidden="true"></span> 发起</h2>

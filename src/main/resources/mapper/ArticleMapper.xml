@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.awakeyo.community.mapper.ArticleMapper">
+  <resultMap id="BaseResultMap" type="com.awakeyo.community.pojo.Article">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="gmt_create" jdbcType="BIGINT" property="gmtCreate" />
+    <result column="gtm_modifiled" jdbcType="BIGINT" property="gtmModifiled" />
+    <result column="creator" jdbcType="INTEGER" property="creator" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="view_count" jdbcType="INTEGER" property="viewCount" />
+    <result column="like_count" jdbcType="INTEGER" property="likeCount" />
+    <result column="tag" jdbcType="VARCHAR" property="tag" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.awakeyo.community.pojo.ArticleWithBLOBs">
+    <result column="decription" jdbcType="LONGVARCHAR" property="decription" />
+    <result column="content" jdbcType="LONGVARCHAR" property="content" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, gmt_create, gtm_modifiled, creator, title, view_count, like_count, tag
+  </sql>
+  <sql id="Blob_Column_List">
+    decription, content
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from cm_article
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from cm_article
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.awakeyo.community.pojo.ArticleWithBLOBs">
+    insert into cm_article (id, gmt_create, gtm_modifiled, 
+      creator, title, view_count, 
+      like_count, tag, decription, 
+      content)
+    values (#{id,jdbcType=INTEGER}, #{gmtCreate,jdbcType=BIGINT}, #{gtmModifiled,jdbcType=BIGINT}, 
+      #{creator,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{viewCount,jdbcType=INTEGER}, 
+      #{likeCount,jdbcType=INTEGER}, #{tag,jdbcType=VARCHAR}, #{decription,jdbcType=LONGVARCHAR}, 
+      #{content,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.awakeyo.community.pojo.ArticleWithBLOBs">
+    insert into cm_article
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create,
+      </if>
+      <if test="gtmModifiled != null">
+        gtm_modifiled,
+      </if>
+      <if test="creator != null">
+        creator,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="viewCount != null">
+        view_count,
+      </if>
+      <if test="likeCount != null">
+        like_count,
+      </if>
+      <if test="tag != null">
+        tag,
+      </if>
+      <if test="decription != null">
+        decription,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="gmtCreate != null">
+        #{gmtCreate,jdbcType=BIGINT},
+      </if>
+      <if test="gtmModifiled != null">
+        #{gtmModifiled,jdbcType=BIGINT},
+      </if>
+      <if test="creator != null">
+        #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="viewCount != null">
+        #{viewCount,jdbcType=INTEGER},
+      </if>
+      <if test="likeCount != null">
+        #{likeCount,jdbcType=INTEGER},
+      </if>
+      <if test="tag != null">
+        #{tag,jdbcType=VARCHAR},
+      </if>
+      <if test="decription != null">
+        #{decription,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.awakeyo.community.pojo.ArticleWithBLOBs">
+    update cm_article
+    <set>
+      <if test="gmtCreate != null">
+        gmt_create = #{gmtCreate,jdbcType=BIGINT},
+      </if>
+      <if test="gtmModifiled != null">
+        gtm_modifiled = #{gtmModifiled,jdbcType=BIGINT},
+      </if>
+      <if test="creator != null">
+        creator = #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="viewCount != null">
+        view_count = #{viewCount,jdbcType=INTEGER},
+      </if>
+      <if test="likeCount != null">
+        like_count = #{likeCount,jdbcType=INTEGER},
+      </if>
+      <if test="tag != null">
+        tag = #{tag,jdbcType=VARCHAR},
+      </if>
+      <if test="decription != null">
+        decription = #{decription,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.awakeyo.community.pojo.ArticleWithBLOBs">
+    update cm_article
+    set gmt_create = #{gmtCreate,jdbcType=BIGINT},
+      gtm_modifiled = #{gtmModifiled,jdbcType=BIGINT},
+      creator = #{creator,jdbcType=INTEGER},
+      title = #{title,jdbcType=VARCHAR},
+      view_count = #{viewCount,jdbcType=INTEGER},
+      like_count = #{likeCount,jdbcType=INTEGER},
+      tag = #{tag,jdbcType=VARCHAR},
+      decription = #{decription,jdbcType=LONGVARCHAR},
+      content = #{content,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.awakeyo.community.pojo.Article">
+    update cm_article
+    set gmt_create = #{gmtCreate,jdbcType=BIGINT},
+      gtm_modifiled = #{gtmModifiled,jdbcType=BIGINT},
+      creator = #{creator,jdbcType=INTEGER},
+      title = #{title,jdbcType=VARCHAR},
+      view_count = #{viewCount,jdbcType=INTEGER},
+      like_count = #{likeCount,jdbcType=INTEGER},
+      tag = #{tag,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

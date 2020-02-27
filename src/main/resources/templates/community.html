@@ -1,0 +1,159 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>讨论区 - 与我常在's blog</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <script src="js/jq/jquery-3.4.1.min.js" type="application/javascript"></script>
+    <link rel="stylesheet" href="css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="css/community.css">
+    <script src="js/bootstrap.min.js" type="application/javascript"></script>
+</head>
+<body>
+<div th:insert="navigation::nav"></div>
+<div class="" style="height: 200px;width: 100%;text-align: center">
+    <img class="img-title img-rounded boxShadow" src="/images/daitu.png" alt="...">
+    <img class="img-title img-rounded boxShadow" src="/images/didala.png" alt="...">
+    <img class="img-title img-rounded boxShadow" src="/images/peipei.png" alt="...">
+    <img class="img-title img-rounded boxShadow" src="/images/you.png" alt="...">
+</div>
+<div class="container-fluid main">
+    <div class="row">
+        <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12 left-box " style="border-right: #9d9d9d">
+
+            <div class="color-aaaa musicBox boxShadow">
+                <h4>我很清楚，我冇计错数，5首！</h4>
+                <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
+                <script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script>
+                <div id="aplayer" class="aplayer"  data-id="4884354768" data-server="netease" data-type="playlist" data-fixed="false" data-listfolded="true" data-order="list" data-theme="#F58EA8" style="width: 100%"></div>
+                <script src="https://unpkg.com/meting@1.2/dist/Meting.min.js"></script>
+            </div>
+            <div class="color-aaaa textbox boxShadow">
+                <h3>站主:</h3>
+                <div>
+                    <img  class="img-thumbnail img-index" src="http://oss.awakeyoyoyo.com/community/39197200.jpeg"
+                          alt="lqhao">
+                    <div class="caption">
+                        <h4>Lqhao</h4>
+                        <P class="text-size text-color">Awakeyoyoyo</P>
+                        <div>
+                            <span class="glyphicon glyphicon-map-marker text-size "> 珠海</span>
+                        </div>
+                        <p>怕 你就输一辈子</p>
+                        <a href="https://blog.csdn.net/awake_lqh">csdn</a>
+                        <br>
+                        <a href="https://github.com/Awakeyoyoyo">github</a>
+                        <br>
+                        <a href="mailto:#">lqh19980716@163.com</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 middle-box color-aaaa boxShadow" >
+            <h2 class="bottom-box" style="padding-bottom: 20px"><span class="glyphicon glyphicon-list" aria-hidden="true"></span> 发现</h2>
+            <div class="media bottom-box" th:each="question:${pageResult.reslts}">
+                <div class="media-left">
+                    <a href="#">
+                        <img class="media-object img-rounded img-public"
+                             th:src="${question.user.avatarUrl}" alt="...">
+                    </a>
+                </div>
+                <div class="media-body ">
+
+                    <h4 class="media-heading" >
+                        <a th:href="@{'/question/'+${question.id}}"  class="weight-less" th:text="${question.title}"></a>
+                    </h4>
+                    <br>
+                    <P class="text-desc" >
+                        <span th:text="${question.commentCount}"></span>个回复-
+                        <span th:text="${question.viewCount}"></span>浏览-
+                        <span th:text="${#dates.format(question.getGmtCreate(),'yyyy-MM-dd HH:mm:ss')}"></span>
+                    </P>
+                </div>
+
+            </div>
+            <nav aria-label="Page navigation " class="PageStyle" >
+                <ul class="pagination">
+                    <li>
+                        <a th:href="@{/(pageNo=1,search=${search})}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a th:href="@{/(pageNo=${pageResult.pageNo-1},search=${search})}" aria-label="Previous">
+                            <span aria-hidden="true">&lt;</span>
+                        </a>
+                    </li>
+                    <li th:class="${pageResult.pageNo==page}?'active':''" th:each="page:${pageResult.pages}">
+                        <a  th:href="@{/(pageNo=${page},search=${search})}" th:text="${page}"></a>
+                    </li>
+                    <li>
+                        <a th:href="@{/(pageNo=${pageResult.pageNo+1},search=${search})}" aria-label="Previous">
+                            <span aria-hidden="true">&gt;</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a th:href="@{/(pageNo=${pageResult.pageCount},search=${search})}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12" style="border-right: #9d9d9d">
+            <div class="textbox bg-danger boxShadow" >
+                <div class="laoMei">
+                    <p>没有如果</p>
+                    <p style="margin-left: 40px">错过便是错过。</p>
+                    <p style="margin-left: 170px;font-size: 20px">---lqh</p>
+                </div>
+            </div>
+            <div class="textbox color-aaaa boxShadow">
+                <h3>热门话题：</h3>
+                <ul class="web-ul">
+                    <li>
+                        <a href="#">如何使用spingboot</a>
+                    </li>
+
+                    <li>
+                        <a href="#">如何使用spingboot</a>
+                    </li>
+
+                    <li>
+                        <a href="#">如何使用spingboot</a>
+                    </li>
+
+                    <li>
+                        <a href="#">如何使用spingboot</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="textbox color-aaaa boxShadow">
+                <h3>网站信息</h3>
+                <ul class="web-ul">
+                    <li>
+                        <span class="glyphicon glyphicon-book"></span>
+                        <span>文章总数：59 篇</span>
+                    </li>
+                    <li>
+                        <span class="glyphicon glyphicon-th-list"></span>
+                        <span>讨论区问题总数：11 篇</span>
+                    </li>
+                    <li>
+                        <span class="glyphicon glyphicon-tags"></span>
+                        <span>标签总数：59 篇</span>
+                    </li>
+                    <li>
+                        <span class="glyphicon glyphicon-edit"></span>
+                        <span>留言总数：59 篇</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:insert="footer::foot"></div>
+
+</body>
+</html>

@@ -25,17 +25,17 @@ public class TagCache {
         tagDTOS=new ArrayList<>();
         TagDTO wather=new TagDTO();
         wather.setCategoryName("吹水系列");
-        wather.setTags(Arrays.asList("烦恼事儿","逗比趣事","日常生活"));
+        wather.setTags(Arrays.asList("烦恼事儿","逗比趣事","日常生活","面试"));
         tagDTOS.add(wather);
 
         TagDTO program=new TagDTO();
         program.setCategoryName("开发语言");
-        program.setTags(Arrays.asList("js","php","html","java","node.js","vue.js","python","go"));
+        program.setTags(Arrays.asList("js","php","html","java","c#","python","go"));
         tagDTOS.add(program);
 
         TagDTO server=new TagDTO();
         server.setCategoryName("后台技术");
-        server.setTags(Arrays.asList("linux","redis","负载均衡","apache","mybatis","shell","数据库"));
+        server.setTags(Arrays.asList("linux","redis","SpringBoot","apache","mybatis","shell","数据库"));
         tagDTOS.add(server);
 
         TagDTO other=new TagDTO();

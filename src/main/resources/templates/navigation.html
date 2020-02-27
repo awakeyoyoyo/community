@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <body >
 <div th:fragment="nav">
-    <nav class="navbar navbar-default " >
+    <nav class="navbar navbar-default boxShadow " >
         <div class="container-fluid">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
@@ -19,11 +19,11 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1 ">
 
                 <ul class="nav navbar-nav navbar-left">
-                    <li class="active"><a href="#">首页 <span class="sr-only">(current)</span></a></li>
+                    <li><a href="/">首页</a></li>
                     <li><a href="#">分类</a></li>
                     <li><a href="#">归档</a></li>
                     <li><a href="#">更新</a></li>
-                    <li><a href="#">提问区</a></li>
+                    <li><a href="/community">提问区</a></li>
                     <form class="navbar-form navbar-left" action="/" method="get">
                         <div class="form-group">
                             <input type="text" name="search" class="form-control"  placeholder="搜索问题">

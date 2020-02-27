@@ -49,4 +49,21 @@ public class IndexController {
         return "index";
     }
 
+    @GetMapping("/community")
+    public String community(Model model,
+                        @RequestParam(name = "pageNo", defaultValue = "1", required = false) Integer pageNo,
+                        @RequestParam(name = "pageSize", defaultValue = "5", required = false) Integer pageSize,
+                        @RequestParam(name = "search", defaultValue = "") String search) {
+        PageResult<QuestionDTO> pageResult;
+        if (!StringUtils.isEmpty(search)) {
+            pageResult = qustionService.getListSearch(search, pageNo, pageSize);
+
+        } else {
+            pageResult = qustionService.getList(pageNo, pageSize);
+        }
+        model.addAttribute("pageResult", pageResult);
+        model.addAttribute("search", search);
+        return "community";
+    }
+
 }

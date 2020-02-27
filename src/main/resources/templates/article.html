@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>问题详情 - 与我常在's blog</title>
+    <title>文章详情 - 与我常在's blog</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <script src="/js/jq/jquery-3.4.1.min.js" type="application/javascript"></script>
     <link rel="stylesheet" href="/css/bootstrap.min.css"/>
@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="/css/community.css">
     <script src="/js/bootstrap.min.js" type="application/javascript"></script>
     <script src="/js/comment.js" type="application/javascript"></script>
-<!--    markdown-->
+    <!--    markdown-->
     <link rel="stylesheet" href="/css/editormd.preview.min.css">
     <script src="/editormd/editormd.min.js"></script>
     <script src="/editormd/lib/marked.min.js"></script>
@@ -49,8 +49,8 @@
             </span>
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bottom-box"></div>
 
-<!--            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 " th:text="${question.decription}"></div>-->
-<!--            内容-->
+            <!--            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 " th:text="${question.decription}"></div>-->
+            <!--            内容-->
             <div id="test-markdown-view" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
                 <!-- Server-side output Markdown text -->
                 <textarea style="display:none;" th:text="${question.decription}">
@@ -70,8 +70,8 @@
                     <label for="content" id="Writetips">要评论点什么?</label>
                     <div class="media" >
                         <div class="media-left">
-                                <img class="media-object img-rounded img-public"
-                                     th:src="${session.user!=null?session.user.avatarUrl:'/images/defaultAvatar.png'}" alt="...">
+                            <img class="media-object img-rounded img-public"
+                                 th:src="${session.user!=null?session.user.avatarUrl:'/images/defaultAvatar.png'}" alt="...">
                         </div>
                         <div class="media-body midia-body" >
                             <h5 class="media-heading" >
@@ -93,35 +93,35 @@
                 <div id="comment" th:if="${question.commentDTOs!=null}" th:each="comment:${question.commentDTOs}" class=" margin-bottom comment">
                     <div class="bottom-box"></div>
                     <div class="media" >
-                    <div class="media-left">
+                        <div class="media-left">
                             <img class="media-object img-circle img-comment"
                                  th:src="${comment.getFromUser().avatarUrl}" alt="...">
-                    </div>
-                    <div class="media-body">
-                        <h5 class="media-heading " style="margin-top: 5px">
+                        </div>
+                        <div class="media-body">
+                            <h5 class="media-heading " style="margin-top: 5px">
                             <span ><P class="text-desc" >
                                 <span class="text-import" th:text="${comment.getFromUser().name}">lqhao</span>
                                 <span>&nbsp&nbsp&nbsp</span>
                                 <span th:text="${#dates.format(comment.gmtCreate,'yyyy-MM-dd HH:mm:ss')}">一天前</span>
-<!--                                <a href="#" class="comment-reply"-->
-<!--                                   th:attr="fromUserAId=${comment.fromUser.accountId},commentId=${comment.id}"-->
-<!--                                   οnclick="replyReply(this);">回复</a>-->
+                                <!--                                <a href="#" class="comment-reply"-->
+                                <!--                                   th:attr="fromUserAId=${comment.fromUser.accountId},commentId=${comment.id}"-->
+                                <!--                                   οnclick="replyReply(this);">回复</a>-->
 
                           <a href="#Writetips" th:attr="fromUserAId=${comment.fromUser.accountId},commentId=${comment.id}" class="comment-reply" onclick="replyReply(this);" >回复</a>
 
                             </P></span>
-                        </h5>
+                            </h5>
+                        </div>
+                        <span style="margin-left:30px" th:text="${comment.content}">这里就是评论了</span>
                     </div>
-                    <span style="margin-left:30px" th:text="${comment.content}">这里就是评论了</span>
-                </div>
                     <div id="replys" class="reply-common">
-                <div class="media" th:each="reply:${comment.replyDTOS}" th:if="${comment.replyDTOS!=null}">
-                    <div class="media-left">
-                        <img class="media-object img-circle img-comment"
-                             th:src="${reply.fromUser.avatarUrl}" alt="...">
-                    </div>
-                    <div class="media-body">
-                        <h5 class="media-heading" style="margin-top: 5px">
+                        <div class="media" th:each="reply:${comment.replyDTOS}" th:if="${comment.replyDTOS!=null}">
+                            <div class="media-left">
+                                <img class="media-object img-circle img-comment"
+                                     th:src="${reply.fromUser.avatarUrl}" alt="...">
+                            </div>
+                            <div class="media-body">
+                                <h5 class="media-heading" style="margin-top: 5px">
                             <span ><P class="text-desc" >
                                 <span class="text-import" th:text="${reply.fromUser.name}">lqhao</span>
                                 <span>&nbsp&nbsp&nbsp</span>
@@ -132,10 +132,10 @@
                                 <span th:text="${#dates.format(reply.gmtCreate,'yyyy-MM-dd HH:mm:ss')}">一天前</span>
                                 <a href="#Writetips" class="comment-reply" th:attr="fromUserAId=${reply.fromUser.accountId},commentId=${comment.id}" onclick="replyReply(this);" >回复</a>
                             </P></span>
-                        </h5>
-                    </div>
-                    <span style="margin-left:30px" th:text="${reply.content}">这里是回复了</span>
-                </div>
+                                </h5>
+                            </div>
+                            <span style="margin-left:30px" th:text="${reply.content}">这里是回复了</span>
+                        </div>
                     </div>
                 </div>
             </div>

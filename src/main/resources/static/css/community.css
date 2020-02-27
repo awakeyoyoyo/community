@@ -1,11 +1,14 @@
  .main{
-     margin:30px;
+     margin:10px;
      margin-left: 60px;
      margin-right: 60px;
      border: #e5e5e5 2px solid;
  }
  body{
      background: #e7e7e7;
+ }
+ .border-right{
+     border-right: 1px silver solid;
  }
  .midia-body{
      padding-top: 10px;
@@ -39,6 +42,18 @@
  .img-index{
      width: 260px;
      height: 260px;
+ }
+ .img-title{
+     width: 350px;
+     height: 200px;
+     margin-left: 10px;
+     margin-right: 10px;
+ }
+ .blogtext{
+     ont-size: 16px;
+     padding: 10px 8px;
+     line-height: 2em;
+     color: #565a5f;
  }
  .text-size{
      font-size: 16px;
@@ -76,6 +91,13 @@
      border-right: #e5e5e5 3px solid;
      border-left: #e5e5e5 3px solid;
      height: 625px;
+     border-radius: 5px;
+ }
+
+ .middle-box-index{
+     position:relative;
+     border-right: #e5e5e5 3px solid;
+     border-left: #e5e5e5 3px solid;
      border-radius: 5px;
  }
  .bottom-box{
@@ -144,6 +166,10 @@
      margin-bottom: 10px;
      border-radius: 5px;
  }
+ .boxShadow{
+     border: 1px solid silver;
+     box-shadow: 0 4px 10px 0 rgba(33, 22, 22, 0.2), 0 4px 15px 0 rgba(0,0,0,0.12);
+ }
  .laoMei{
      margin-top: 25px;
      margin-left:50px;
@@ -191,4 +217,20 @@
      position:absolute;
      bottom:0;
  }
- .left-box{}
+.PageStyle-blog{
+    position:absolute;
+    bottom:0;
+    display: block;
+    height: 34px;
+    margin-top: 10px;
+}
+ .btn-aaaa{
+     text-decoration: none;
+     color: #333;
+   }
+ .btn-aaaa:hover{
+     text-decoration: none;
+     color: #3399CC;
+ }
+
+   .left-box{}
