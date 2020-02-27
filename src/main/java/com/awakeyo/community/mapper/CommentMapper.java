@@ -1,14 +1,14 @@
 package com.awakeyo.community.mapper;
 
 import com.awakeyo.community.pojo.Comment;
-import com.awakeyo.community.pojo.Reply;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
 public interface CommentMapper {
     int deleteByPrimaryKey(Long id);
 
-    Long insert(Comment record);
+    int insert(Comment record);
 
     int insertSelective(Comment record);
 
@@ -18,7 +18,7 @@ public interface CommentMapper {
 
     int updateByPrimaryKey(Comment record);
 
-    List<Comment> selectByTopId(Integer topId);
-
     Integer selectQuestionId(Long commentId);
+
+    List<Comment> selectByTopIdType(@Param("topId") Integer topId, @Param("type") String type);
 }

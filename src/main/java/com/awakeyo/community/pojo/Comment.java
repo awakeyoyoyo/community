@@ -13,6 +13,8 @@ public class Comment {
 
     private Integer commentLike;
 
+    private String type;
+
     public Long getId() {
         return id;
     }
@@ -59,5 +61,13 @@ public class Comment {
 
     public void setCommentLike(Integer commentLike) {
         this.commentLike = commentLike;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type == null ? null : type.trim();
     }
 }

@@ -36,6 +36,7 @@ public class CommentReplyController {
             return WebResponse.createByErrorMessage("NEED_LOGIN");
         }
         comment.setFromUid(user.getAccountId());
+        comment.setType("question");
         return commentReplyService.writeComent(comment);
     }
 

@@ -39,7 +39,6 @@ public class CommentReplyService {
         if (comment.getContent()==null||comment.getContent().trim().isEmpty()){
             return WebResponse.createByErrorMessage("no content");
         }
-
         int row =userMapper.selectByaccoun_id(comment.getFromUid());
         if (row <0) {
             return WebResponse.createByErrorMessage("no user");
@@ -51,11 +50,10 @@ public class CommentReplyService {
         //写评论。
         comment.setGmtCreate(new Date().getTime());
         comment.setCommentLike(0);
-        Long commentId=commentMapper.insert(comment);
-        if (commentId<0){
+        Integer rowCount=commentMapper.insert(comment);
+        if (rowCount<0){
             return WebResponse.createByErrorMessage(ResponseCode.ERROR.getDesc());
         }
-        comment.setId(commentId);
         questionMapper.updateReplyCountByTopicId(comment.getTopicId());
         CommentDTO commentDTO=new CommentDTO();
         BeanUtils.copyProperties(comment,commentDTO);
@@ -63,7 +61,7 @@ public class CommentReplyService {
         commentDTO.setFromUser(user);
         //发送通知
         createCommentNotify(question, user);
-        return WebResponse.createBySuccess(commentDTO);
+        return WebResponse.createBySuccess();
     }
 
     private void createCommentNotify(Question quesction, User user) {
@@ -125,8 +123,18 @@ public class CommentReplyService {
     }
 
     public List<CommentDTO> getCommentsReplyTopicId(String type, Integer topId) {
+        List<Comment> comments=null;
         if ("question".equals(type)){
-            List<Comment> comments=commentMapper.selectByTopId(topId);
+            comments=commentMapper.selectByTopIdType(topId,type);
+            List<CommentDTO> commentDTOS=new ArrayList<>();
+            for (Comment comment:comments) {
+                CommentDTO commentDTO=initCommentDTO(comment);
+                commentDTOS.add(commentDTO);
+            }
+            return commentDTOS;
+        }
+        else if ("article".equals(type)){
+            comments=commentMapper.selectByTopIdType(topId,type);
             List<CommentDTO> commentDTOS=new ArrayList<>();
             for (Comment comment:comments) {
                 CommentDTO commentDTO=initCommentDTO(comment);

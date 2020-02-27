@@ -86,13 +86,10 @@ public class PublishController {
         question.setDecription(description);
         question.setTag(tag);
         question.setCreator(user.getId());
-        question.setLikeCount(0);
-        question.setViewCount(0);
-        question.setCommentCount(0);
         question.setId(id);
         qustionService.insertOrUpdate(question);
         model.addAttribute("tags", TagCache.getInstance().get());
 
-        return "redirect:/";
+        return "redirect:/community";
     }
 }

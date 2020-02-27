@@ -1,6 +1,5 @@
 package com.awakeyo.community.mapper;
 
-import com.awakeyo.community.pojo.Comment;
 import com.awakeyo.community.pojo.Reply;
 
 import java.util.List;

@@ -8,9 +8,10 @@
     <result column="from_uid" jdbcType="VARCHAR" property="fromUid" />
     <result column="gmt_create" jdbcType="BIGINT" property="gmtCreate" />
     <result column="comment_like" jdbcType="INTEGER" property="commentLike" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, topic_id, content, from_uid, gmt_create, comment_like
+    id, topic_id, content, from_uid, gmt_create, comment_like, type
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
@@ -22,13 +23,13 @@
     delete from cm_comment
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.awakeyo.community.pojo.Comment" useGeneratedKeys="true" keyProperty="id">
+  <insert id="insert" parameterType="com.awakeyo.community.pojo.Comment">
     insert into cm_comment (id, topic_id, content, 
-      from_uid, gmt_create, comment_like
-      )
+      from_uid, gmt_create, comment_like, 
+      type)
     values (#{id,jdbcType=BIGINT}, #{topicId,jdbcType=INTEGER}, #{content,jdbcType=VARCHAR}, 
-      #{fromUid,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=BIGINT}, #{commentLike,jdbcType=INTEGER}
-      )
+      #{fromUid,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=BIGINT}, #{commentLike,jdbcType=INTEGER}, 
+      #{type,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.awakeyo.community.pojo.Comment">
     insert into cm_comment
@@ -51,6 +52,9 @@
       <if test="commentLike != null">
         comment_like,
       </if>
+      <if test="type != null">
+        type,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -70,6 +74,9 @@
       </if>
       <if test="commentLike != null">
         #{commentLike,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -91,6 +98,9 @@
       <if test="commentLike != null">
         comment_like = #{commentLike,jdbcType=INTEGER},
       </if>
+      <if test="type != null">
+        type = #{type,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -100,20 +110,20 @@
       content = #{content,jdbcType=VARCHAR},
       from_uid = #{fromUid,jdbcType=VARCHAR},
       gmt_create = #{gmtCreate,jdbcType=BIGINT},
-      comment_like = #{commentLike,jdbcType=INTEGER}
+      comment_like = #{commentLike,jdbcType=INTEGER},
+      type = #{type,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
-
-  <select id="selectByTopId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByTopIdType" parameterType="map" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
     from cm_comment
-    where topic_id= #{topId}
+    where topic_id= #{topId} and type=#{type}
   </select>
   <select id="selectQuestionId" parameterType="java.lang.Long" resultType="Integer">
-    select
-    topic_id
-    from cm_comment
-    where id= #{commentId}
-  </select>
+  select
+  topic_id
+  from cm_comment
+  where id= #{commentId}
+</select>
 </mapper>
