@@ -54,9 +54,10 @@ public class NotificationService {
             BeanUtils.copyProperties(n,notificationDTO);
             if (n.getType()== NotificationTypeEnum.REPLY_COMMENT.getType()) {
                 notificationDTO.setType(NotificationTypeEnum.REPLY_COMMENT.getName());
-            }else {
+            }else if (n.getType()==NotificationTypeEnum.REPLY_QUESTION.getType()){
                 notificationDTO.setType(NotificationTypeEnum.REPLY_QUESTION.getName());
-
+            }else {
+                notificationDTO.setType(NotificationTypeEnum.REPLY_BLOG.getName());
             }
             notificationDTOS.add(notificationDTO);
         }
