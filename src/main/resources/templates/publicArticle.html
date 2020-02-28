@@ -1,8 +1,7 @@
-
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>发布 - 与我常在's blog</title>
+    <title>发布博客 - 与我常在's blog</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <script src="/js/jq/jquery-3.4.1.min.js" type="application/javascript"></script>
     <link rel="stylesheet" href="/css/bootstrap.min.css"/>
@@ -15,8 +14,8 @@
     <script type="text/javascript">
         $(function() {
             var editor = editormd("test-editor", {
-                 width  : "100%",
-                 height : 500,
+                width  : "100%",
+                height : 500,
                 path   : "editormd/lib/",
                 imageUpload    : true,
                 imageFormats   : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
@@ -51,18 +50,25 @@
 <div class="container-fluid main color-aaaa boxShadow">
     <div class="row">
         <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12 left-box">
-            <h2><span class="glyphicon glyphicon-book" aria-hidden="true"></span> 发起</h2>
+            <h2><span class="glyphicon glyphicon-book" aria-hidden="true"></span>博客发布</h2>
             <hr>
-            <form action="/publish" method="post">
+            <form action="/writeBlog" method="post">
                 <input type="hidden" name="id" th:value="${id}">
                 <div class="form-group"  >
-                    <label for="title">问题标题：(简单扼要)</label>
+                    <label for="title">博客标题：(简单扼要)</label>
                     <input autocomplete="off" name="title" th:value="${title}" type="text" class="form-control"
                            id="title" placeholder="问题标题....">
                 </div>
+                <div class="form-group">
+                    <label for="description">博客内容描述(必填，请参照右侧提示)：</label>
+                    <textarea th:text="${description}" name="description" class="form-control" rows="5"
+                              placeholder="问题描述..." style="resize: none;" >
+
+                    </textarea>
+                </div>
                 <div class="form-group" id="test-editor">
-                    <label for="description">问题补充(必填，请参照右侧提示)：</label>
-                    <textarea th:text="${description}" name="description" class="form-control" rows="10"
+                    <label for="description">博客内容(必填，请参照右侧提示)：</label>
+                    <textarea th:text="${content}" name="content" class="form-control" rows="10"
                               style="display:none;" id="description">
 
                     </textarea>
@@ -73,36 +79,37 @@
                            onclick="showSelectTag()"
                            placeholder="输入标签 以，号分割">
                     <div id="SelectTag"  class="public-selectTag">
-                            <!-- Nav tabs -->
-                            <ul class="nav nav-tabs" role="tablist">
-                                <li role="presentation"  name="tabs" th:each="tagx:${tags}">
-                                    <a th:href="${'#'+tagx.getCategoryName()}"
-                                       aria-controls="home" role="tab" data-toggle="tab" th:text="${tagx.getCategoryName()}">吹水系列
-                                    </a>
-                                </li>
-                            </ul>
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation"  name="tabs" th:each="tagx:${tags}">
+                                <a th:href="${'#'+tagx.getCategoryName()}"
+                                   aria-controls="home" role="tab" data-toggle="tab" th:text="${tagx.getCategoryName()}">吹水系列
+                                </a>
+                            </li>
+                        </ul>
 
-                            <!-- Tab panes -->
-                            <div class="tab-content">
-                                <div role="tabpanel" name="tags" class="tab-pane" th:id="${tagx.getCategoryName()}" th:each="tagx:${tags}">
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <div role="tabpanel" name="tags" class="tab-pane" th:id="${tagx.getCategoryName()}" th:each="tagx:${tags}">
                                     <span class="label label-info" th:each="tagxx:${tagx.getTags()}">
                                         <span class="glyphicon glyphicon-tags"
                                               th:text="' '+${tagxx}" onclick="SelectTag(this)" th:data-tag="${tagxx}">烦恼</span>
                                     </span>
-                                </div>
                             </div>
                         </div>
+                    </div>
 
                 </div>
-                <button type="submit" class="btn btn-success btn-publish"> 发布</button>
+                <button type="submit" class="btn btn-success btn-publish">发布</button>
             </form>
         </div>
         <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
 
-            <h3>问题发起指南</h3>
+            <h3>发布博客指南</h3>
             <br>
-            <p>• 问题标题: 请用精简的语言描述您发布的问题，不超过25字</p>
-            <p>• 问题补充: 详细补充您的问题内容，并确保问题描述清晰直观, 并提供一些相关的资料<</p>
+            <p>• 博客标题: 请用精简的语言描述您发布的问题，不超过25字</p>
+            <p>• 博客内容描述: 请用精简的语言描述您发布的问题，不超过200字</p>
+            <p>• 博客内容: 详细补充您的问题内容，并确保问题描述清晰直观, 并提供一些相关的资料<</p>
             <p>• 选择标签: 选择一个或者多个合适的标签，用逗号隔开，每个标签不超过10个字</p>
         </div>
     </div>

@@ -2,6 +2,7 @@ package com.awakeyo.community.controller.backend;
 
 import com.awakeyo.community.cache.TagCache;
 import com.awakeyo.community.exception.AuthorityException;
+import com.awakeyo.community.mapper.ArticleMapper;
 import com.awakeyo.community.pojo.Article;
 import com.awakeyo.community.pojo.User;
 import com.awakeyo.community.pojo.dto.ArticleDto;
@@ -30,6 +31,8 @@ public class ArticleController {
     private String rootUser;
     @Autowired
     private ArticleService articleService;
+    @Autowired
+    private ArticleMapper articleMapper;
     //写博客
     @PostMapping("/writeBlog")
     public String doPublish(
@@ -87,6 +90,7 @@ public class ArticleController {
         article.setTitle(title);
         article.setDecription(description);
         article.setTag(tag);
+        article.setContent(context);
         article.setCreator(user.getId());
         article.setLikeCount(0);
         article.setViewCount(0);
@@ -102,17 +106,44 @@ public class ArticleController {
     @GetMapping("/Aritle/{id}")
     public String aritle(HttpServletRequest request, @PathVariable(name = "id") Integer id,
                          Model model){
+        ArticleDto articleDto=articleService.geiArtleById(id);
+        model.addAttribute("articleDto",articleDto);
+        return "article";
+    }
+
+
+    @GetMapping("/editBlog")
+    public String editBlog(Integer id,Model model,HttpServletRequest request){
         User user=(User)request.getSession().getAttribute("user");
         if (user==null){
             throw new AuthorityException("未登陆就调用管理员接口，你小子？？？");
         }
         //校验一下是否是管理员
-        if (!user.getAccountId().equals(rootUser)) {
+        if (!user.getAccountId().equals(rootUser)){
             throw new AuthorityException("你小子？？？居然找到了管理员接口？？？有点东西");
         }
-        ArticleDto articleDto=articleService.geiArtleById(id);
-        model.addAttribute("articleDto",articleDto);
-        return "article";
+        Article question=articleMapper.selectByPrimaryKey(id);
+        model.addAttribute("title",question.getTitle());
+        model.addAttribute("description",question.getDecription());
+        model.addAttribute("content",question.getContent());
+        model.addAttribute("tag",question.getTag());
+        model.addAttribute("id",question.getId());
+        model.addAttribute("tags", TagCache.getInstance().get());
+        return "publicArticle";
     }
-    //todo评论
+
+    @GetMapping("/publishBlog")
+    public String publishBlog(Model model,HttpServletRequest request){
+        User user=(User)request.getSession().getAttribute("user");
+        if (user==null){
+            throw new AuthorityException("未登陆就调用管理员接口，你小子？？？");
+        }
+        //校验一下是否是管理员
+        if (!user.getAccountId().equals(rootUser)){
+            throw new AuthorityException("写博客功能只对站主开放。。你小子？？？居然找到了我写博客的接口？？？有点东西");
+        }
+        model.addAttribute("tags", TagCache.getInstance().get());
+        return "publicArticle";
+    }
+
 }

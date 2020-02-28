@@ -2,10 +2,13 @@ package com.awakeyo.community.controller;
 
 import com.awakeyo.community.common.WebResponse;
 import com.awakeyo.community.exception.CustomizeException;
+import com.awakeyo.community.pojo.Article;
 import com.awakeyo.community.pojo.Comment;
 import com.awakeyo.community.pojo.Reply;
 import com.awakeyo.community.pojo.User;
+import com.awakeyo.community.pojo.dto.ArticleDto;
 import com.awakeyo.community.pojo.dto.QuestionDTO;
+import com.awakeyo.community.service.ArticleService;
 import com.awakeyo.community.service.CommentReplyService;
 import com.awakeyo.community.service.QustionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +30,8 @@ public class CommentReplyController {
     private CommentReplyService commentReplyService;
     @Autowired
     private QustionService qustionService;
+    @Autowired
+    private ArticleService articleService;
     @PostMapping("/comment")
     @ResponseBody
     public WebResponse docoment(Comment comment, HttpServletRequest request)
@@ -36,7 +41,6 @@ public class CommentReplyController {
             return WebResponse.createByErrorMessage("NEED_LOGIN");
         }
         comment.setFromUid(user.getAccountId());
-        comment.setType("question");
         return commentReplyService.writeComent(comment);
     }
 
@@ -61,11 +65,20 @@ public class CommentReplyController {
         if (user==null){
             throw new CustomizeException("请登录兄dei");
         }
-        QuestionDTO questionDTO=qustionService.getByIdAndIncView(topId);
-        if (questionDTO==null){
-            throw new CustomizeException("别乱调戏接口-。-");
+        if (("question").equals(type)) {
+            QuestionDTO questionDTO = qustionService.getByIdAndIncView(topId);
+            if (questionDTO == null) {
+                throw new CustomizeException("别乱调戏接口-。-");
+            }
+            model.addAttribute("question", questionDTO);
+            return "question::comments";
+        }else {
+            ArticleDto articleDto=articleService.getByIdAndIncView(topId);
+            if (articleDto == null) {
+                throw new CustomizeException("别乱调戏接口-。-");
+            }
+            model.addAttribute("articleDto", articleDto);
+            return "article::comments";
         }
-        model.addAttribute("question",questionDTO);
-        return "question::comments";
     }
 }

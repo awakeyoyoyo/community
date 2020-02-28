@@ -140,4 +140,23 @@ public class ArticleService {
 
         return pageResult;
     }
+
+    public ArticleDto getByIdAndIncView(Integer topId) {
+        int row= articleMapper.updateViewCount(topId);
+        if (row<=0){
+            throw new CustomizeException(QuestionErrorCode.QUESTION_NOT_FOUND.getMessage());
+        }
+        ArticleDto articleDto=new ArticleDto();
+        Article article=articleMapper.selectByPrimaryKey(topId);
+        BeanUtils.copyProperties(article,articleDto);
+        User user=userMapper.selectByPrimaryKey(article.getCreator());
+        articleDto.setUser(user);
+        //评论回复=。=
+        List<CommentDTO> comments=commentReplyService.getCommentsReplyTopicId("article",article.getId());
+        if (comments==null){
+            throw new CustomizeException("别乱调戏接口-。-");
+        }
+        articleDto.setCommentDTOs(comments);
+        return articleDto;
+    }
 }

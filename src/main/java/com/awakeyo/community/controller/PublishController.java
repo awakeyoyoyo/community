@@ -28,8 +28,8 @@ public class PublishController {
     private QuestionMapper questionMapper;
     @Autowired
     private QustionService qustionService;
-    @GetMapping("/publish/{id}")
-    public String edit(@PathVariable(name = "id") Integer id,Model model){
+    @GetMapping("/edit")
+    public String edit(Integer id,Model model){
         Question question=questionMapper.selectByPrimaryKey(id);
         model.addAttribute("title",question.getTitle());
         model.addAttribute("description",question.getDecription());

@@ -201,7 +201,7 @@
     <include refid="Base_Column_List" />
     ,
     <include refid="Blob_Column_List" />
-    from cm_Artitle
+    from cm_Article
     <where>
       <if test="search!=null">
         and title regexp #{search}
@@ -211,13 +211,19 @@
   </select>
   <select id="selectAll"  resultType="java.lang.Integer" >
     select COUNT(*)
-    from cm_Artitle
+    from cm_Article
   </select>
   <select id="selectList"  resultMap="ResultMapWithBLOBs" parameterType="map">
     select
     <include refid="Base_Column_List" />
     ,
     <include refid="Blob_Column_List" />
-    from cm_Artitle order by gmt_create desc Limit #{pageBegin},#{pageSize}
+    from cm_Article order by gmt_create desc Limit #{pageBegin},#{pageSize}
   </select>
+  <update id="updateReplyCountByTopicId" parameterType="java.lang.Integer" >
+    update cm_ARTICLE
+    set
+      comment_count = comment_count+1
+    where id = #{topicId}
+  </update>
 </mapper>

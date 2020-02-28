@@ -66,12 +66,22 @@ function initComentAndReply() {
         },
     })
 };
-function clearReply(){
+function clearBlogReply(){
     var $comment_btn=$("#comment_btn");
     $comment_btn.text("评论");
     $comment_btn.removeClass("btn-warning");
     $("#clearReply").hide();
-    $comment_btn.attr("onclick","postComment()");
+    $comment_btn.attr("onclick","postBlogComment()");
+    $("#Writetips").val("要评论点什么？");
+    $("#content").val("");
+    $("#content").attr("placeholder","想对作者说些什么");
+}
+function clearQuestionReply(){
+    var $comment_btn=$("#comment_btn");
+    $comment_btn.text("评论");
+    $comment_btn.removeClass("btn-warning");
+    $("#clearReply").hide();
+    $comment_btn.attr("onclick","postQuestionComment()");
     $("#Writetips").val("要评论点什么？");
     $("#content").val("");
     $("#content").attr("placeholder","想对作者说些什么");
@@ -82,7 +92,7 @@ function clearComment(){
     $("#content").val("");
     $("#content").attr("placeholder","想对作者说些什么");
 }
-function replyReply(obj) {
+function replyQuestionReply(obj) {
     var $comment_btn=$("#comment_btn");
     var fromUserAID=obj.getAttribute("fromUserAId");
     var commentId=obj.getAttribute("commentId");
@@ -91,9 +101,20 @@ function replyReply(obj) {
     $("#clearReply").show();
     $("#Writetips").text("要回复点什么？");
     $("#content").attr("placeholder","想回复写什么");
-    $comment_btn.attr("onclick","postReply("+fromUserAID+","+commentId+")");
+    $comment_btn.attr("onclick","postReply("+fromUserAID+","+commentId+",\'question\')");
 };
-function postReply(formUAID,commentId){
+function replyBlogReply(obj) {
+    var $comment_btn=$("#comment_btn");
+    var fromUserAID=obj.getAttribute("fromUserAId");
+    var commentId=obj.getAttribute("commentId");
+    $comment_btn.text("回复");
+    $comment_btn.addClass("btn-warning");
+    $("#clearReply").show();
+    $("#Writetips").text("要回复点什么？");
+    $("#content").attr("placeholder","想回复写什么");
+    $comment_btn.attr("onclick","postReply("+fromUserAID+","+commentId+",\'article\')");
+};
+function postReply(formUAID,commentId,type){
    // alert("postReply:"+formUAID+"-"+commentId)
     var questionId=$("#topicId").val();
     var content=$("#content").val();
@@ -113,7 +134,12 @@ function postReply(formUAID,commentId){
         success:function (response) {
             if (response.status==200) {
                 // alert("success");
-                $("#comments").load("/comments/question/"+questionId)
+                if(type=="question"){
+                    $("#comments").load("/comments/question/"+questionId)
+                }
+                if(type=="article"){
+                    $("#comments").load("/comments/article/"+questionId)
+                }
             }
             else {
                 // alert("fail");
@@ -123,9 +149,14 @@ function postReply(formUAID,commentId){
         },
 
     })
-    clearReply();
+    if(type=="article"){
+        clearBlogReply();
+    }
+    else{
+        clearQuestionReply();
+    }
 }
-function postComment(){
+function postQuestionComment(){
     var questionId=$("#topicId").val();
     var content=$("#content").val();
     if (!content){
@@ -139,11 +170,43 @@ function postComment(){
         data: {
             topicId: questionId,
             content: content,
+            type:"question"
         },
         success:function (response) {
             if (response.status==200) {
                 // alert("success");
                 $("#comments").load("/comments/question/"+questionId)
+            }
+            else {
+                // alert("fail");
+                alert(response.msg);
+            }
+            console.log(response);
+        },
+
+    })
+    clearComment();
+};
+function postBlogComment(){
+    var questionId=$("#topicId").val();
+    var content=$("#content").val();
+    if (!content){
+        alert("不能回复空内容")
+        return
+    }
+    $.ajax({
+        url:"http://localhost:8080/comment",
+        type:"post",
+        contentType:"application/x-www-form-urlencoded",
+        data: {
+            topicId: questionId,
+            content: content,
+            type:"article"
+        },
+        success:function (response) {
+            if (response.status==200) {
+                // alert("success");
+                $("#comments").load("/comments/article/"+questionId)
             }
             else {
                 // alert("fail");

@@ -8,6 +8,7 @@ package com.awakeyo.community.common;
  */
 public enum NotificationTypeEnum {
     REPLY_QUESTION(1,"回复了您问题"),
+    REPLY_BLOG(3,"回复了您博客"),
     REPLY_COMMENT(2,"回复了您");
     private int type;
     private String name;

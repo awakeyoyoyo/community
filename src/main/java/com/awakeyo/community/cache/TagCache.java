@@ -35,7 +35,7 @@ public class TagCache {
 
         TagDTO server=new TagDTO();
         server.setCategoryName("后台技术");
-        server.setTags(Arrays.asList("linux","redis","SpringBoot","apache","mybatis","shell","数据库"));
+        server.setTags(Arrays.asList("linux","面试","SpringBoot","设计模式","jvm","shell","数据库"));
         tagDTOS.add(server);
 
         TagDTO other=new TagDTO();
