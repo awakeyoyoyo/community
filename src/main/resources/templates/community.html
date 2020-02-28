@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="css/community.css">
     <script src="js/bootstrap.min.js" type="application/javascript"></script>
+    <script src="js/comment.js" type="application/javascript"></script>
 </head>
 <body>
 <div th:insert="navigation::nav"></div>
@@ -51,6 +52,7 @@
 
         </div>
         <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 middle-box color-aaaa boxShadow" >
+            <div th:fragment="questions" id="questions">
             <h2 class="bottom-box" style="padding-bottom: 20px"><span class="glyphicon glyphicon-list" aria-hidden="true"></span> 发现</h2>
             <div class="media bottom-box" th:each="question:${pageResult.reslts}">
                 <div class="media-left">
@@ -76,30 +78,45 @@
             <nav aria-label="Page navigation " class="PageStyle" >
                 <ul class="pagination">
                     <li>
-                        <a th:href="@{/(pageNo=1,search=${search})}" aria-label="Previous">
+                        <a  onclick="ajaxQuestion(this)"
+                            th:attr="pageNo=1"
+                            aria-label="Previous">
                             <span aria-hidden="true">&laquo;</span>
                         </a>
                     </li>
                     <li>
-                        <a th:href="@{/(pageNo=${pageResult.pageNo-1},search=${search})}" aria-label="Previous">
+                        <a onclick="ajaxQuestion(this)"
+                           th:attr="pageNo=${pageResult.pageNo-1}"
+                           aria-label="Previous">
                             <span aria-hidden="true">&lt;</span>
                         </a>
                     </li>
                     <li th:class="${pageResult.pageNo==page}?'active':''" th:each="page:${pageResult.pages}">
-                        <a  th:href="@{/(pageNo=${page},search=${search})}" th:text="${page}"></a>
+                        <a
+                                th:text="${page}"
+                                th:attr="pageNo=${page}"
+                                onclick="ajaxQuestion(this)"
+                        ></a>
                     </li>
                     <li>
-                        <a th:href="@{/(pageNo=${pageResult.pageNo+1},search=${search})}" aria-label="Previous">
+                        <a
+                                th:attr="pageNo=${pageResult.pageNo+1}"
+                                onclick="ajaxQuestion(this)"
+                                aria-label="Previous">
                             <span aria-hidden="true">&gt;</span>
                         </a>
                     </li>
                     <li>
-                        <a th:href="@{/(pageNo=${pageResult.pageCount},search=${search})}" aria-label="Next">
+                        <a
+                                th:attr="pageNo=${pageResult.pageCount}"
+                                onclick="ajaxQuestion(this)"
+                                aria-label="Next">
                             <span aria-hidden="true">&raquo;</span>
                         </a>
                     </li>
                 </ul>
             </nav>
+            </div>
         </div>
         <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12" style="border-right: #9d9d9d">
             <div class="textbox bg-danger boxShadow" >

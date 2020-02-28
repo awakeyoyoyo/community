@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="css/community.css">
     <script src="js/bootstrap.min.js" type="application/javascript"></script>
+    <script src="js/comment.js" type="application/javascript"></script>
 </head>
 <body>
 <div th:insert="navigation::nav"></div>
@@ -51,6 +52,7 @@
 
         </div>
         <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 middle-box-index " >
+            <div th:fragment="AticleBlog" id="AticleBlog">
             <h3 class="text-center">最新博客</h3>
             <br>
             <!--            博客-->
@@ -83,33 +85,48 @@
                 </div>
             </div>
 
-            <nav aria-label="Page navigation " class="PageStyle-blog">
+            <nav aria-label="Page navigation " class="PageStyle-blog" >
                 <ul class="pagination">
                     <li>
-                        <a th:href="@{/(pageNo=1,search=${search})}" aria-label="Previous">
+                        <a  onclick="ajaxBlog(this)"
+                            th:attr="pageNo=1"
+                            aria-label="Previous">
                             <span aria-hidden="true">&laquo;</span>
                         </a>
                     </li>
                     <li>
-                        <a th:href="@{/(pageNo=${pageResult.pageNo-1},search=${search})}" aria-label="Previous">
+                        <a onclick="ajaxBlog(this)"
+                           th:attr="pageNo=${pageResult.pageNo-1}"
+                             aria-label="Previous">
                             <span aria-hidden="true">&lt;</span>
                         </a>
                     </li>
                     <li th:class="${pageResult.pageNo==page}?'active':''" th:each="page:${pageResult.pages}">
-                        <a  th:href="@{/(pageNo=${page},search=${search})}" th:text="${page}"></a>
+                        <a
+                                th:text="${page}"
+                                th:attr="pageNo=${page}"
+                                onclick="ajaxBlog(this)"
+                        ></a>
                     </li>
                     <li>
-                        <a th:href="@{/(pageNo=${pageResult.pageNo+1},search=${search})}" aria-label="Previous">
+                        <a
+                                th:attr="pageNo=${pageResult.pageNo+1}"
+                                onclick="ajaxBlog(this)"
+                                aria-label="Previous">
                             <span aria-hidden="true">&gt;</span>
                         </a>
                     </li>
                     <li>
-                        <a th:href="@{/(pageNo=${pageResult.pageCount},search=${search})}" aria-label="Next">
+                        <a
+                                th:attr="pageNo=${pageResult.pageCount}"
+                                onclick="ajaxBlog(this)"
+                                aria-label="Next">
                             <span aria-hidden="true">&raquo;</span>
                         </a>
                     </li>
                 </ul>
             </nav>
+            </div>
         </div>
         <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12" style="border-right: #9d9d9d">
             <div class="textbox bg-danger boxShadow" >
@@ -163,7 +180,9 @@
         </div>
     </div>
 </div>
-<div th:insert="footer::foot"></div>
 
+<div th:insert="footer::foot"></div>
+<script>
+</script>
 </body>
 </html>

@@ -156,6 +156,14 @@ function postReply(formUAID,commentId,type){
         clearQuestionReply();
     }
 }
+function ajaxBlog(obj) {
+    var pageNo=obj.getAttribute("pageNo");
+    $("#AticleBlog").load("/articles?pageNo="+pageNo+"&pageSize=3")
+}
+function ajaxQuestion(obj) {
+    var pageNo=obj.getAttribute("pageNo");
+    $("#questions").load("/questions?pageNo="+pageNo+"&pageSize=5")
+}
 function postQuestionComment(){
     var questionId=$("#topicId").val();
     var content=$("#content").val();

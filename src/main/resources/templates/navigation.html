@@ -24,12 +24,6 @@
                     <li><a href="#">博客分类</a></li>
                     <li><a href="#">更新</a></li>
                     <li><a href="/community">讨论区</a></li>
-                    <form class="navbar-form navbar-left" action="/" method="get">
-                        <div class="form-group">
-                            <input type="text" name="search" class="form-control"  placeholder="搜索问题">
-                        </div>
-                        <button type="submit" class="btn btn-default">搜索</button>
-                    </form>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li th:if="${session.user!=null}">

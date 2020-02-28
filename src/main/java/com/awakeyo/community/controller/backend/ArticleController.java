@@ -4,6 +4,7 @@ import com.awakeyo.community.cache.TagCache;
 import com.awakeyo.community.exception.AuthorityException;
 import com.awakeyo.community.mapper.ArticleMapper;
 import com.awakeyo.community.pojo.Article;
+import com.awakeyo.community.pojo.PageResult;
 import com.awakeyo.community.pojo.User;
 import com.awakeyo.community.pojo.dto.ArticleDto;
 import com.awakeyo.community.service.ArticleService;
@@ -145,5 +146,15 @@ public class ArticleController {
         model.addAttribute("tags", TagCache.getInstance().get());
         return "publicArticle";
     }
+    @GetMapping("/articles")
+    public String getArticle(@RequestParam(name = "pageNo", defaultValue = "1", required = false) Integer pageNo,
+                             @RequestParam(name = "pageSize", defaultValue = "3", required = false) Integer pageSize,
+                                          HttpServletRequest request,
+                                          Model model){
 
+        PageResult<ArticleDto> pageResult;
+        pageResult = articleService.getList(pageNo, pageSize);
+        model.addAttribute("pageResult", pageResult);
+        return "index::AticleBlog";
+    }
 }
