@@ -1,9 +1,51 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <body >
+<script>
+    function show_date_time() {
+        window.setTimeout("show_date_time()", 1000);
+        BirthDay = new Date("02/29/2020 00:00:00");
+        today = new Date();
+        timeold = (today.getTime() - BirthDay.getTime());
+        sectimeold = timeold / 1000;
+        secondsold = Math.floor(sectimeold);
+        msPerDay = 24 * 60 * 60 * 1000;
+        e_daysold = timeold / msPerDay;
+        daysold = Math.floor(e_daysold);
+        e_hrsold = (e_daysold - daysold) * 24;
+        hrsold = Math.floor(e_hrsold);
+        e_minsold = (e_hrsold - hrsold) * 60;
+        minsold = Math.floor((e_hrsold - hrsold) * 60);
+        seconds = Math.floor((e_minsold - minsold) * 60);
+        $("#span_dt_dt").innerHTML = "此破站已苟活:" + daysold + "天" + hrsold + "小时" + minsold + "分" + seconds + "秒";
+    }
+    show_date_time();
+</script>
 <div th:fragment="foot">
-    <div style="font-size: 14px;font-family: 楷体;color: #666;margin-bottom: 10px;padding: 10px 37%" id="sitetime">本站已苟活：0 年 160 天 22 小时 42 分钟 52 秒</div>
+
+    <div style="font-size: 14px;font-family: 楷体;color: #666;margin-bottom: 10px;padding: 10px 37%" id="span_dt_dt">本站已苟活：0 年 160 天 22 小时 42 分钟 52 秒</div>
     <div class="footer">Copyright © 2010 与我常在's blog · 粤ICP备19009040号-1 · 服务器赞助: 腾讯云 · All Rights Reserved Powered</div>
+    <script>
+        function show_date_time() {
+            window.setTimeout("show_date_time()", 1000);
+            BirthDay = new Date("02/29/2020 00:00:00");
+            today = new Date();
+            timeold = (today.getTime() - BirthDay.getTime());
+            sectimeold = timeold / 1000;
+            secondsold = Math.floor(sectimeold);
+            msPerDay = 24 * 60 * 60 * 1000;
+            e_daysold = timeold / msPerDay;
+            daysold = Math.floor(e_daysold);
+            e_hrsold = (e_daysold - daysold) * 24;
+            hrsold = Math.floor(e_hrsold);
+            e_minsold = (e_hrsold - hrsold) * 60;
+            minsold = Math.floor((e_hrsold - hrsold) * 60);
+            seconds = Math.floor((e_minsold - minsold) * 60);
+            $("#span_dt_dt").html("与我常在's blog已经走过了:" + daysold + "天" + hrsold + "小时" + minsold + "分" + seconds + "秒");
+        }
+        show_date_time();
+    </script>
+
 </div>
 </body>
 </html>
