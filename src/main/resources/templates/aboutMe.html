@@ -1,10 +1,66 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <title th:text="${title}">个人中心 - 与我常在's blog</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <script src="/js/jq/jquery-3.4.1.min.js" type="application/javascript"></script>
+    <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/css/community.css">
+    <script src="/js/bootstrap.min.js" type="application/javascript"></script>
 </head>
 <body>
+<div th:insert="navigation::nav"></div>
+<div class="" style="height: 200px;width: 100%;text-align: center">
+    <img class="img-title img-rounded boxShadow" src="/images/daitu.png" alt="...">
+    <img class="img-title img-rounded boxShadow" src="/images/didala.png" alt="...">
+    <img class="img-title img-rounded boxShadow" src="/images/peipei.png" alt="...">
+    <img class="img-title img-rounded boxShadow" src="/images/you.png" alt="...">
+</div>
+<div class="container-fluid main">
+    <div class="row ">
+        <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12" style="border-right: #9d9d9d">
+            <div class="page-header">
+                <h1>Not fate<br><small style="margin-left: 100px">but what we make</small></h1>
+            </div>
+            <div class="page-header" STYLE="margin-left: 50PX">
+                <h1>Tough times last<br><small style="margin-left: 70px">but tough man don't </small></h1>
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 left-box  ">
+            <!--            个人宣传-->
+            <h1>关于我</h1>
+            <img src="/images/haha.jpeg" style="width: 330px;height: 580px;" alt="..." class="img-rounded">
+            <p class="blogtext" style="font-size: 17px">一个普普通通的巨蟹座程序猿，喜欢自我感动，常常用些热血句子(左边就有两句)来鼓励自己进行所谓'自我救赎'。</p>
+            <p class="blogtext" style="font-size: 17px">遇到值得留恋的事情，常常会在朋友圈发上几百字的粤语小说，认定了一件事之后会不留余力的坚持到底。即使是知道结局,亦会倾其所有，最喜欢的电影明星是周星驰，坚持用一句<kbd>长江7号</kbd>里面星爷的一句"顶到既。顶到既。。。"来勉励自己</p>
+            <p class="blogtext" style="font-size: 17px">习惯生活中说一些有星爷味道的烂get。最喜欢的两部电影。一部搞笑一部励志。一部是周星驰的<kbd>破环之王</kbd>(鬼仔达、魔鬼筋肉人、外卖仔)、还有一部是张家辉的<kbd>激战</kbd>(怯，你就输一世！)。</p>
+            <p class="blogtext" style="font-size: 17px">
+            热爱代码、足球。幻想着2022可以去卡塔尔看一场世界杯.</p>
+            <!--            个人宣传-->
+        </div>
+        <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+            <div>
+                <img  class="img-thumbnail img-index" src="http://oss.awakeyoyoyo.com/community/39197200.jpeg"
+                      alt="lqhao">
+                <div class="caption">
+                    <h4>Lqhao</h4>
+                    <P class="text-size text-color">Awakeyoyoyo</P>
+                    <div>
+                        <span class="glyphicon glyphicon-map-marker text-size "> 珠海</span>
+                    </div>
+                    <p>怕 你就输一辈子</p>
+                    <a href="https://blog.csdn.net/awake_lqh">csdn主页</a>
+                    <br>
+                    <a href="https://github.com/Awakeyoyoyo">github主页</a>
+                    <br>
+                    <A href="mailto:lqh19980716@163.com">欢迎邮箱联系我
+                    </A>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:insert="footer::foot"></div>
 
 </body>
 </html>
