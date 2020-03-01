@@ -1,5 +1,6 @@
 package com.awakeyo.community.controller.backend;
 
+import com.awakeyo.community.cache.CategoriesCache;
 import com.awakeyo.community.cache.TagCache;
 import com.awakeyo.community.exception.AuthorityException;
 import com.awakeyo.community.mapper.ArticleMapper;
@@ -63,29 +64,29 @@ public class ArticleController {
         model.addAttribute("tags", TagCache.getInstance().get());
         if (user==null){
             model.addAttribute("error","用户未登陆！！！！");
-            return "publicAritle";
+            return "publicArticle";
         }
         if (title==null||title==""){
             model.addAttribute("error","标题不能为空！！！！");
-            return "publicAritle";
+            return "publicArticle";
         }
         if (description==null||description==""){
             model.addAttribute("error","问题描述不能为空！！！！");
-            return "publicAritle";
+            return "publicArticle";
         }
         if (tag==null||tag==""){
             model.addAttribute("error","标签不能为空！！！！");
 
-            return "publicAritle";
+            return "publicArticle";
         }
         if (context==null||context==""){
             model.addAttribute("error","文章内容不能为空！！！！");
-            return "publicAritle";
+            return "publicArticle";
         }
-        String invalid=TagCache.getInstance().filterInvalid(tag);
+        String invalid=CategoriesCache.getInstance().filterInvalid(tag);
         if (!StringUtils.isEmpty(invalid)){
             model.addAttribute("error","输入非法标签"+invalid);
-            return "publicAritle";
+            return "publicArticle";
         }
         Article article=new Article();
         article.setTitle(title);
@@ -129,7 +130,7 @@ public class ArticleController {
         model.addAttribute("content",question.getContent());
         model.addAttribute("tag",question.getTag());
         model.addAttribute("id",question.getId());
-        model.addAttribute("tags", TagCache.getInstance().get());
+        model.addAttribute("tags", CategoriesCache.getInstance().get());
         return "publicArticle";
     }
 
@@ -143,7 +144,7 @@ public class ArticleController {
         if (!user.getAccountId().equals(rootUser)){
             throw new AuthorityException("写博客功能只对站主开放。。你小子？？？居然找到了我写博客的接口？？？有点东西");
         }
-        model.addAttribute("tags", TagCache.getInstance().get());
+        model.addAttribute("tags", CategoriesCache.getInstance().get());
         return "publicArticle";
     }
     @GetMapping("/articles")

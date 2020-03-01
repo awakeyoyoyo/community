@@ -1,6 +1,7 @@
 package com.awakeyo.community.mapper;
 
 import com.awakeyo.community.pojo.Article;
+import com.awakeyo.community.pojo.dto.ArticleCategoryDto;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -31,4 +32,6 @@ public interface ArticleMapper {
     List<Article> selectList(@Param("pageBegin") Integer pageBegin, @Param("pageSize") Integer pageSize);
 
     Integer updateReplyCountByTopicId(Integer topicId);
+
+    List<ArticleCategoryDto> selectByTag(@Param("tag") String tag,@Param("pageSize") Integer pageSize,@Param("pageBegin") Integer pageBegin);
 }

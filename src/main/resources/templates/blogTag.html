@@ -1,10 +1,221 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <title >分类 - 与我常在's blog</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <script src="/js/jq/jquery-3.4.1.min.js" type="application/javascript"></script>
+    <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/css/community.css">
+    <script src="/js/bootstrap.min.js" type="application/javascript"></script>
 </head>
 <body>
+<div th:insert="navigation::nav"></div>
+<div class="" style="height: 200px;width: 100%;text-align: center">
+    <img class="img-title img-rounded boxShadow" src="/images/daitu.png" alt="...">
+    <img class="img-title img-rounded boxShadow" src="/images/didala.png" alt="...">
+    <img class="img-title img-rounded boxShadow" src="/images/peipei.png" alt="...">
+    <img class="img-title img-rounded boxShadow" src="/images/you.png" alt="...">
+</div>
+<div class="container-fluid main">
+    <div class="row ">
+        <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12" style="border-right: #9d9d9d">
+            <div class="page-header" >
+                <h1>Tough times last<br><small style="margin-left: 70px">but tough man don't </small></h1>
+            </div>
+        </div>
+        <div class="col-lg-7 col-md-12 col-sm-12 col-xs-12 left-box  ">
+            <!--            个人宣传-->
+            <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12 left-box  ">
+                <ul >
+                    <li class="li-sty"><a href="#"class="btn-aaaa-blog" >java</a></li>
+                    <li class="li-sty"><a href="#" class="btn-aaaa-blog">SpringBoot</a></li>
+                    <li class="li-sty"><a href="#" class="btn-aaaa-blog">Linux</a></li>
+                    <li class="li-sty"><a href="#" class="btn-aaaa-blog">JVM</a></li>
+                    <li class="li-sty"><a href="#" class="btn-aaaa-blog">设计模式</a></li>
+                    <li class="li-sty"><a href="#" class="btn-aaaa-blog">解决BUG</a></li>
+                    <li class="li-sty"><a href="#" class="btn-aaaa-blog">设计模式</a></li>
+                    <li class="li-sty"><a href="#" class="btn-aaaa-blog">算法题</a></li>
+                    <li class="li-sty"><a href="#" class="btn-aaaa-blog">面试</a></li>
+                    <li class="li-sty"><a href="#" class="btn-aaaa-blog">数据库</a></li>
+                    <li class="li-sty"><a href="#" class="btn-aaaa-blog">服务器</a></li>
+                    <li class="li-sty"><a href="#" class="btn-aaaa-blog">计算机网络</a></li>
+                    <li class="li-sty"><a href="#" class="btn-aaaa-blog">后台技术ing</a></li>
+                </ul>
+            </div>
+            <!--            个人宣传-->
+                <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12 left-box  ">
+                    <div class="blog-box">
+                        <div>
+                            <span class="blog-cricle-big"></span>
+                            <div style="padding-left: 40px"><h3>java标签</h3></div>
+                        </div>
+                        <div th:each="article:${pageResult.reslts}">
+                            <span class="blog-cricle"></span>
+                            <div style="padding-left: 20px" >
+                                <div class="blog-box-li boxShadow">
+                                <div class="bottom-blog " th:text="${article.title}">comparator和comparable的区别</div>
+
+                                <P class="text-desc " >
+                                    <span class="glyphicon  glyphicon-user" aria-hidden="true"></span>
+                                    作者：<span th:text="lqhao">lqhao</span> |
+                                    <span class="glyphicon glyphicon glyphicon-calendar" aria-hidden="true"></span>
+
+                                    发布时间：<span th:>2019-07-16</span> |
+                                    <span class="glyphicon glyphicon-signal" aria-hidden="true"></span>
+                                    阅读数：<span th:text="${article.tag}">20</span>
+                                    <br>
+                                </P>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <span class="blog-cricle"></span>
+                            <div style="padding-left: 20px" >
+                                <div class="blog-box-li boxShadow">
+                                    <div class="bottom-blog ">comparator和comparable的区别</div>
+
+                                    <P class="text-desc " >
+                                        <span class="glyphicon  glyphicon-user" aria-hidden="true"></span>
+                                        作者：<span >lqhao</span> |
+                                        <span class="glyphicon glyphicon glyphicon-calendar" aria-hidden="true"></span>
+
+                                        发布时间：<span>2019-07-16</span> |
+                                        <span class="glyphicon glyphicon-signal" aria-hidden="true"></span>
+                                        阅读数：<span>20</span>
+                                        <br>
+                                    </P>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <span class="blog-cricle"></span>
+                            <div style="padding-left: 20px" >
+                                <div class="blog-box-li boxShadow">
+                                    <div class="bottom-blog ">comparator和comparable的区别</div>
+
+                                    <P class="text-desc " >
+                                        <span class="glyphicon  glyphicon-user" aria-hidden="true"></span>
+                                        作者：<span >lqhao</span> |
+                                        <span class="glyphicon glyphicon glyphicon-calendar" aria-hidden="true"></span>
+
+                                        发布时间：<span>2019-07-16</span> |
+                                        <span class="glyphicon glyphicon-signal" aria-hidden="true"></span>
+                                        阅读数：<span>20</span>
+                                        <br>
+                                    </P>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <span class="blog-cricle"></span>
+                            <div style="padding-left: 20px" >
+                                <div class="blog-box-li boxShadow">
+                                    <div class="bottom-blog ">comparator和comparable的区别</div>
+
+                                    <P class="text-desc " >
+                                        <span class="glyphicon  glyphicon-user" aria-hidden="true"></span>
+                                        作者：<span >lqhao</span> |
+                                        <span class="glyphicon glyphicon glyphicon-calendar" aria-hidden="true"></span>
+
+                                        发布时间：<span>2019-07-16</span> |
+                                        <span class="glyphicon glyphicon-signal" aria-hidden="true"></span>
+                                        阅读数：<span>20</span>
+                                        <br>
+                                    </P>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <span class="blog-cricle"></span>
+                            <div style="padding-left: 20px" >
+                                <div class="blog-box-li boxShadow">
+                                    <div class="bottom-blog ">comparator和comparable的区别</div>
+
+                                    <P class="text-desc " >
+                                        <span class="glyphicon  glyphicon-user" aria-hidden="true"></span>
+                                        作者：<span >lqhao</span> |
+                                        <span class="glyphicon glyphicon glyphicon-calendar" aria-hidden="true"></span>
+
+                                        发布时间：<span>2019-07-16</span> |
+                                        <span class="glyphicon glyphicon-signal" aria-hidden="true"></span>
+                                        阅读数：<span>20</span>
+                                        <br>
+                                    </P>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <br>
+                    <nav aria-label="Page navigation " class="PageStyle-blog " style="margin-left: 100px;" >
+                        <ul class="pagination">
+                            <li>
+                                <a  onclick="ajaxBlog(this)"
+                                    th:attr="pageNo=1"
+                                    aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a onclick="ajaxBlog(this)"
+                                   th:attr="pageNo=${pageResult.pageNo-1}"
+                                   aria-label="Previous">
+                                    <span aria-hidden="true">&lt;</span>
+                                </a>
+                            </li>
+                            <li th:class="${pageResult.pageNo==page}?'active':''" th:each="page:${pageResult.pages}">
+                                <a
+                                        th:text="${page}"
+                                        th:attr="pageNo=${page}"
+                                        onclick="ajaxBlog(this)"
+                                ></a>
+                            </li>
+                            <li>
+                                <a
+                                        th:attr="pageNo=${pageResult.pageNo+1}"
+                                        onclick="ajaxBlog(this)"
+                                        aria-label="Previous">
+                                    <span aria-hidden="true">&gt;</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a
+                                        th:attr="pageNo=${pageResult.pageCount}"
+                                        onclick="ajaxBlog(this)"
+                                        aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+        </div>
+        <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+            <div>
+                <img  class="img-thumbnail img-index" src="http://oss.awakeyoyoyo.com/community/39197200.jpeg"
+                      alt="lqhao">
+                <div class="caption">
+                    <h4>Lqhao</h4>
+                    <P class="text-size text-color">Awakeyoyoyo</P>
+                    <div>
+                        <span class="glyphicon glyphicon-map-marker text-size "> 珠海</span>
+                    </div>
+                    <p>怕 你就输一辈子</p>
+                    <a href="https://blog.csdn.net/awake_lqh">csdn主页</a>
+                    <br>
+                    <a href="https://github.com/Awakeyoyoyo">github主页</a>
+                    <br>
+                    <A href="mailto:lqh19980716@163.com">欢迎邮箱联系我
+                    </A>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:insert="footer::foot"></div>
 
 </body>
 </html>

@@ -232,5 +232,52 @@
      text-decoration: none;
      color: #3399CC;
  }
+ .btn-aaaa-blog{
+     text-decoration: none;
+     color: #333;
+     text-decoration:underline;
+     font-size: 18px;
+ }
+ .btn-aaaa-blog:hover{
+     text-decoration: none;
+     color: #3399CC;
+     text-decoration:underline;
+ }
+ .li-sty{
+     margin-top: 7px;
+ }
+ .left-box{}
+ .blog-cricle-big{
+     width: 20px;
+     color: #fff;
+     height: 20px;
+     border-radius: 50%;
+     margin-left: -12px;
+     margin-top: -10px;
+     display: inline-block;
+     background-color: #38b7ea;
+ }
+ .blog-cricle{
+     width: 12px;
+     color: #fff;
+     height: 12px;
+     border-radius: 50%;
+     margin-left: -8px;
+     margin-top: -10px;
+     display: inline-block;
+     background-color: #38b7ea;
+ }
+ .blog-box-li {
+     padding-left: 20px;
+     font-size: 20px;
+     border: silver 3px solid;
+     border-radius: 5px;
+ }
+ .blog-box{
+     border-left: silver solid 3px;
+ }
+ .bottom-blog{
+     margin-top: 10px;
+     margin-bottom: 20px;
+ }
 
-   .left-box{}

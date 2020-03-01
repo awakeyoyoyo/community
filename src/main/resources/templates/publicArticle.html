@@ -80,18 +80,12 @@
                            placeholder="输入标签 以，号分割">
                     <div id="SelectTag"  class="public-selectTag">
                         <!-- Nav tabs -->
-                        <ul class="nav nav-tabs" role="tablist">
-                            <li role="presentation"  name="tabs" th:each="tagx:${tags}">
-                                <a th:href="${'#'+tagx.getCategoryName()}"
-                                   aria-controls="home" role="tab" data-toggle="tab" th:text="${tagx.getCategoryName()}">吹水系列
-                                </a>
-                            </li>
-                        </ul>
 
                         <!-- Tab panes -->
                         <div class="tab-content">
-                            <div role="tabpanel" name="tags" class="tab-pane" th:id="${tagx.getCategoryName()}" th:each="tagx:${tags}">
-                                    <span class="label label-info" th:each="tagxx:${tagx.getTags()}">
+
+                            <div role="tabpanel" name="tags" class="tab-pane" >
+                                    <span class="label label-info" th:each="tagxx:${tags}">
                                         <span class="glyphicon glyphicon-tags"
                                               th:text="' '+${tagxx}" onclick="SelectTag(this)" th:data-tag="${tagxx}">烦恼</span>
                                     </span>

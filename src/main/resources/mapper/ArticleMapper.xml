@@ -13,6 +13,12 @@
     <result column="tag" jdbcType="VARCHAR" property="tag" />
     <result column="comment_count" jdbcType="INTEGER" property="commentCount" />
   </resultMap>
+  <resultMap id="CategoryArticle" type="com.awakeyo.community.pojo.dto.ArticleCategoryDto">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="gmt_create" jdbcType="BIGINT" property="gmtCreate" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="tag" jdbcType="VARCHAR" property="tag" />
+  </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.awakeyo.community.pojo.Article">
     <result column="content" jdbcType="LONGVARCHAR" property="content" />
   </resultMap>
@@ -226,4 +232,11 @@
       comment_count = comment_count+1
     where id = #{topicId}
   </update>
+
+  <select id="selectByTag"  resultMap="CategoryArticle" parameterType="map">
+    select
+    id, gmt_create, title, decription,tag
+    from cm_Article where tag regexp #{tag}
+    order by gmt_create desc Limit #{pageBegin},#{pageSize}
+  </select>
 </mapper>
