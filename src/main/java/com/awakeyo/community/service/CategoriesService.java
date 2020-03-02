@@ -19,7 +19,7 @@ public class CategoriesService {
     @Autowired
     private ArticleMapper articleMapper;
     public PageResult<ArticleCategoryDto> getDto(String tag,Integer pageSize,Integer pageNo) {
-        Integer itemCount=articleMapper.selectAll();
+        Integer itemCount=articleMapper.selectTagAll(tag);
         int  pageCount;
         if (itemCount/pageSize==0){
             pageCount=1;

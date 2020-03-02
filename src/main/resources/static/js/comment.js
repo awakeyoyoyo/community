@@ -160,6 +160,11 @@ function ajaxBlog(obj) {
     var pageNo=obj.getAttribute("pageNo");
     $("#AticleBlog").load("/articles?pageNo="+pageNo+"&pageSize=3")
 }
+function ajaxBlogArticle(obj) {
+    var pageNo=obj.getAttribute("pageNo");
+    var tag=obj.getAttribute("tag")
+    $("#categoryBlog").load("/ajaxcategories?tag="+tag+"&pageNo="+pageNo+"&pageSize=3")
+}
 function ajaxQuestion(obj) {
     var pageNo=obj.getAttribute("pageNo");
     $("#questions").load("/questions?pageNo="+pageNo+"&pageSize=5")

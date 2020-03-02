@@ -1,10 +1,41 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <title>分类 - 与我常在's blog</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <script src="/js/jq/jquery-3.4.1.min.js" type="application/javascript"></script>
+    <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/css/community.css">
+    <script src="/js/bootstrap.min.js" type="application/javascript"></script>
+    <script src="/js/comment.js" type="application/javascript"></script>
 </head>
 <body>
+<div th:insert="navigation::nav"></div>
+<div class="" style="height: 200px;width: 100%;text-align: center">
+    <img class="img-title img-rounded boxShadow" src="/images/daitu.png" alt="...">
+    <img class="img-title img-rounded boxShadow" src="/images/didala.png" alt="...">
+    <img class="img-title img-rounded boxShadow" src="/images/peipei.png" alt="...">
+    <img class="img-title img-rounded boxShadow" src="/images/you.png" alt="...">
+</div>
+<div class="container-fluid main">
+    <div class="row ">
+        <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12" style="border-right: #9d9d9d">
+            <div class="page-header">
+                <h1>Tough times last<br><small style="margin-left: 70px">but tough man don't </small></h1>
+            </div>
+        </div>
+        <div class="col-lg-7 col-md-12 col-sm-12 col-xs-12 left-box  ">
+            <!--            个人宣传-->
+            <!--            个人宣传-->
+        </div>
+        <div class="col-lg-1 col-md-12 col-sm-12 col-xs-12 left-box  ">
+            <!--            个人宣传-->
+            <!--            个人宣传-->
+        </div>
+    </div>
+</div>
+<div th:insert="footer::foot"></div>
 
 </body>
 </html>

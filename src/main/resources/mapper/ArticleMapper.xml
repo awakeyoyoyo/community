@@ -219,6 +219,11 @@
     select COUNT(*)
     from cm_Article
   </select>
+  <select id="selectTagAll"  resultType="java.lang.Integer" >
+    select COUNT(*)
+    from cm_Article
+    where tag regexp #{tag}
+  </select>
   <select id="selectList"  resultMap="ResultMapWithBLOBs" parameterType="map">
     select
     <include refid="Base_Column_List" />

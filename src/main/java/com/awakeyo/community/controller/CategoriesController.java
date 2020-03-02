@@ -32,4 +32,14 @@ public class CategoriesController {
         model.addAttribute("pageResult",articleCategoryDtos);
         return "blogTag";
     }
+    @GetMapping("/ajaxcategories")
+    public String ajaxcategories(@RequestParam(name="tag",defaultValue = "java")String tag,
+                             Model model,
+                             @RequestParam(name = "pageNo", defaultValue = "1", required = false) Integer pageNo,
+                             @RequestParam(name = "pageSize", defaultValue = "5", required = false)Integer pageSize){
+        PageResult<ArticleCategoryDto> articleCategoryDtos=categoriesService.getDto(tag,pageSize,pageNo);
+        model.addAttribute("tag",tag);
+        model.addAttribute("pageResult",articleCategoryDtos);
+        return "blogTag::categoryBlog";
+    }
 }

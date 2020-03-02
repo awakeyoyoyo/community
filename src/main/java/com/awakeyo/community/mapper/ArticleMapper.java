@@ -34,4 +34,6 @@ public interface ArticleMapper {
     Integer updateReplyCountByTopicId(Integer topicId);
 
     List<ArticleCategoryDto> selectByTag(@Param("tag") String tag,@Param("pageSize") Integer pageSize,@Param("pageBegin") Integer pageBegin);
+
+    Integer selectTagAll(String tag);
 }

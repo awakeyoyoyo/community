@@ -1,13 +1,14 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title >分类 - 与我常在's blog</title>
+    <title>分类 - 与我常在's blog</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <script src="/js/jq/jquery-3.4.1.min.js" type="application/javascript"></script>
     <link rel="stylesheet" href="/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="/css/community.css">
     <script src="/js/bootstrap.min.js" type="application/javascript"></script>
+    <script src="/js/comment.js" type="application/javascript"></script>
 </head>
 <body>
 <div th:insert="navigation::nav"></div>
@@ -20,183 +21,112 @@
 <div class="container-fluid main">
     <div class="row ">
         <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12" style="border-right: #9d9d9d">
-            <div class="page-header" >
+            <div class="page-header">
                 <h1>Tough times last<br><small style="margin-left: 70px">but tough man don't </small></h1>
             </div>
         </div>
         <div class="col-lg-7 col-md-12 col-sm-12 col-xs-12 left-box  ">
             <!--            个人宣传-->
             <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12 left-box  ">
-                <ul >
-                    <li class="li-sty"><a href="#"class="btn-aaaa-blog" >java</a></li>
-                    <li class="li-sty"><a href="#" class="btn-aaaa-blog">SpringBoot</a></li>
-                    <li class="li-sty"><a href="#" class="btn-aaaa-blog">Linux</a></li>
-                    <li class="li-sty"><a href="#" class="btn-aaaa-blog">JVM</a></li>
-                    <li class="li-sty"><a href="#" class="btn-aaaa-blog">设计模式</a></li>
-                    <li class="li-sty"><a href="#" class="btn-aaaa-blog">解决BUG</a></li>
-                    <li class="li-sty"><a href="#" class="btn-aaaa-blog">设计模式</a></li>
-                    <li class="li-sty"><a href="#" class="btn-aaaa-blog">算法题</a></li>
-                    <li class="li-sty"><a href="#" class="btn-aaaa-blog">面试</a></li>
-                    <li class="li-sty"><a href="#" class="btn-aaaa-blog">数据库</a></li>
-                    <li class="li-sty"><a href="#" class="btn-aaaa-blog">服务器</a></li>
-                    <li class="li-sty"><a href="#" class="btn-aaaa-blog">计算机网络</a></li>
-                    <li class="li-sty"><a href="#" class="btn-aaaa-blog">后台技术ing</a></li>
+                <ul>
+                    <li class="li-sty"><a onclick="ajaxBlogArticle(this)" style="cursor: pointer" th:attr="pageNo=1,tag='java'" class="btn-aaaa-blog">java</a></li>
+                    <li class="li-sty"><a onclick="ajaxBlogArticle(this)" style="cursor: pointer" th:attr="pageNo=1,tag='SpringBoot'" class="btn-aaaa-blog">SpringBoot</a></li>
+                    <li class="li-sty"><a onclick="ajaxBlogArticle(this)" style="cursor: pointer" th:attr="pageNo=1,tag='Linux'" class="btn-aaaa-blog">Linux</a></li>
+                    <li class="li-sty"><a onclick="ajaxBlogArticle(this)" style="cursor: pointer" th:attr="pageNo=1,tag='JVM'" class="btn-aaaa-blog">JVM</a></li>
+                    <li class="li-sty"><a onclick="ajaxBlogArticle(this)" style="cursor: pointer" th:attr="pageNo=1,tag='设计模式'" class="btn-aaaa-blog">设计模式</a></li>
+                    <li class="li-sty"><a onclick="ajaxBlogArticle(this)" style="cursor: pointer" th:attr="pageNo=1,tag='解决BUG'" class="btn-aaaa-blog">解决BUG</a></li>
+                    <li class="li-sty"><a onclick="ajaxBlogArticle(this)" style="cursor: pointer" th:attr="pageNo=1,tag='算法题'" class="btn-aaaa-blog">算法题</a></li>
+                    <li class="li-sty"><a onclick="ajaxBlogArticle(this)" style="cursor: pointer" th:attr="pageNo=1,tag='面试'" class="btn-aaaa-blog">面试</a></li>
+                    <li class="li-sty"><a onclick="ajaxBlogArticle(this)" style="cursor: pointer" th:attr="pageNo=1,tag='数据库'" class="btn-aaaa-blog">数据库</a></li>
+                    <li class="li-sty"><a onclick="ajaxBlogArticle(this)" style="cursor: pointer" th:attr="pageNo=1,tag='服务器'" class="btn-aaaa-blog">服务器</a></li>
+                    <li class="li-sty"><a onclick="ajaxBlogArticle(this)" style="cursor: pointer" th:attr="pageNo=1,tag='计算机网路'" class="btn-aaaa-blog">计算机网络</a></li>
+                    <li class="li-sty"><a onclick="ajaxBlogArticle(this)" style="cursor: pointer" th:attr="pageNo=1,tag='后台技术ing'" class="btn-aaaa-blog">后台技术ing</a></li>
                 </ul>
             </div>
             <!--            个人宣传-->
-                <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12 left-box  ">
-                    <div class="blog-box">
-                        <div>
-                            <span class="blog-cricle-big"></span>
-                            <div style="padding-left: 40px"><h3>java标签</h3></div>
-                        </div>
-                        <div th:each="article:${pageResult.reslts}">
-                            <span class="blog-cricle"></span>
-                            <div style="padding-left: 20px" >
-                                <div class="blog-box-li boxShadow">
+            <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12 left-box  ">
+                <div th:fragment="categoryBlog" id="categoryBlog">
+                <div class="blog-box">
+                    <div>
+                        <span class="blog-cricle-big"></span>
+                        <div style="padding-left: 40px"><h3 th:text="${tag}+'标签'">java标签</h3></div>
+                    </div>
+                    <div th:each="article:${pageResult.reslts}">
+                        <span class="blog-cricle"></span>
+                        <div style="padding-left: 20px">
+                            <div class="blog-box-li boxShadow">
+                                <a th:href="'/Aritle/'+${article.id}" class="btn-aaaa">
                                 <div class="bottom-blog " th:text="${article.title}">comparator和comparable的区别</div>
-
-                                <P class="text-desc " >
-                                    <span class="glyphicon  glyphicon-user" aria-hidden="true"></span>
-                                    作者：<span th:text="lqhao">lqhao</span> |
-                                    <span class="glyphicon glyphicon glyphicon-calendar" aria-hidden="true"></span>
-
-                                    发布时间：<span th:>2019-07-16</span> |
-                                    <span class="glyphicon glyphicon-signal" aria-hidden="true"></span>
-                                    阅读数：<span th:text="${article.tag}">20</span>
-                                    <br>
-                                </P>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div>
-                            <span class="blog-cricle"></span>
-                            <div style="padding-left: 20px" >
-                                <div class="blog-box-li boxShadow">
-                                    <div class="bottom-blog ">comparator和comparable的区别</div>
-
-                                    <P class="text-desc " >
-                                        <span class="glyphicon  glyphicon-user" aria-hidden="true"></span>
-                                        作者：<span >lqhao</span> |
-                                        <span class="glyphicon glyphicon glyphicon-calendar" aria-hidden="true"></span>
-
-                                        发布时间：<span>2019-07-16</span> |
-                                        <span class="glyphicon glyphicon-signal" aria-hidden="true"></span>
-                                        阅读数：<span>20</span>
-                                        <br>
-                                    </P>
-                                </div>
-                            </div>
-                        </div>
-                        <div>
-                            <span class="blog-cricle"></span>
-                            <div style="padding-left: 20px" >
-                                <div class="blog-box-li boxShadow">
-                                    <div class="bottom-blog ">comparator和comparable的区别</div>
-
-                                    <P class="text-desc " >
-                                        <span class="glyphicon  glyphicon-user" aria-hidden="true"></span>
-                                        作者：<span >lqhao</span> |
-                                        <span class="glyphicon glyphicon glyphicon-calendar" aria-hidden="true"></span>
-
-                                        发布时间：<span>2019-07-16</span> |
-                                        <span class="glyphicon glyphicon-signal" aria-hidden="true"></span>
-                                        阅读数：<span>20</span>
-                                        <br>
-                                    </P>
-                                </div>
-                            </div>
-                        </div>
-                        <div>
-                            <span class="blog-cricle"></span>
-                            <div style="padding-left: 20px" >
-                                <div class="blog-box-li boxShadow">
-                                    <div class="bottom-blog ">comparator和comparable的区别</div>
-
-                                    <P class="text-desc " >
-                                        <span class="glyphicon  glyphicon-user" aria-hidden="true"></span>
-                                        作者：<span >lqhao</span> |
-                                        <span class="glyphicon glyphicon glyphicon-calendar" aria-hidden="true"></span>
-
-                                        发布时间：<span>2019-07-16</span> |
-                                        <span class="glyphicon glyphicon-signal" aria-hidden="true"></span>
-                                        阅读数：<span>20</span>
-                                        <br>
-                                    </P>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div>
-                            <span class="blog-cricle"></span>
-                            <div style="padding-left: 20px" >
-                                <div class="blog-box-li boxShadow">
-                                    <div class="bottom-blog ">comparator和comparable的区别</div>
-
-                                    <P class="text-desc " >
-                                        <span class="glyphicon  glyphicon-user" aria-hidden="true"></span>
-                                        作者：<span >lqhao</span> |
-                                        <span class="glyphicon glyphicon glyphicon-calendar" aria-hidden="true"></span>
-
-                                        发布时间：<span>2019-07-16</span> |
-                                        <span class="glyphicon glyphicon-signal" aria-hidden="true"></span>
-                                        阅读数：<span>20</span>
-                                        <br>
-                                    </P>
-                                </div>
+                                </a>
+                                <P class="text-desc ">
+                                    <span class="glyphicon  glyphicon-calendar" aria-hidden="true"></span>
+                                    时间：<span th:text="${#dates.format(article.getGmtCreate(),'yyyy-MM-dd HH:mm:ss')}">lqhao</span>
+                                    <a class="btn-aaaa" href="#" th:each="tag:${article.tag.split(',')}">
+                                <span class="label label-info question-tag ">
+                                     <span class=" question-tag glyphicon glyphicon-tags"></span>
+                                     <span class="label label-info" th:text="${tag}">java</span>
+                                 </span>
+                                    </a></P>
                             </div>
                         </div>
                     </div>
-                    <br>
-                    <br>
-                    <nav aria-label="Page navigation " class="PageStyle-blog " style="margin-left: 100px;" >
-                        <ul class="pagination">
-                            <li>
-                                <a  onclick="ajaxBlog(this)"
-                                    th:attr="pageNo=1"
-                                    aria-label="Previous">
-                                    <span aria-hidden="true">&laquo;</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a onclick="ajaxBlog(this)"
-                                   th:attr="pageNo=${pageResult.pageNo-1}"
-                                   aria-label="Previous">
-                                    <span aria-hidden="true">&lt;</span>
-                                </a>
-                            </li>
-                            <li th:class="${pageResult.pageNo==page}?'active':''" th:each="page:${pageResult.pages}">
-                                <a
-                                        th:text="${page}"
-                                        th:attr="pageNo=${page}"
-                                        onclick="ajaxBlog(this)"
-                                ></a>
-                            </li>
-                            <li>
-                                <a
-                                        th:attr="pageNo=${pageResult.pageNo+1}"
-                                        onclick="ajaxBlog(this)"
-                                        aria-label="Previous">
-                                    <span aria-hidden="true">&gt;</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a
-                                        th:attr="pageNo=${pageResult.pageCount}"
-                                        onclick="ajaxBlog(this)"
-                                        aria-label="Next">
-                                    <span aria-hidden="true">&raquo;</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
                 </div>
+                <br>
+                <br>
+                <nav aria-label="Page navigation " class="PageStyle-blog " style="margin-left: 100px;">
+                    <ul class="pagination">
+                        <li>
+                            <a onclick="ajaxBlogArticle(this)"
+                               style="cursor: pointer"
+                               th:attr="pageNo=1,tag=${tag}"
+                               aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a onclick="ajaxBlogArticle(this)"
+                               style="cursor: pointer"
+                               th:attr="pageNo=${pageResult.pageNo-1},tag=${tag}"
+                               aria-label="Previous">
+                                <span aria-hidden="true">&lt;</span>
+                            </a>
+                        </li>
+                        <li th:class="${pageResult.pageNo==page}?'active':''" th:each="page:${pageResult.pages}">
+                            <a
+                                    style="cursor: pointer"
+                                    th:text="${page}"
+                                    th:attr="pageNo=${page},tag=${tag}"
+                                    onclick="ajaxBlogArticle(this)"
+                            ></a>
+                        </li>
+                        <li>
+                            <a
+                                    style="cursor: pointer"
+                                    th:attr="pageNo=${pageResult.pageNo+1},tag=${tag}"
+                                    onclick="ajaxBlogArticle(this)"
+                                    aria-label="Previous">
+                                <span aria-hidden="true">&gt;</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a
+                                    style="cursor: pointer"
+                                    th:attr="pageNo=${pageResult.pageCount},tag=${tag}"
+                                    onclick="ajaxBlogArticle(this)"
+                                    aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+
+            </div>
+            </div>
         </div>
         <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
             <div>
-                <img  class="img-thumbnail img-index" src="http://oss.awakeyoyoyo.com/community/39197200.jpeg"
-                      alt="lqhao">
+                <img class="img-thumbnail img-index" src="http://oss.awakeyoyoyo.com/community/39197200.jpeg"
+                     alt="lqhao">
                 <div class="caption">
                     <h4>Lqhao</h4>
                     <P class="text-size text-color">Awakeyoyoyo</P>

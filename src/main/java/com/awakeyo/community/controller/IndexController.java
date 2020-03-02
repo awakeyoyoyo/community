@@ -69,5 +69,8 @@ public class IndexController {
         model.addAttribute("search", search);
         return "community";
     }
-
+    @GetMapping("/updateLog")
+    public String updateLog(){
+        return "updateLog";
+    }
 }

@@ -79,6 +79,7 @@
                 <ul class="pagination">
                     <li>
                         <a  onclick="ajaxQuestion(this)"
+                            style="cursor: pointer"
                             th:attr="pageNo=1"
                             aria-label="Previous">
                             <span aria-hidden="true">&laquo;</span>
@@ -86,6 +87,7 @@
                     </li>
                     <li>
                         <a onclick="ajaxQuestion(this)"
+                           style="cursor: pointer"
                            th:attr="pageNo=${pageResult.pageNo-1}"
                            aria-label="Previous">
                             <span aria-hidden="true">&lt;</span>
@@ -93,6 +95,7 @@
                     </li>
                     <li th:class="${pageResult.pageNo==page}?'active':''" th:each="page:${pageResult.pages}">
                         <a
+                                style="cursor: pointer"
                                 th:text="${page}"
                                 th:attr="pageNo=${page}"
                                 onclick="ajaxQuestion(this)"
@@ -100,6 +103,7 @@
                     </li>
                     <li>
                         <a
+                                style="cursor: pointer"
                                 th:attr="pageNo=${pageResult.pageNo+1}"
                                 onclick="ajaxQuestion(this)"
                                 aria-label="Previous">
@@ -108,6 +112,7 @@
                     </li>
                     <li>
                         <a
+                                style="cursor: pointer"
                                 th:attr="pageNo=${pageResult.pageCount}"
                                 onclick="ajaxQuestion(this)"
                                 aria-label="Next">
@@ -121,49 +126,28 @@
         <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12" style="border-right: #9d9d9d">
             <div class="textbox bg-danger boxShadow" >
                 <div class="laoMei">
-                    <p>没有如果</p>
-                    <p style="margin-left: 40px">错过便是错过。</p>
+                    <p>你只是个散工</p>
+                    <p style="margin-left: 40px">你点顶啊。</p>
+                    <p style="margin-left: 170px;font-size: 20px">---生活</p>
+                </div>
+            </div>
+            <div class="textbox bg-danger boxShadow" >
+                <div class="laoMei">
+                    <p>顶到既</p>
+                    <p style="margin-left: 40px">顶到既。</p>
                     <p style="margin-left: 170px;font-size: 20px">---lqh</p>
                 </div>
             </div>
             <div class="textbox color-aaaa boxShadow">
-                <h3>热门话题：</h3>
-                <ul class="web-ul">
-                    <li>
-                        <a href="#">如何使用spingboot</a>
-                    </li>
-
-                    <li>
-                        <a href="#">如何使用spingboot</a>
-                    </li>
-
-                    <li>
-                        <a href="#">如何使用spingboot</a>
-                    </li>
-
-                    <li>
-                        <a href="#">如何使用spingboot</a>
-                    </li>
-                </ul>
-            </div>
-            <div class="textbox color-aaaa boxShadow">
-                <h3>网站信息</h3>
+                <h3>讨论区使用方法</h3>
                 <ul class="web-ul">
                     <li>
                         <span class="glyphicon glyphicon-book"></span>
-                        <span>文章总数：59 篇</span>
+                        <span>登陆之后可以发表你的问题噢</span>
                     </li>
                     <li>
-                        <span class="glyphicon glyphicon-th-list"></span>
-                        <span>讨论区问题总数：11 篇</span>
-                    </li>
-                    <li>
-                        <span class="glyphicon glyphicon-tags"></span>
-                        <span>标签总数：59 篇</span>
-                    </li>
-                    <li>
-                        <span class="glyphicon glyphicon-edit"></span>
-                        <span>留言总数：59 篇</span>
+                        <span class="glyphicon glyphicon-book"></span>
+                        <span>发表问题需要熟悉markdown的写法噢</span>
                     </li>
                 </ul>
             </div>
