@@ -7,6 +7,7 @@ import com.awakeyo.community.pojo.Comment;
 import com.awakeyo.community.pojo.Reply;
 import com.awakeyo.community.pojo.User;
 import com.awakeyo.community.pojo.dto.ArticleDto;
+import com.awakeyo.community.pojo.dto.CommentDTO;
 import com.awakeyo.community.pojo.dto.QuestionDTO;
 import com.awakeyo.community.service.ArticleService;
 import com.awakeyo.community.service.CommentReplyService;
@@ -17,6 +18,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * @author awakeyoyoyo
@@ -72,13 +74,23 @@ public class CommentReplyController {
             }
             model.addAttribute("question", questionDTO);
             return "question::comments";
-        }else {
+        }else if (("article").equals(type)){
             ArticleDto articleDto=articleService.getByIdAndIncView(topId);
             if (articleDto == null) {
                 throw new CustomizeException("别乱调戏接口-。-");
             }
             model.addAttribute("articleDto", articleDto);
             return "article::comments";
+        }else {
+            List<CommentDTO> commentDTO=commentReplyService.getCommentsReplyTopicId("record",10086);
+            model.addAttribute("comments", commentDTO);
+            return "recordLog::comments";
         }
+    }
+    @GetMapping("/commentsRecord")
+    public String getCommentsRecord(Model model){
+        List<CommentDTO> commentDTO=commentReplyService.getCommentsReplyTopicId("record",10086);
+        model.addAttribute("comments",commentDTO);
+        return "recordLog";
     }
 }

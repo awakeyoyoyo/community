@@ -64,6 +64,14 @@ public class CommentReplyService {
             createCommentNotify(question, user);
             return WebResponse.createBySuccess();
         }
+        else if(comment.getType().equals("record")){
+            Integer rowCount=doComment(comment);
+            if (rowCount<0){
+                return WebResponse.createByErrorMessage(ResponseCode.ERROR.getDesc());
+            }
+            return WebResponse.createBySuccess();
+
+        }
         else{
             Article article=articleMapper.selectByPrimaryKey(comment.getTopicId());
             if (article==null){
@@ -174,6 +182,15 @@ public class CommentReplyService {
             return commentDTOS;
         }
         else if ("article".equals(type)){
+            comments=commentMapper.selectByTopIdType(topId,type);
+            List<CommentDTO> commentDTOS=new ArrayList<>();
+            for (Comment comment:comments) {
+                CommentDTO commentDTO=initCommentDTO(comment);
+                commentDTOS.add(commentDTO);
+            }
+            return commentDTOS;
+        }
+        else if ("record".equals(type)){
             comments=commentMapper.selectByTopIdType(topId,type);
             List<CommentDTO> commentDTOS=new ArrayList<>();
             for (Comment comment:comments) {

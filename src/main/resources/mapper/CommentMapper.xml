@@ -119,11 +119,13 @@
     <include refid="Base_Column_List" />
     from cm_comment
     where topic_id= #{topId} and type=#{type}
-  </select>
+    order by gmt_create desc
+     </select>
   <select id="selectQuestionId" parameterType="java.lang.Long" resultType="Integer">
   select
   topic_id
   from cm_comment
   where id= #{commentId}
+   order by gmt_create desc
 </select>
 </mapper>

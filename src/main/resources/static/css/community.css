@@ -280,4 +280,11 @@
      margin-top: 10px;
      margin-bottom: 20px;
  }
+ .blog-box-update{
+     margin-left: 20px;
+     padding-left: 20px;
+     border-left: silver solid 5px;
+     font-size: 18px;
+     padding-top: 20px
+ }
 
