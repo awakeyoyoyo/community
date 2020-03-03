@@ -8,6 +8,7 @@ import com.awakeyo.community.mapper.*;
 import com.awakeyo.community.pojo.*;
 import com.awakeyo.community.pojo.dto.CommentDTO;
 import com.awakeyo.community.pojo.dto.ReplyDTO;
+import com.awakeyo.community.util.RedisUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,6 +36,8 @@ public class CommentReplyService {
     private NotificationMapper notificationMapper;
     @Autowired
     private ArticleMapper articleMapper;
+    @Autowired
+    private RedisUtil redisUtil;
     @Transactional
     public WebResponse writeComent(Comment comment) {
         //todo 枚举类来处理异常消息
@@ -69,6 +72,8 @@ public class CommentReplyService {
             if (rowCount<0){
                 return WebResponse.createByErrorMessage(ResponseCode.ERROR.getDesc());
             }
+            Integer recordCount=commentMapper.selectAllByTopicId(10086);
+            redisUtil.set("recordCount",recordCount);
             return WebResponse.createBySuccess();
 
         }

@@ -9,6 +9,8 @@ import com.awakeyo.community.pojo.PageResult;
 import com.awakeyo.community.pojo.User;
 import com.awakeyo.community.pojo.dto.ArticleDto;
 import com.awakeyo.community.service.ArticleService;
+import com.awakeyo.community.util.RedisUtil;
+import org.omg.CORBA.PRIVATE_MEMBER;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -35,6 +37,8 @@ public class ArticleController {
     private ArticleService articleService;
     @Autowired
     private ArticleMapper articleMapper;
+    @Autowired
+    private RedisUtil redisUtil;
     //写博客
     @PostMapping("/writeBlog")
     public String doPublish(
@@ -99,6 +103,8 @@ public class ArticleController {
         article.setCommentCount(0);
         article.setId(id);
         articleService.insertOrUpdate(article);
+        Integer blogCount=articleMapper.selectAll();
+        redisUtil.set("blogCount",blogCount);
         model.addAttribute("tags", TagCache.getInstance().get());
         return "redirect:/";
     }

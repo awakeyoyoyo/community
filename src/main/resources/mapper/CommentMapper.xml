@@ -128,4 +128,9 @@
   where id= #{commentId}
    order by gmt_create desc
 </select>
+  <select id="selectAllByTopicId"  resultType="java.lang.Integer" >
+    select COUNT(*)
+    from cm_comment
+    where topic_id=#{i}
+  </select>
 </mapper>

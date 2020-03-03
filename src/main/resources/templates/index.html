@@ -45,7 +45,7 @@
                         <br>
                         <a href="https://github.com/Awakeyoyoyo">github主页</a>
                         <br>
-                        <A href="mailto:lqh19980716@163.com">欢迎邮箱联系我
+                        <A href="mailto:lqh19980716@163.com">欢迎邮箱联系我</A>
                     </div>
                 </div>
             </div>
@@ -166,19 +166,19 @@
                 <ul class="web-ul">
                     <li>
                         <span class="glyphicon glyphicon-book"></span>
-                        <span>文章总数：59 篇</span>
+                        <span th:text="'博客总数：'+${webMessage.blogCount}+'篇'">文章总数：59 篇</span>
                     </li>
                     <li>
                         <span class="glyphicon glyphicon-th-list"></span>
-                        <span>讨论区问题总数：11 篇</span>
+                        <span th:text="'讨论区问题数：'+${webMessage.questionCount}+'个'">讨论区问题总数：11 篇</span>
                     </li>
                     <li>
                         <span class="glyphicon glyphicon-tags"></span>
-                        <span>标签总数：59 篇</span>
+                        <span th:text="'博客标签数：'+${webMessage.tagCount}+'个'">标签总数：59 篇</span>
                     </li>
                     <li>
                         <span class="glyphicon glyphicon-edit"></span>
-                        <span>留言总数：59 篇</span>
+                        <span th:text="'留言区留言总数：'+${webMessage.recordCount}+'个'">留言总数：59 篇</span>
                     </li>
                 </ul>
             </div>

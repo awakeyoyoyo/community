@@ -21,4 +21,6 @@ public interface CommentMapper {
     Integer selectQuestionId(Long commentId);
 
     List<Comment> selectByTopIdType(@Param("topId") Integer topId, @Param("type") String type);
+
+    Integer selectAllByTopicId(Integer i);
 }

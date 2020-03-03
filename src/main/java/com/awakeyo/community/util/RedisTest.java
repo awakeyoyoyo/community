@@ -25,9 +25,11 @@ public class RedisTest {
         User user=new User();
         user.setName("lqhao");
         user.setId(1000);
-       redisUtil.set("user",user,30);
-        User user1=(User)redisUtil.get("user");
-        System.out.println(user1.toString());
+        String x=(String) redisUtil.get("blogCount");
+        if (x==null){
+            System.out.println("gg");
+        }
+
    }
     @Test
     public void test2(){

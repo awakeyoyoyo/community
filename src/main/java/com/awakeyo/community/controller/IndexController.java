@@ -4,9 +4,12 @@ import com.awakeyo.community.pojo.Article;
 import com.awakeyo.community.pojo.PageResult;
 import com.awakeyo.community.pojo.dto.ArticleDto;
 import com.awakeyo.community.pojo.dto.QuestionDTO;
+import com.awakeyo.community.pojo.dto.WebMessageDto;
 import com.awakeyo.community.service.ArticleService;
+import com.awakeyo.community.service.CommonService;
 import com.awakeyo.community.service.NotificationService;
 import com.awakeyo.community.service.QustionService;
+import org.omg.CORBA.PRIVATE_MEMBER;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,6 +31,8 @@ public class IndexController {
     private NotificationService notificationService;
     @Autowired
     private ArticleService articleService;
+    @Autowired
+    private CommonService commonService;
     /**
      * Method Description
      *
@@ -48,6 +53,8 @@ public class IndexController {
         } else {
             pageResult = articleService.getList(pageNo, pageSize);
         }
+        WebMessageDto webMessageDto=commonService.getMessage();
+        model.addAttribute("webMessage",webMessageDto);
         model.addAttribute("pageResult", pageResult);
         model.addAttribute("search", search);
         return "index";

@@ -1,10 +1,12 @@
 package com.awakeyo.community.controller;
 
 import com.awakeyo.community.cache.TagCache;
+import com.awakeyo.community.exception.RedisException;
 import com.awakeyo.community.pojo.Question;
 import com.awakeyo.community.mapper.QuestionMapper;
 import com.awakeyo.community.pojo.User;
 import com.awakeyo.community.service.QustionService;
+import com.awakeyo.community.util.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,6 +30,8 @@ public class PublishController {
     private QuestionMapper questionMapper;
     @Autowired
     private QustionService qustionService;
+    @Autowired
+    private RedisUtil redisUtil;
     @GetMapping("/edit")
     public String edit(Integer id,Model model){
         Question question=questionMapper.selectByPrimaryKey(id);
@@ -88,6 +92,8 @@ public class PublishController {
         question.setCreator(user.getId());
         question.setId(id);
         qustionService.insertOrUpdate(question);
+        Integer questionCount=questionMapper.selectAll();
+        redisUtil.set("questionCount",questionCount);
         model.addAttribute("tags", TagCache.getInstance().get());
 
         return "redirect:/community";
