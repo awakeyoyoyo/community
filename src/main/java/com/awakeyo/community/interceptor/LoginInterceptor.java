@@ -30,15 +30,17 @@ public class LoginInterceptor implements HandlerInterceptor {
         obj=(User)request.getSession().getAttribute("user");
         if (obj==null) {
             Cookie[] cookies = request.getCookies();
-            for (Cookie c : cookies) {
-                if (c.getName().equals("token")) {
-                    String token = c.getValue();
-                    if (token != null) {
-                        obj = userMapper.findByToken(token);
-                        if (obj != null) {
-                            request.getSession().setAttribute("user", obj);
+            if (cookies!=null) {
+                for (Cookie c : cookies) {
+                    if (c.getName().equals("token")) {
+                        String token = c.getValue();
+                        if (token != null) {
+                            obj = userMapper.findByToken(token);
+                            if (obj != null) {
+                                request.getSession().setAttribute("user", obj);
+                            }
+                            break;
                         }
-                        break;
                     }
                 }
             }
