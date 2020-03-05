@@ -22,10 +22,9 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 @Configuration
 //查看源码可以知道当容器中没有redisTemplate的bean时才会触发springboot默认的redisTemplate
 //所以注入自己所重写的redisTemplate即可
-@AutoConfigureBefore(RedisAutoConfiguration.class)
 public class RedisConfig {
     @Bean("redisTemplate")
-    RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
+    public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
         // 配置 json 序列化器 - Jackson2JsonRedisSerializer
         Jackson2JsonRedisSerializer jacksonSerializer = new Jackson2JsonRedisSerializer<>(Object.class);
         ObjectMapper objectMapper = new ObjectMapper();

@@ -2,6 +2,7 @@ package com.awakeyo.community.advice;
 
 import com.alibaba.fastjson.JSON;
 import com.awakeyo.community.common.WebResponse;
+import com.awakeyo.community.exception.AuthorityException;
 import com.awakeyo.community.exception.CustomizeException;
 import com.awakeyo.community.exception.RedisException;
 import org.springframework.http.HttpStatus;
@@ -35,7 +36,9 @@ public class GlobalExceptionHandler {
                 serverResponse= WebResponse.createByErrorMessage(e.getMessage());
             } else if (e instanceof RedisException) {
                 serverResponse= WebResponse.createByErrorMessage(e.getMessage());
-            } else {
+            } else if (e instanceof AuthorityException){
+                serverResponse= WebResponse.createByErrorMessage(e.getMessage());
+            }else {
                 serverResponse = WebResponse.createByErrorMessage("老兵之家炸了，稍后再来看吧");
             }
             try {
@@ -58,7 +61,10 @@ public class GlobalExceptionHandler {
                 model.addAttribute("message", e.getMessage());
             } else if (e instanceof RedisException) {
                 model.addAttribute("message", e.getMessage());
-            }else {
+            }else if (e instanceof AuthorityException) {
+                model.addAttribute("message", e.getMessage());
+            }
+            else {
                 model.addAttribute("message", "老兵之家炸了，稍后再来看吧");
             }
             return new ModelAndView("error");

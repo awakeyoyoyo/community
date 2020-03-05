@@ -34,7 +34,7 @@ public class LoginInterceptor implements HandlerInterceptor {
                 for (Cookie c : cookies) {
                     if (c.getName().equals("token")) {
                         String token = c.getValue();
-                        if (token != null) {
+                        if (token != null&&!token.isEmpty()) {
                             obj = userMapper.findByToken(token);
                             if (obj != null) {
                                 request.getSession().setAttribute("user", obj);
