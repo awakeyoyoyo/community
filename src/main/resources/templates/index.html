@@ -4,6 +4,7 @@
 <head>
     <title>首页 - 与我常在's blog</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="js/jq/jquery-3.4.1.min.js" type="application/javascript"></script>
     <link rel="stylesheet" href="css/bootstrap.min.css"/>
     <link rel="stylesheet" href="css/bootstrap-theme.min.css">
@@ -12,17 +13,88 @@
     <script src="js/comment.js" type="application/javascript"></script>
 </head>
 <body>
-<div th:insert="navigation::nav"></div>
-<div class="" style="height: 200px;width: 100%;text-align: center">
+<div>
+    <nav class="navbar navbar-default boxShadow "  role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                        data-target="#menu"
+                        aria-expanded="false">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/" >与我常在's blog</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="menu">
+                <ul class="nav navbar-nav navbar-left">
+                    <li class="active"><a href="/">首页</a></li>
+                    <li><a href="/aboutMe">关于我</a></li>
+                    <li><a href="/categories">博客分类</a></li>
+                    <li><a href="/updateLog">更新</a></li>
+                    <li><a href="/community">讨论区</a></li>
+                    <li><a href="/commentsRecord">留言区</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li th:if="${session.user!=null}">
+                        <a href="/profile/replies">通知
+                            <span class="badge" th:text="${session.unreadCount}">0</span>
+                        </a>
+                    </li>
+                    <li  th:if="${session.user!=null}">
+                        <a href="/publish">提问</a>
+                    </li>
+                    <div class="nav navbar-nav  img-val" th:if="${session.user!=null}">
+                        <img height="40px" alt="Brand" class="img-rounded center-block" th:src="${session.user.avatarUrl}">
+                    </div>
+                    <li class="dropdown" th:if="${session.user!=null}">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+                           role="button" aria-haspopup="true" aria-expanded="false">
+                            <span th:text="${session.user.name}" ></span>
+                            <span class="caret">
+                        </span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/profile/questions">我的问题</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="/logout">退出登陆</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" th:if="${session.user==null}">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+                           role="button" aria-haspopup="true" aria-expanded="false">
+                            <span >登陆</span>
+                            <span class="caret">
+                        </span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="https://github.com/login/oauth/authorize?client_id=f25c1cabc9f06377fa85&redirect_uri=http://localhost:8080/callback&scope=user&state=111">github登陆</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="/phoneLogin">手机号登陆</a></li>
+                        </ul>
+                    </li>
+
+                    <li  th:if="${session.user==null}">
+                        <a href="/phoneRegister">注册</a>
+                    </li>
+                </ul>
+
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+</div>
+
+<div class="" style="width: 100%;text-align: center">
     <a href="/publishBlog"><img class="img-title img-rounded boxShadow" src="/images/daitu.png" alt="..."></a>
     <img class="img-title img-rounded boxShadow" src="/images/didala.png" alt="...">
     <img class="img-title img-rounded boxShadow" src="/images/peipei.png" alt="...">
 </div>
 <div class="container-fluid main">
     <div class="row">
-        <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12 left-box " style="border-right: #9d9d9d">
-
-            <div class="color-aaaa musicBox boxShadow">
+        <div class="col-lg-3  visible-lg-block" style="border-right: #9d9d9d">
+            <div class="color-aaaa musicBox boxShadow visible-lg-*">
                 <h4>我很清楚，我冇计错数，5首！</h4>
                 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
                 <script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script>
@@ -51,6 +123,7 @@
             </div>
 
         </div>
+
         <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 middle-box-index " >
             <div th:fragment="AticleBlog" id="AticleBlog">
             <h3 class="text-center">最新博客</h3>
@@ -76,7 +149,7 @@
                          comparator和comparable都是用来实现集合中元素的排序比较的。Comparator位于包java.util下，而Comparable位于包java.lang下。他们之间的区别在于用法上。Comparator 是一个专用的比较器，当这个对象不支持自比较或者自比较函数不能满足你的要求时，你可以写一个比较器来完成两个对象之间大小的比较。Comparable 是一个对象本身就已经支持自比较所需要实现的接口（如 String、Integer 自己就可以完成比较大小操作，已经实现了Comparable接口），对自己写的类实现这一接口来实现按自己规则排序。总结起来就是comparator在外。comparable在内...
                     </p>
                     <p><h5><a th:href="'/Aritle/'+${article.id}" class="blogtext bottom-box btn-aaaa">阅读全文<span class="glyphicon glyphicon-menu-right"></span></a></h5></p>
-                    <a class="btn-aaaa" href="#" th:each="tag:${article.tag.split(',')}">
+                    <a class="btn-aaaa" th:href="'/categories?tag='+${tag}" th:each="tag:${article.tag.split(',')}">
                         <span class="label label-info question-tag ">
                             <span class=" question-tag glyphicon glyphicon-tags"></span>
                             <span class="label label-info" th:text="${tag}">java</span>
@@ -84,7 +157,7 @@
                     </a>
                 </div>
             </div>
-
+            <div>
             <nav aria-label="Page navigation " class="PageStyle-blog" >
                 <ul class="pagination">
                     <li>
@@ -132,13 +205,45 @@
                 </ul>
             </nav>
             </div>
+            </div>
         </div>
+
+        <div class="  col-md-12 col-sm-12 col-xs-12 visible-xs-block " style="border-right: #9d9d9d">
+            <div class="color-aaaa musicBox boxShadow visible-lg-*">
+                <h4>我很清楚，我冇计错数，5首！</h4>
+                <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
+                <script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script>
+                <div id="aplayer" class="aplayer"  data-id="4884354768" data-server="netease" data-type="playlist" data-fixed="false" data-listfolded="true" data-order="list" data-theme="#F58EA8" style="width: 100%"></div>
+                <script src="https://unpkg.com/meting@1.2/dist/Meting.min.js"></script>
+            </div>
+            <div class="color-aaaa textbox boxShadow">
+                <h3>站主:</h3>
+                <div>
+                    <img  class="img-thumbnail img-index" src="http://oss.awakeyoyoyo.com/community/39197200.jpeg"
+                          alt="lqhao">
+                    <div class="caption">
+                        <h4>Lqhao</h4>
+                        <P class="text-size text-color">Awakeyoyoyo</P>
+                        <div>
+                            <span class="glyphicon glyphicon-map-marker text-size "> 珠海</span>
+                        </div>
+                        <p>怕 你就输一辈子</p>
+                        <a href="https://blog.csdn.net/awake_lqh">csdn主页</a>
+                        <br>
+                        <a href="https://github.com/Awakeyoyoyo">github主页</a>
+                        <br>
+                        <A href="mailto:lqh19980716@163.com">欢迎邮箱联系我</A>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
         <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12" style="border-right: #9d9d9d">
             <div class="textbox bg-danger boxShadow" >
-                <div class="laoMei">
+                <div class="laoMei text-center">
                 <p>没有如果</p>
-                <p style="margin-left: 40px">错过便是错过。</p>
-                    <p style="margin-left: 130px;font-size: 20px">---lqh</p>
+                <p>错过便是错过。</p>
                 </div>
             </div>
             <div class="textbox color-aaaa boxShadow">

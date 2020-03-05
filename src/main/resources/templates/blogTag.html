@@ -3,6 +3,7 @@
 <head>
     <title>分类 - 与我常在's blog</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="/js/jq/jquery-3.4.1.min.js" type="application/javascript"></script>
     <link rel="stylesheet" href="/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
@@ -11,8 +12,77 @@
     <script src="/js/comment.js" type="application/javascript"></script>
 </head>
 <body>
-<div th:insert="navigation::nav"></div>
-<div class="" style="height: 200px;width: 100%;text-align: center">
+<div>
+    <nav class="navbar navbar-default boxShadow "  role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                        data-target="#menu" aria-expanded="true">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/" >与我常在's blog</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="menu">
+                <ul class="nav navbar-nav navbar-left">
+                    <li><a href="/">首页</a></li>
+                    <li ><a href="/aboutMe">关于我</a></li>
+                    <li class="active"><a href="/categories">博客分类</a></li>
+                    <li><a href="/updateLog">更新</a></li>
+                    <li><a href="/community">讨论区</a></li>
+                    <li><a href="/commentsRecord">留言区</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li th:if="${session.user!=null}">
+                        <a href="/profile/replies">通知
+                            <span class="badge" th:text="${session.unreadCount}">0</span>
+                        </a>
+                    </li>
+                    <li  th:if="${session.user!=null}">
+                        <a href="/publish">提问</a>
+                    </li>
+                    <div class="nav navbar-nav  img-val" th:if="${session.user!=null}">
+                        <img height="40px" alt="Brand" class="img-rounded center-block" th:src="${session.user.avatarUrl}">
+                    </div>
+                    <li class="dropdown" th:if="${session.user!=null}">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+                           role="button" aria-haspopup="true" aria-expanded="false">
+                            <span th:text="${session.user.name}" ></span>
+                            <span class="caret">
+                        </span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/profile/questions">我的问题</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="/logout">退出登陆</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" th:if="${session.user==null}">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+                           role="button" aria-haspopup="true" aria-expanded="false">
+                            <span >登陆</span>
+                            <span class="caret">
+                        </span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="https://github.com/login/oauth/authorize?client_id=f25c1cabc9f06377fa85&redirect_uri=http://localhost:8080/callback&scope=user&state=111">github登陆</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="/phoneLogin">手机号登陆</a></li>
+                        </ul>
+                    </li>
+
+                    <li  th:if="${session.user==null}">
+                        <a href="/phoneRegister">注册</a>
+                    </li>
+                </ul>
+
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+</div>
+<div class="" style="width: 100%;text-align: center">
     <img class="img-title img-rounded boxShadow" src="/images/daitu.png" alt="...">
     <img class="img-title img-rounded boxShadow" src="/images/didala.png" alt="...">
     <img class="img-title img-rounded boxShadow" src="/images/peipei.png" alt="...">
@@ -60,12 +130,12 @@
                                 <P class="text-desc ">
                                     <span class="glyphicon  glyphicon-calendar" aria-hidden="true"></span>
                                     时间：<span th:text="${#dates.format(article.getGmtCreate(),'yyyy-MM-dd HH:mm:ss')}">lqhao</span>
-                                    <a class="btn-aaaa" href="#" th:each="tag:${article.tag.split(',')}">
+                                    <span class="btn-aaaa" href="#" th:each="tag:${article.tag.split(',')}">
                                 <span class="label label-info question-tag ">
                                      <span class=" question-tag glyphicon glyphicon-tags"></span>
                                      <span class="label label-info" th:text="${tag}">java</span>
                                  </span>
-                                    </a></P>
+                                    </span></P>
                             </div>
                         </div>
                     </div>

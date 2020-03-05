@@ -177,7 +177,7 @@ function ajaxBlog(obj) {
 function ajaxBlogArticle(obj) {
     var pageNo=obj.getAttribute("pageNo");
     var tag=obj.getAttribute("tag")
-    $("#categoryBlog").load("/ajaxcategories?tag="+tag+"&pageNo="+pageNo+"&pageSize=3")
+    $("#categoryBlog").load("/ajaxcategories?tag="+tag+"&pageNo="+pageNo+"&pageSize=5")
 }
 function ajaxQuestion(obj) {
     var pageNo=obj.getAttribute("pageNo");

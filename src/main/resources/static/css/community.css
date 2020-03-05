@@ -1,7 +1,7 @@
  .main{
-     margin:10px;
-     margin-left: 60px;
-     margin-right: 60px;
+     /*margin:10px;*/
+     margin-left: 1%;
+     margin-right: 1%;
      border: #e5e5e5 2px solid;
  }
  body{
@@ -44,8 +44,8 @@
      height: 260px;
  }
  .img-title{
-     width: 350px;
-     height: 200px;
+     width: 25%;
+     height: 100%;
      margin-left: 10px;
      margin-right: 10px;
  }
@@ -171,8 +171,8 @@
      box-shadow: 0 4px 10px 0 rgba(33, 22, 22, 0.2), 0 4px 15px 0 rgba(0,0,0,0.12);
  }
  .laoMei{
-     margin-top: 25px;
-     margin-left:50px;
+     /*margin-top: 25px;*/
+     /*margin-left:50px;*/
      padding: 7px 10px;
      font-size: 20px;
  }
@@ -194,35 +194,36 @@
      padding: 20px 20px;
  }
  .inputSize{
-     width: 600px;
+     width: 70%px;
  }
  .inputMxgSize{
-     width: 400px;
+     width: 30%;
  }
  .btn-Mxg{
      padding: 7px 10px;
      border-radius: 10px;
      margin-top: -37px;
-     margin-right: 100px;
+     margin-right: 10%;
      float: right;
  }
 
  .inputSize-forget{
-     width: 500px;
+     width: 90%;
  }
  .inputMxgSize-forget{
-     width: 300px;
+     width: 30%;
  }
  .PageStyle{
      position:absolute;
      bottom:0;
  }
 .PageStyle-blog{
-    position:absolute;
-    bottom:0;
+    /*position:absolute;*/
+    /*bottom:0;*/
     display: block;
     height: 34px;
-    margin-top: 10px;
+    /*margin-top: 30px;*/
+    margin-bottom: 20px;
 }
  .btn-aaaa{
      text-decoration: none;

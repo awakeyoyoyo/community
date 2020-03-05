@@ -3,6 +3,7 @@
 <head>
     <title>登陆 - 与我常在's blog</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="js/jq/jquery-3.4.1.min.js" type="application/javascript"></script>
     <link rel="stylesheet" href="css/bootstrap.min.css"/>
     <link rel="stylesheet" href="css/bootstrap-theme.min.css">
@@ -11,7 +12,7 @@
     <script src="js/comment.js" type="application/javascript"></script>
 </head>
 <div th:insert="navigation::nav"></div>
-<div class="" style="height: 200px;width: 100%;text-align: center">
+<div class="" style="width: 100%;text-align: center">
     <img class="img-title img-rounded boxShadow" src="/images/daitu.png" alt="...">
     <img class="img-title img-rounded boxShadow" src="/images/didala.png" alt="...">
     <img class="img-title img-rounded boxShadow" src="/images/peipei.png" alt="...">
@@ -26,13 +27,13 @@
         <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 left-box color-aaaa textbox textComentSize middleBox boxShadow" style="height: 400px;padding-top: 60px" >
             <form action="/login" method="post">
             <div class="form-group">
-                <label for="exampleInputEmail1">手机号</label>
+                <label >手机号</label>
                 <input type="text" class="form-control inputSize" name="loginPhone" placeholder="phone Number">
             </div>
             <br>
 
             <div class="form-group">
-                <label for="exampleInputPassword1">密码</label>
+                <label >密码</label>
                 <input type="password" class="form-control inputSize" name="password" placeholder="Password">
             </div>
             <div class="checkbox">
