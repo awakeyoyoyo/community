@@ -80,7 +80,7 @@ public class UserService {
             user.setPassword(registerDto.getPassword());
             Random random=new Random();
             int i=random.nextInt(4);
-            String avatarUrl="https://oss.awakeyoyoyo.com/community/avactor"+i+".png";
+            String avatarUrl="http://oss.awakeyoyoyo.com/community/avactor"+i+".png";
             user.setAvatarUrl(avatarUrl);
             user.setAccountId(registerDto.getPhone());
             user.setGmtModified(new Date().getTime());
