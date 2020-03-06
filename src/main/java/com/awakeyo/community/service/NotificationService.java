@@ -60,6 +60,7 @@ public class NotificationService {
             }else {
                 notificationDTO.setType(NotificationTypeEnum.REPLY_BLOG.getName());
             }
+            notificationDTO.setTypeId(n.getType());
             notificationDTOS.add(notificationDTO);
         }
         pageResult.init(pageCount,pageNo);

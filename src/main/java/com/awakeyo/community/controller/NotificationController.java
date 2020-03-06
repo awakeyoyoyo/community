@@ -26,9 +26,13 @@ public class NotificationController {
             return "redirect:/";
         }
         notificationService.read(id,user.getId());
+        if (questionId==10086){
+            return "redirect:/commentsRecord";
+        }
         if (type==1){
             return "redirect:/question/"+questionId;
         }else if (type==2){
+
             return "redirect:/question/"+questionId;
         }else {
             return "redirect:/Aritle/"+questionId;

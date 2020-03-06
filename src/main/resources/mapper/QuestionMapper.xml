@@ -184,7 +184,7 @@
     ,
     <include refid="Blob_Column_List" />
     from cm_Question
-     where id=#{userId}
+     where creator=#{userId}
      order by gmt_create desc Limit #{pageBegin},#{pageSize}
   </select>
 
