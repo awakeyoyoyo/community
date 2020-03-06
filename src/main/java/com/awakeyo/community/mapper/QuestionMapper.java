@@ -35,4 +35,6 @@ public interface QuestionMapper {
     Integer selectAllSearch(String search);
 
     List<Question> selectListSearch(@Param("search") String search, @Param("pageBegin") Integer pageBegin, @Param("pageSize") Integer pageSize);
+
+    Integer selectAllUser(Integer id);
 }

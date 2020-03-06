@@ -62,7 +62,7 @@
                         <span class="label label-success" style="margin-right: 10px;" th:if="${notificationDto.status==1}">已读</span>
                         <a href="#" th:text="${notificationDto.notifierName}"></a>
                         <span th:text="${notificationDto.type}"></span>
-                        <a th:href="@{'/notification/'+${notificationDto.id}+'/'+${notificationDto.outerid}}" th:text="${notificationDto.outerTitle}"></a>
+                        <a th:href="@{'/notification/'+${notificationDto.type}+'/'+${notificationDto.id}+'/'+${notificationDto.outerid}}" th:text="${notificationDto.outerTitle}"></a>
                     </h5>
                     <br>
                     <P class="text-desc" >

@@ -55,6 +55,6 @@ public class ProfileController {
         }
         Long unreadCount=notificationService.getUnreadCount(user.getId());
         model.addAttribute("unreadCount",unreadCount);
-        return "/profile";
+        return "profile";
     }
 }

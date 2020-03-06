@@ -30,6 +30,9 @@ public class CategoriesCache {
         categories.add("后台技术ing");
     }
     public static CategoriesCache getInstance(){
+        if (instance==null){
+            instance=new CategoriesCache();
+        }
         return instance;
     }
     public List<String> get(){

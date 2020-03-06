@@ -47,6 +47,7 @@ public class NotificationService {
         List<NotificationDTO> notificationDTOS=new ArrayList<>();
         PageResult<NotificationDTO> pageResult=new PageResult<>();
         if (notifications.size()==0){
+            pageResult.init(pageCount,pageNo);
             return  pageResult;
         }
         for (Notification n: notifications) {

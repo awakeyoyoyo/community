@@ -43,12 +43,13 @@ public class AlibabaMsgProvider {
         request.putQueryParameter("SignName", "与我常在blog");
         request.putQueryParameter("TemplateCode", "SMS_184121028");
         String code=NumberUtil.randomNumber();
+        redisUtil.set(phone,code);
+        redisUtil.expire(phone,300);
         request.putQueryParameter("TemplateParam", "{code:"+code+"}");
         try {
             CommonResponse response = client.getCommonResponse(request);
-            System.out.println(response.getData());
+//            System.out.println(response.getData());
             //存入缓存中5分钟
-            redisUtil.set(phone,code,60*5);
         } catch (ServerException e) {
             log.error("发送验证码失败错误信息{}",e.getMessage());
             e.printStackTrace();

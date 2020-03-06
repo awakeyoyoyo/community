@@ -37,8 +37,20 @@ public class RedisUtil {
      * @param value
      * @param ttl   key 的生存时间，单位:秒
      */
-    public void set(String key, Object value, int ttl) {
+
+    public void set(String key, Object value, long ttl) {
         redisTemplate.opsForValue().set(key, value, ttl, TimeUnit.SECONDS);
+    }
+    /**
+     *  指定缓存失效时间
+     *
+     * @param key 键
+     * @param time 时间(秒)
+     *
+     * @return
+     */
+    public void expire(String key,long time){
+        redisTemplate.expire(key,time,TimeUnit.SECONDS);
     }
     /**
      * 实现命令 : GET key

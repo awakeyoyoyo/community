@@ -5,7 +5,7 @@ function sendcode() {
         alert("请输入正确手机号")
     }else {
         $.ajax({
-            url: "http://localhost:8080/getCode?phone="+value,
+            url: "http://blog.awakeyoyoyo.com/getCode?phone="+value,
             type: "get",
             success: function (response) {
                 if (response.status == 200) {
@@ -52,7 +52,7 @@ function initFooterTime() {
 function initComentAndReply() {
     var questionId=$("#topicId").val();
     $.ajax({
-        url: "http://localhost:8080/comments/question/" + questionId,
+        url: "http://blog.awakeyoyoyo.com/comments/question/" + questionId,
         type: "get",
         success: function (response) {
             if (response.status == 200) {
@@ -134,7 +134,7 @@ function postReply(formUAID,commentId,type){
         return
     }
     $.ajax({
-        url:"http://localhost:8080/reply",
+        url:"http://blog.awakeyoyoyo.com/reply",
         type:"post",
         contentType:"application/x-www-form-urlencoded",
         data: {
@@ -165,6 +165,8 @@ function postReply(formUAID,commentId,type){
     })
     if(type=="article"){
         clearBlogReply();
+    }else if (type=="record"){
+        clearRecordReply()
     }
     else{
         clearQuestionReply();
@@ -191,7 +193,7 @@ function postQuestionComment(){
         return
     }
     $.ajax({
-        url:"http://localhost:8080/comment",
+        url:"http://blog.awakeyoyoyo.com/comment",
         type:"post",
         contentType:"application/x-www-form-urlencoded",
         data: {
@@ -222,7 +224,7 @@ function postRecordComment(){
         return
     }
     $.ajax({
-        url:"http://localhost:8080/comment",
+        url:"http://blog.awakeyoyoyo.com/comment",
         type:"post",
         contentType:"application/x-www-form-urlencoded",
         data: {
@@ -262,7 +264,7 @@ function postBlogComment(){
         return
     }
     $.ajax({
-        url:"http://localhost:8080/comment",
+        url:"http://blog.awakeyoyoyo.com/comment",
         type:"post",
         contentType:"application/x-www-form-urlencoded",
         data: {

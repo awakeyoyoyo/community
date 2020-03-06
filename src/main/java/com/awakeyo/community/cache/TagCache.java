@@ -19,7 +19,7 @@ import java.util.stream.Stream;
  */
 @Data
 public class TagCache {
-    private static TagCache instance = new TagCache();
+    private static TagCache instance=null;
     private static List<TagDTO> tagDTOS;
     private TagCache(){
         tagDTOS=new ArrayList<>();
@@ -44,6 +44,9 @@ public class TagCache {
         tagDTOS.add(other);
     }
     public static TagCache getInstance(){
+        if (instance==null){
+            instance=new TagCache();
+        }
         return instance;
     }
     public List<TagDTO> get(){

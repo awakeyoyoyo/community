@@ -183,7 +183,9 @@
     <include refid="Base_Column_List" />
     ,
     <include refid="Blob_Column_List" />
-    from cm_Question order by gmt_create desc Limit #{pageBegin},#{pageSize}
+    from cm_Question
+     where id=#{userId}
+     order by gmt_create desc Limit #{pageBegin},#{pageSize}
   </select>
 
   <select id="selectAll"  resultType="java.lang.Integer" >
@@ -232,5 +234,10 @@
       </if>
     </where>
     order by gmt_create desc Limit #{pageBegin},#{pageSize}
+  </select>
+  <select id="selectAllUser"  resultType="java.lang.Integer" >
+    select COUNT(*)
+    from cm_Question
+    where creator = #{id}
   </select>
 </mapper>

@@ -19,13 +19,19 @@ import javax.servlet.http.HttpServletRequest;
 public class NotificationController {
     @Autowired
     private NotificationService notificationService;
-    @GetMapping("/notification/{id}/{questionId}")
-    public String profile(HttpServletRequest request, @PathVariable(name="id")Integer id,@PathVariable("questionId")Integer questionId){
+    @GetMapping("/notification/{type}/{id}/{questionId}")
+    public String profile(HttpServletRequest request,@PathVariable("type")Integer type, @PathVariable(name="id")Integer id,@PathVariable("questionId")Integer questionId){
         User user=(User)request.getSession().getAttribute("user");
         if (user==null){
             return "redirect:/";
         }
         notificationService.read(id,user.getId());
-        return "redirect:/question/"+questionId;
+        if (type==1){
+            return "redirect:/question/"+questionId;
+        }else if (type==2){
+            return "redirect:/question/"+questionId;
+        }else {
+            return "redirect:/Aritle/"+questionId;
+        }
     }
 }

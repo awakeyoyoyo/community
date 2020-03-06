@@ -99,7 +99,7 @@ public class QustionService {
     }
     public PageResult<QuestionDTO> getListByUserid(Integer id, Integer pageNo, Integer pageSize) {
 
-        Integer itemCount=questionMapper.selectAll();
+        Integer itemCount=questionMapper.selectAllUser(id);
         int  pageCount;
         if (itemCount/pageSize==0){
             pageCount=1;
