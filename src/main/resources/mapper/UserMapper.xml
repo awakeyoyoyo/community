@@ -11,9 +11,11 @@
     <result column="bio" jdbcType="VARCHAR" property="bio" />
     <result column="avatar_url" jdbcType="VARCHAR" property="avatarUrl" />
     <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="salt" jdbcType="VARCHAR" property="salt" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, account_id, name, token, gmt_create, gmt_modified, bio, avatar_url, password
+    id, account_id, name, token, gmt_create, gmt_modified, bio, avatar_url, password, 
+    salt
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -28,12 +30,12 @@
   <insert id="insert" parameterType="com.awakeyo.community.pojo.User">
     insert into cm_User (id, account_id, name, 
       token, gmt_create, gmt_modified, 
-      bio, avatar_url, password
-      )
+      bio, avatar_url, password, 
+      salt)
     values (#{id,jdbcType=INTEGER}, #{accountId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
       #{token,jdbcType=CHAR}, #{gmtCreate,jdbcType=BIGINT}, #{gmtModified,jdbcType=BIGINT}, 
-      #{bio,jdbcType=VARCHAR}, #{avatarUrl,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}
-      )
+      #{bio,jdbcType=VARCHAR}, #{avatarUrl,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{salt,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.awakeyo.community.pojo.User">
     insert into cm_User
@@ -65,6 +67,9 @@
       <if test="password != null">
         password,
       </if>
+      <if test="salt != null">
+        salt,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -93,6 +98,9 @@
       </if>
       <if test="password != null">
         #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="salt != null">
+        #{salt,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -123,6 +131,9 @@
       <if test="password != null">
         password = #{password,jdbcType=VARCHAR},
       </if>
+      <if test="salt != null">
+        salt = #{salt,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -135,7 +146,8 @@
       gmt_modified = #{gmtModified,jdbcType=BIGINT},
       bio = #{bio,jdbcType=VARCHAR},
       avatar_url = #{avatarUrl,jdbcType=VARCHAR},
-      password = #{password,jdbcType=VARCHAR}
+      password = #{password,jdbcType=VARCHAR},
+      salt = #{salt,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="findByToken" parameterType="java.lang.String" resultMap="BaseResultMap">
@@ -175,5 +187,4 @@
     from cm_User
     where account_id = #{phone} and password=#{password}
   </select>
-
 </mapper>

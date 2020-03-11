@@ -15,7 +15,6 @@ public interface UserMapper {
     int updateByPrimaryKeySelective(User record);
 
     int updateByPrimaryKey(User record);
-
     User findByToken(String token);
 
     void updateTokenByAccoundId(@Param("token") String token, @Param("accountId") String accountId);

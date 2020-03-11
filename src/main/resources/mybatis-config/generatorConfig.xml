@@ -63,7 +63,7 @@
             注：除了带example的属性，其他属性如果为false，一定不能显示配置，不然会报错：
             There are no statements enabled for table mybatis.category, this table will be ignored.
          -->
-        <table tableName="cm_comment" domainObjectName="Comment"
+        <table tableName="cm_User" domainObjectName="User"
                enableInsert="true"
                enableCountByExample="false"
                enableUpdateByExample="false"
@@ -71,7 +71,22 @@
                enableSelectByExample="false"
                selectByExampleQueryId="false"
         ></table>
-<!--                <table tableName="cm_reply" domainObjectName="Reply"-->
+<!--        <table tableName="cm_roles" domainObjectName="Role"-->
+<!--               enableInsert="true"-->
+<!--               enableCountByExample="false"-->
+<!--               enableUpdateByExample="false"-->
+<!--               enableDeleteByExample="false"-->
+<!--               enableSelectByExample="false"-->
+<!--               selectByExampleQueryId="false"-->
+<!--        ></table>-->
+<!--        <table tableName="cm_permission" domainObjectName="Permission"-->
+<!--               enableInsert="true"-->
+<!--               enableCountByExample="false"-->
+<!--               enableUpdateByExample="false"-->
+<!--               enableDeleteByExample="false"-->
+<!--               enableSelectByExample="false"-->
+<!--               selectByExampleQueryId="false"-->
+<!--        ></table>&lt;!&ndash;                <table tableName="cm_reply" domainObjectName="Reply"&ndash;&gt;-->
 <!--               enableInsert="true"-->
 <!--               enableCountByExample="false"-->
 <!--               enableUpdateByExample="false"-->

@@ -1,13 +1,15 @@
 package com.awakeyo.community.controller;
 
 import com.awakeyo.community.common.WebResponse;
+import com.awakeyo.community.mapper.UserMapper;
 import com.awakeyo.community.pojo.User;
 import com.awakeyo.community.pojo.dto.ChangePwdDto;
 import com.awakeyo.community.pojo.dto.RegisterDto;
 import com.awakeyo.community.provider.AlibabaMsgProvider;
 import com.awakeyo.community.service.UserService;
-import com.awakeyo.community.util.RedisUtil;
-import com.sun.org.apache.xpath.internal.operations.Mod;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.*;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,6 +31,8 @@ public class LoginController {
     private UserService userService;
     @Autowired
     private AlibabaMsgProvider alibabaMsgProvider;
+    @Autowired
+    private UserMapper userMapper;
     @GetMapping("/logout")
     public String logout(HttpServletRequest request, HttpServletResponse response){
         request.getSession().removeAttribute("user");
@@ -50,6 +54,23 @@ public class LoginController {
             model.addAttribute("errorMxg","密码不能为空");
             return "login";
         }
+        //获取当前用户
+        Subject subject= SecurityUtils.getSubject();
+        //封装登陆
+        UsernamePasswordToken token=new UsernamePasswordToken(phone,password);
+        try {
+            subject.login(token);
+        }catch (UnknownAccountException uae) {
+            //未知手机号
+        } catch (IncorrectCredentialsException ice) {
+            //密码错误
+        } catch (LockedAccountException lae) {
+            //用户被锁住了
+        }
+        catch (Exception e) {
+            //未知错误
+        }
+        //封装用户登陆数据
         WebResponse<User> webResponse=userService.login(phone,password,remember,response);
         if (webResponse.isSuccess()){
             if (remember){
@@ -100,6 +121,9 @@ public class LoginController {
     @ResponseBody
     public WebResponse getCode(@RequestParam("phone")String phone){
         try {
+            if (userMapper.selectByaccoun_id(phone)!=null){
+                return WebResponse.createByErrorMessage("该手机已经注册了,请勿重新注册");
+            }
             alibabaMsgProvider.sendMsg(phone);
             return WebResponse.createBySuccess();
         }catch (Exception e){

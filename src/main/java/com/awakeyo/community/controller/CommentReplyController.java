@@ -2,7 +2,6 @@ package com.awakeyo.community.controller;
 
 import com.awakeyo.community.common.WebResponse;
 import com.awakeyo.community.exception.CustomizeException;
-import com.awakeyo.community.pojo.Article;
 import com.awakeyo.community.pojo.Comment;
 import com.awakeyo.community.pojo.Reply;
 import com.awakeyo.community.pojo.User;
