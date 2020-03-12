@@ -18,14 +18,11 @@ import java.util.List;
  */
 @SpringBootTest
 public class TestUtil {
-    @Autowired
-    private RoleMapper roleMapper;
-    @Autowired
-    private PermissionMapper permissionMapper;
-    @Autowired
-    private UserMapper userMapper;
-    @Test
+        @Test
     public void getRolesByUserId(){
-     ShiroMd5Util.shiroEncryption("","OGTdToSJ6t/dsnVPaH2g9A==");
+        String[] as={"lqh666***","123456","83320420","Lokie201609","123456789","qq2316741037",
+                "kanade","baogenb","13703032373"};
+        for (String x:as)
+        System.out.println(ShiroMd5Util.shiroEncryption(x,"OGTdToSJ6t/dsnVPaH2g9A=="));
     }
 }
