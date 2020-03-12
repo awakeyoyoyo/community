@@ -13,6 +13,7 @@ import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.HashSet;
@@ -56,15 +57,23 @@ public class UserRealm extends AuthorizingRealm {
        System.out.println("执行了doGetAuthenticationInfo 认真");
        UsernamePasswordToken userToken=(UsernamePasswordToken)authenticationToken;
        User user=userMapper.selectUserByaccoun_id(userToken.getUsername());
-        String oringnPassword = new String((char[]) userToken.getCredentials());
-//        String salt = user.getSalt();
-//        System.out.println(userToken.getUsername()+"===="+oringnPassword);
-//        String encodedPassword = ShiroMd5Util.shiroEncryption(oringnPassword,salt);
-//        System.out.println("密码："+encodedPassword);
        if (user==null){
            return null;
        }
-       //可以加密
-       return new SimpleAuthenticationInfo(user,oringnPassword,getName());
+       String password=String.valueOf(userToken.getPassword());
+       if (user.getPassword().equals(password)){
+           //通过token验证
+           SimpleAuthenticationInfo info=new SimpleAuthenticationInfo(user,user.getPassword(),getName());
+           return info;
+       }
+       //账号密码验证
+        String salt = user.getSalt();
+//        System.out.println(userToken.getUsername()+"===="+userToken.getPassword().toString());
+        String encodedPassword = ShiroMd5Util.shiroEncryption(password,salt);
+//        System.out.println("密码："+encodedPassword);
+        userToken.setPassword(encodedPassword.toCharArray());
+        SimpleAuthenticationInfo info=new SimpleAuthenticationInfo(user,user.getPassword(),getName());
+//        info.setCredentialsSalt(ByteSource.Util.bytes(user.getSalt()));
+        return info;
     }
 }

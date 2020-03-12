@@ -1,6 +1,7 @@
 package com.awakeyo.community.config;
 
 
+import com.awakeyo.community.pojo.User;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
@@ -54,18 +55,20 @@ public class ShiroConfig {
 
         return securityManager;
     }
-    @Bean("hashedCredentialsMatcher")
-    public HashedCredentialsMatcher hashedCredentialsMatcher() {
-        HashedCredentialsMatcher hashedCredentialsMatcher = new HashedCredentialsMatcher();
-        hashedCredentialsMatcher.setHashAlgorithmName("md5");// 散列算法:这里使用MD5算法;
-        hashedCredentialsMatcher.setHashIterations(2);// 散列的次数，比如散列两次，相当于md5(md5(""));
-        //hashedCredentialsMatcher.setStoredCredentialsHexEncoded(true);// 表示是否存储散列后的密码为16进制，需要和生成密码时的一样，默认是base64；
-        return hashedCredentialsMatcher;
-    }
+//    @Bean("hashedCredentialsMatcher")
+//    public HashedCredentialsMatcher hashedCredentialsMatcher() {
+//        HashedCredentialsMatcher hashedCredentialsMatcher = new HashedCredentialsMatcher();
+//        hashedCredentialsMatcher.setHashAlgorithmName("md5");// 散列算法:这里使用MD5算法;
+//        hashedCredentialsMatcher.setHashIterations(2);// 散列的次数，比如散列两次，相当于md5(md5(""));
+//        //hashedCredentialsMatcher.setStoredCredentialsHexEncoded(true);// 表示是否存储散列后的密码为16进制，需要和生成密码时的一样，默认是base64；
+//        return hashedCredentialsMatcher;
+//    }
 
-    //创建realm对象，需要自定义类：1
     @Bean
     public  UserRealm userRealm(){
-        return new UserRealm();
+        UserRealm userRealm=new UserRealm();
+//        userRealm.setCredentialsMatcher(matcher);
+//        userRealm.setAuthorizationCachingEnabled(true);
+        return userRealm;
     }
 }

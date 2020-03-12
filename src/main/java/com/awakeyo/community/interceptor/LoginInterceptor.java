@@ -42,6 +42,8 @@ public class LoginInterceptor implements HandlerInterceptor {
                             obj = userMapper.findByToken(token);
                             Subject subject= SecurityUtils.getSubject();
                             //封装登陆
+                            //
+                            obj.getPassword();
                             shirotoken=new UsernamePasswordToken(obj.getAccountId(),obj.getPassword());
                             subject.login(shirotoken);
                             if (obj != null) {
@@ -56,10 +58,10 @@ public class LoginInterceptor implements HandlerInterceptor {
         if (obj!=null){
             Long unreadCount=notificationService.getUnreadCount(obj.getId());
             //获取当前用户
-            Subject subject= SecurityUtils.getSubject();
+//            Subject subject= SecurityUtils.getSubject();
             //封装登陆
-            shirotoken=new UsernamePasswordToken(obj.getAccountId(),obj.getPassword());
-            subject.login(shirotoken);
+//            shirotoken=new UsernamePasswordToken(obj.getAccountId(),obj.getPassword());
+//            subject.login(shirotoken);
             request.getSession().setAttribute("unreadCount",unreadCount);
         }
         return true;

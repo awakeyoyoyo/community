@@ -82,6 +82,7 @@ public class LoginController {
             return "login";
         }
         User user=(User) subject.getPrincipal();
+        userService.login(user,response);
         request.getSession().setAttribute("user",user);
         return "redirect:/";
     }

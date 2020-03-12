@@ -62,6 +62,14 @@ public class UserService {
             return WebResponse.createBySuccess(user);
         }
     }
+    public void login(User user,HttpServletResponse response){
+        String token= UUID.randomUUID().toString();
+        user.setToken(token);
+        createOrUpdate(user);
+        Cookie cookie=new Cookie("token",token);
+        cookie.setMaxAge(60*60*24);
+        response.addCookie(cookie);
+    }
 
     public WebResponse register(RegisterDto registerDto) {
         //判断验证码是否正确
