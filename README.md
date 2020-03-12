@@ -6,13 +6,14 @@
 - 数据库:MySql
 - 缓存:Redis
 - 前端模版:Thymeleaf
+- 安全框架:shiro
 ## 主要功能：
 - 文章管理<br>
 1.分页展示文章信息，对于分页进行异步请求，减少页面刷新次数
 - 发布文章<br>
 1.使用markdown编辑器，支持插入代码，插入图片等功能<br>
 2.文章可选择分类和标签<br>
-3.需要处于登陆状态、并且是管理员身份<br>
+3.需要处于登陆状态，并且利用shiro区分开权限<br>
 - 发布问题<br>
 1.使用markdown编辑器，支持插入代码，插入图片等功能<br>
 2.问题可选择分类和标签<br>
@@ -51,7 +52,7 @@ CREATE TABLE `cm_Question` (
   `like_count` int(11) DEFAULT NULL,
   `tag` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=91 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=351 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for cm_User
@@ -67,8 +68,9 @@ CREATE TABLE `cm_User` (
   `bio` varchar(255) DEFAULT NULL,
   `avatar_url` varchar(255) DEFAULT NULL,
   `password` varchar(255) DEFAULT NULL,
+  `salt` varchar(128) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for cm_article
@@ -87,7 +89,7 @@ CREATE TABLE `cm_article` (
   `tag` varchar(255) DEFAULT NULL,
   `comment_count` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for cm_comment
@@ -102,7 +104,7 @@ CREATE TABLE `cm_comment` (
   `comment_like` int(11) DEFAULT NULL,
   `type` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1053 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1073 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for cm_notification
@@ -119,7 +121,18 @@ CREATE TABLE `cm_notification` (
   `notifier_name` varchar(255) DEFAULT NULL,
   `outer_title` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for cm_permission
+-- ----------------------------
+DROP TABLE IF EXISTS `cm_permission`;
+CREATE TABLE `cm_permission` (
+  `id` int(11) NOT NULL,
+  `permission_name` varchar(100) DEFAULT NULL,
+  `remarks` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for cm_reply
@@ -134,7 +147,40 @@ CREATE TABLE `cm_reply` (
   `content` varchar(255) DEFAULT NULL,
   `reply_like` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for cm_roles
+-- ----------------------------
+DROP TABLE IF EXISTS `cm_roles`;
+CREATE TABLE `cm_roles` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `role_name` varchar(100) DEFAULT NULL,
+  `description` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=102 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for role_permission
+-- ----------------------------
+DROP TABLE IF EXISTS `role_permission`;
+CREATE TABLE `role_permission` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `permission_id` int(11) DEFAULT NULL,
+  `role_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for user_role
+-- ----------------------------
+DROP TABLE IF EXISTS `user_role`;
+CREATE TABLE `user_role` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) DEFAULT NULL,
+  `role_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
 
 SET FOREIGN_KEY_CHECKS = 1;
 ```
