@@ -17,7 +17,7 @@
     id, account_id, name, token, gmt_create, gmt_modified, bio, avatar_url, password, 
     salt
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap" >
     select 
     <include refid="Base_Column_List" />
     from cm_User
@@ -27,7 +27,7 @@
     delete from cm_User
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.awakeyo.community.pojo.User">
+  <insert id="insert" parameterType="com.awakeyo.community.pojo.User" useGeneratedKeys = "true" keyProperty = "id">
     insert into cm_User (id, account_id, name, 
       token, gmt_create, gmt_modified, 
       bio, avatar_url, password, 

@@ -2,6 +2,8 @@ package com.awakeyo.community.mapper;
 
 import com.awakeyo.community.pojo.Permission;
 
+import java.util.List;
+
 public interface PermissionMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -14,4 +16,6 @@ public interface PermissionMapper {
     int updateByPrimaryKeySelective(Permission record);
 
     int updateByPrimaryKey(Permission record);
+
+    List<String> getPermissionsByUserId(Integer id);
 }

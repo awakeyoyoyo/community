@@ -3,6 +3,9 @@ package com.awakeyo.community.interceptor;
 import com.awakeyo.community.mapper.UserMapper;
 import com.awakeyo.community.pojo.User;
 import com.awakeyo.community.service.NotificationService;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -28,6 +31,7 @@ public class LoginInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         User obj;
         obj=(User)request.getSession().getAttribute("user");
+        UsernamePasswordToken shirotoken;
         if (obj==null) {
             Cookie[] cookies = request.getCookies();
             if (cookies!=null) {
@@ -36,6 +40,10 @@ public class LoginInterceptor implements HandlerInterceptor {
                         String token = c.getValue();
                         if (token != null&&!token.isEmpty()) {
                             obj = userMapper.findByToken(token);
+                            Subject subject= SecurityUtils.getSubject();
+                            //封装登陆
+                            shirotoken=new UsernamePasswordToken(obj.getAccountId(),obj.getPassword());
+                            subject.login(shirotoken);
                             if (obj != null) {
                                 request.getSession().setAttribute("user", obj);
                             }
@@ -47,6 +55,11 @@ public class LoginInterceptor implements HandlerInterceptor {
         }
         if (obj!=null){
             Long unreadCount=notificationService.getUnreadCount(obj.getId());
+            //获取当前用户
+            Subject subject= SecurityUtils.getSubject();
+            //封装登陆
+            shirotoken=new UsernamePasswordToken(obj.getAccountId(),obj.getPassword());
+            subject.login(shirotoken);
             request.getSession().setAttribute("unreadCount",unreadCount);
         }
         return true;

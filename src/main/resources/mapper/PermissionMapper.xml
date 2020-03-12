@@ -68,4 +68,8 @@
       remarks = #{remarks,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="getPermissionsByUserId" parameterType="java.lang.Integer" resultType="java.lang.String" >
+    select p.permission_name from role_permission rp,cm_permission p,user_role ur
+    where ur.user_id=#{id} and ur.role_id=rp.role_id and rp.permission_id=p.id
+  </select>
 </mapper>

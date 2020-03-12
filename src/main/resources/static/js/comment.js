@@ -6,11 +6,12 @@ function sendcode() {
     }else {
         $.ajax({
             url: "http://blog.awakeyoyoyo.com/getCode?phone="+value,
+            // url: "http://localhost:8080/getCode?phone="+value,
             type: "get",
             success: function (response) {
                 if (response.status == 200) {
                 } else {
-                    alert("发送失败，服务器可能炸了请稍后再试试");
+                    alert("该手机已经注册过了。。。");
                 }
                 console.log(response);
             },

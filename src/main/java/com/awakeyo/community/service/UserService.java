@@ -3,10 +3,14 @@ package com.awakeyo.community.service;
 import com.awakeyo.community.common.WebResponse;
 import com.awakeyo.community.exception.RedisException;
 import com.awakeyo.community.mapper.UserMapper;
+import com.awakeyo.community.mapper.UserRolesMapper;
 import com.awakeyo.community.pojo.User;
+import com.awakeyo.community.pojo.UserRoles;
 import com.awakeyo.community.pojo.dto.ChangePwdDto;
 import com.awakeyo.community.pojo.dto.RegisterDto;
 import com.awakeyo.community.util.RedisUtil;
+import com.awakeyo.community.util.ShiroMd5Util;
+import org.apache.shiro.crypto.SecureRandomNumberGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,7 +32,8 @@ public class UserService {
     private UserMapper userMapper;
     @Autowired
     private RedisUtil redisUtil;
-
+    @Autowired
+    private UserRolesMapper userRolesMapper;
     public void createOrUpdate(User user) {
         if (userMapper.selectByaccoun_id(user.getAccountId())==null){
             user.setGmtCreate(new Date().getTime());
@@ -73,11 +78,16 @@ public class UserService {
             if (userMapper.selectByaccoun_id(registerDto.getPhone())!=null){
                 return WebResponse.createByErrorMessage("该手机已经注册了,请勿重新注册");
             }
+
+            String salt = new SecureRandomNumberGenerator().nextBytes().toString();
+            String encodedPassword = ShiroMd5Util.shiroEncryption(registerDto.getPassword(),salt);
+
             User user=new User();
+            user.setSalt(salt);
+            user.setPassword(encodedPassword);
             user.setName(registerDto.getUsername());
             user.setGmtCreate(new Date().getTime());
             user.setBio("此人非常懒，还没有个人签名");
-            user.setPassword(registerDto.getPassword());
             Random random=new Random();
             int i=random.nextInt(4);
             String avatarUrl="http://oss.awakeyoyoyo.com/community/avactor"+i+".png";
@@ -85,6 +95,11 @@ public class UserService {
             user.setAccountId(registerDto.getPhone());
             user.setGmtModified(new Date().getTime());
             userMapper.insert(user);
+            UserRoles userRoles=new UserRoles();
+            //普通用户
+            userRoles.setRoleId(2);
+            userRoles.setUserId(user.getId());
+            userRolesMapper.insert(userRoles);
             redisUtil.del(registerDto.getPhone());
             return WebResponse.createBySuccess();
         }else {

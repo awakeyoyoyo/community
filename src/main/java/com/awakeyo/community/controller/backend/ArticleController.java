@@ -53,22 +53,11 @@ public class ArticleController {
         * 管理员身份
         * */
         User user=(User)request.getSession().getAttribute("user");
-        if (user==null){
-            throw new AuthorityException("未登陆就调用管理员接口，你小子？？？");
-        }
-        //校验一下是否是管理员
-        if (!user.getAccountId().equals(rootUser)){
-            throw new AuthorityException("你小子？？？居然找到了管理员接口？？？有点东西");
-        }
         model.addAttribute("title",title);
         model.addAttribute("content",context);
         model.addAttribute("description",description);
         model.addAttribute("tag",tag);
         model.addAttribute("tags", TagCache.getInstance().get());
-        if (user==null){
-            model.addAttribute("error","用户未登陆！！！！");
-            return "publicArticle";
-        }
         if (title==null||title==""){
             model.addAttribute("error","标题不能为空！！！！");
             return "publicArticle";

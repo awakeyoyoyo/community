@@ -9,6 +9,7 @@ import com.awakeyo.community.provider.AlibabaMsgProvider;
 import com.awakeyo.community.service.UserService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
+import org.apache.shiro.crypto.SecureRandomNumberGenerator;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -39,6 +40,8 @@ public class LoginController {
         Cookie cookie=new Cookie("token",null);
         cookie.setMaxAge(-1);
         response.addCookie(cookie);
+        Subject subject=SecurityUtils.getSubject();
+        subject.logout();
         return "redirect:/";
     }
     @PostMapping("/login")
@@ -61,28 +64,37 @@ public class LoginController {
         try {
             subject.login(token);
         }catch (UnknownAccountException uae) {
+            model.addAttribute("errorMxg","此手机号没有注册");
+            return "login";
             //未知手机号
         } catch (IncorrectCredentialsException ice) {
+            model.addAttribute("errorMxg","密码错误！！！");
+            return "login";
             //密码错误
         } catch (LockedAccountException lae) {
+            model.addAttribute("errorMxg","你的账号被管理员封了，请联系管理员");
+            return "login";
             //用户被锁住了
         }
         catch (Exception e) {
             //未知错误
-        }
-        //封装用户登陆数据
-        WebResponse<User> webResponse=userService.login(phone,password,remember,response);
-        if (webResponse.isSuccess()){
-            if (remember){
-                //todo记住我哦
-            }
-            request.getSession().setAttribute("user",webResponse.getData());
-            return "redirect:/";
-        }else {
-            model.addAttribute("errorMxg",webResponse.getMsg());
+            model.addAttribute("errorMxg","未知错误登陆失败，请联系管理员");
             return "login";
         }
+        User user=(User) subject.getPrincipal();
+        request.getSession().setAttribute("user",user);
+        return "redirect:/";
+    }
+    @GetMapping("/tologin")
+    public String tologin(Model model){
+        model.addAttribute("errorMxg","请先登陆再操作噢");
+        return "login";
 
+    }
+    @GetMapping("/toerror")
+    public String toerror(Model model){
+        model.addAttribute("message","你小子，你没有相关权利噢，这是管理员才有的权利");
+        return "error";
 
     }
     @PostMapping("/register")
@@ -122,7 +134,7 @@ public class LoginController {
     public WebResponse getCode(@RequestParam("phone")String phone){
         try {
             if (userMapper.selectByaccoun_id(phone)!=null){
-                return WebResponse.createByErrorMessage("该手机已经注册了,请勿重新注册");
+                return WebResponse.createByError();
             }
             alibabaMsgProvider.sendMsg(phone);
             return WebResponse.createBySuccess();
