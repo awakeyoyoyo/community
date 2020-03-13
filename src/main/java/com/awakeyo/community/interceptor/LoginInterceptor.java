@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletResponse;
  * @date 2019-12-10 16:55
  */
 @Component
-public class LoginInterceptor implements HandlerInterceptor {
+public class LoginInterceptor implements HandlerInterceptor  {
     @Autowired
     private UserMapper userMapper;
     @Autowired
@@ -40,6 +40,9 @@ public class LoginInterceptor implements HandlerInterceptor {
                         String token = c.getValue();
                         if (token != null&&!token.isEmpty()) {
                             obj = userMapper.findByToken(token);
+                            if (obj==null){
+                                break;
+                            }
                             Subject subject= SecurityUtils.getSubject();
                             //封装登陆
                             //
