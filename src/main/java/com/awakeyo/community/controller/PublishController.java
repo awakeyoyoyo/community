@@ -65,18 +65,25 @@ public class PublishController {
             model.addAttribute("error","用户未登陆！！！！");
             return "publish";
         }
-        if (title==null||title==""){
+        if (title==null||title.equals("")){
             model.addAttribute("error","标题不能为空！！！！");
             return "publish";
         }
-        if (description==null||description==""){
+        if (description==null||description.equals("")){
             model.addAttribute("error","问题描述不能为空！！！！");
             return "publish";
         }
-        if (tag==null||tag==""){
+        if (tag==null||tag.equals("")){
             model.addAttribute("error","标签不能为空！！！！");
 
             return "publish";
+        }
+        String[] tags=tag.split("\\,",-1);
+        for (String e:tags) {
+            if (e.equals("")){
+                model.addAttribute("error","输入过多,,,标签:"+tag);
+                return "publish";
+            }
         }
         String invalid=TagCache.getInstance().filterInvalid(tag);
         if (!StringUtils.isEmpty(invalid)){
