@@ -109,12 +109,12 @@ public class IndexManagerUtil {
          * 同理还有：org.apache.lucene.store.RAMDirectory：存储在内存中
          */
         Directory directory = FSDirectory.open(path);
-
         /** 创建 索引写配置对象，传入分词器*/
         IndexWriterConfig config = new IndexWriterConfig(analyzer);
-        config.setOpenMode(IndexWriterConfig.OpenMode.CREATE_OR_APPEND);
+//        config.setOpenMode(IndexWriterConfig.OpenMode.CREATE_OR_APPEND);
         /**创建 索引写对象，用于正式写入索引和文档数据*/
         IndexWriter indexWriter = new IndexWriter(directory, config);
+        indexWriter.deleteAll();
         /**将 Lucene 文档加入到 写索引 对象中*/
         for (int i = 0; i < docList.size(); i++) {
             indexWriter.addDocument(docList.get(i));

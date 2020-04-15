@@ -35,6 +35,5 @@ public class MultithreadScheduleTask {
     public void Cron() throws IOException {
         //更新索引
         indexManagerUtil.indexCreate(articleMapper.selectAllArticles());
-        //并且清楚ip地址
     }
 }
