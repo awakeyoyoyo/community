@@ -17,6 +17,8 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
+
 /**
  * @author awakeyoyoyo
  * @className HelloController
@@ -45,11 +47,15 @@ public class IndexController {
     public String index(Model model,
                         @RequestParam(name = "pageNo", defaultValue = "1", required = false) Integer pageNo,
                         @RequestParam(name = "pageSize", defaultValue = "3", required = false) Integer pageSize,
-                        @RequestParam(name = "search", defaultValue = "") String search) {
+                        @RequestParam(name = "search", defaultValue = "") String search) throws Exception {
         PageResult<ArticleDto> pageResult;
         if (!StringUtils.isEmpty(search)) {
-            pageResult = articleService.getListSearch(search, pageNo, pageSize);
-
+            List<ArticleDto>  articleDtos= articleService.getListSearch(search);
+            WebMessageDto webMessageDto=commonService.getMessage();
+            model.addAttribute("webMessage",webMessageDto);
+            model.addAttribute("reslts", articleDtos);
+            model.addAttribute("search", search);
+            return "search";
         } else {
             pageResult = articleService.getList(pageNo, pageSize);
         }

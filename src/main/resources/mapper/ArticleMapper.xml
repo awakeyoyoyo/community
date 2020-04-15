@@ -238,6 +238,13 @@
     where id = #{topicId}
   </update>
 
+  <select id="selectAllArticles"  resultMap="ResultMapWithBLOBs" parameterType="map">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from cm_article order by gmt_create
+  </select>
   <select id="selectByTag"  resultMap="CategoryArticle" parameterType="map">
     select
     id, gmt_create, title, decription,tag

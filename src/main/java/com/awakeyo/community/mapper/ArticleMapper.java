@@ -29,6 +29,8 @@ public interface ArticleMapper {
 
     Integer selectAll();
 
+    List<Article> selectAllArticles();
+
     List<Article> selectList(@Param("pageBegin") Integer pageBegin, @Param("pageSize") Integer pageSize);
 
     Integer updateReplyCountByTopicId(Integer topicId);

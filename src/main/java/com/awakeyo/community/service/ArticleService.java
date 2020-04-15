@@ -9,6 +9,7 @@ import com.awakeyo.community.pojo.PageResult;
 import com.awakeyo.community.pojo.User;
 import com.awakeyo.community.pojo.dto.ArticleDto;
 import com.awakeyo.community.pojo.dto.CommentDTO;
+import com.awakeyo.community.util.IndexManagerUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,6 +31,8 @@ public class ArticleService {
     private ArticleMapper articleMapper;
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private IndexManagerUtil indexManagerUtil;
     @Autowired
     private CommentReplyService commentReplyService;
     public void insertOrUpdate(Article article) {
@@ -75,25 +78,13 @@ public class ArticleService {
         return articleDto;
     }
 
-    public PageResult<ArticleDto> getListSearch(String search, Integer pageNo, Integer pageSize) {
-        search= StringUtils.replace(search," ","|");
-        Integer itemCount=articleMapper.selectAllSearch(search);
-        int  pageCount;
-        if (itemCount/pageSize==0){
-            pageCount=1;
-        }else if (itemCount%pageSize==0){
-            pageCount=itemCount/pageSize;
-        }else {
-            pageCount=itemCount/pageSize+1;
+    public List<ArticleDto> getListSearch(String search) throws Exception {
+        List<Integer> ids=indexManagerUtil.indexSearch(search);
+        List<Article> articles=new ArrayList<>();
+        for (Integer id:ids) {
+            Article article = articleMapper.selectByPrimaryKey(id);
+            articles.add(article);
         }
-        if (pageNo<1){
-            pageNo=1;
-        }
-        if (pageNo>pageCount){
-            pageNo=pageCount;
-        }
-        Integer pageBegin=pageSize*(pageNo-1);
-        List<Article> articles=articleMapper.selectListSearch(search,pageBegin,pageSize);
         List<ArticleDto> articleDtos=new ArrayList<>();
         for (Article article:articles) {
             User user=userMapper.selectByPrimaryKey(article.getCreator());
@@ -102,10 +93,7 @@ public class ArticleService {
             articleDto.setUser(user);
             articleDtos.add(articleDto);
         }
-        PageResult<ArticleDto> pageResult=new PageResult<>();
-        pageResult.init(pageCount,pageNo);
-        pageResult.setReslts(articleDtos);
-        return pageResult;
+        return articleDtos;
     }
 
     public PageResult<ArticleDto> getList(Integer pageNo, Integer pageSize) {

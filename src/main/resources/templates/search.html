@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>首页 - 与我常在's blog</title>
+    <title>搜索结果 - 与我常在's blog</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="js/jq/jquery-3.4.1.min.js" type="application/javascript"></script>
@@ -39,7 +39,7 @@
                 </ul>
                 <form class="navbar-form navbar-left" method="get" action="/">
                     <div class="form-group">
-                        <input type="text" name="search" class="form-control" placeholder="Search">
+                        <input type="text" th:value="${search}" name="search" class="form-control" placeholder="Search">
                     </div>
                     <button type="submit" class="btn btn-default">搜索博客</button>
                 </form>
@@ -76,8 +76,8 @@
                         </span>
                         </a>
                         <ul class="dropdown-menu">
-<!--                            <li><a href="https://github.com/login/oauth/authorize?client_id=f25c1cabc9f06377fa85&redirect_uri=http://localhost:8080/callback&scope=user&state=111">github登陆</a></li>-->
-<!--                            <li role="separator" class="divider"></li>-->
+                            <!--                            <li><a href="https://github.com/login/oauth/authorize?client_id=f25c1cabc9f06377fa85&redirect_uri=http://localhost:8080/callback&scope=user&state=111">github登陆</a></li>-->
+                            <!--                            <li role="separator" class="divider"></li>-->
                             <li><a href="/phoneLogin">手机号登陆</a></li>
                         </ul>
                     </li>
@@ -132,85 +132,37 @@
 
         <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 middle-box-index " >
             <div th:fragment="AticleBlog" id="AticleBlog">
-            <h3 class="text-center">最新博客</h3>
-            <br>
-            <!--            博客-->
-            <div class="panel panel-info" th:each="article:${pageResult.reslts}">
-                <div class="panel-heading" style="padding: 3px 10px">
-                    <h4><a th:href="'/Aritle/'+${article.id}" class="blogtext" th:text="${article.title}">comparator和comparable的区别</a></h4>
-                </div>
-                <div class="panel-body">
-                    <P class="text-desc " >
-                        <span class="glyphicon  glyphicon-user" aria-hidden="true"></span>
-                        作者：<span th:text="${article.user.name}">lqhao</span> |
-                        <span class="glyphicon glyphicon glyphicon-calendar" aria-hidden="true"></span>
+                <h3 class="text-center">最新博客</h3>
+                <br>
+                <!--            博客-->
+                <div class="panel panel-info" th:each="article:${reslts}">
+                    <div class="panel-heading" style="padding: 3px 10px">
+                        <h4><a th:href="'/Aritle/'+${article.id}" class="blogtext" th:text="${article.title}">comparator和comparable的区别</a></h4>
+                    </div>
+                    <div class="panel-body">
+                        <P class="text-desc " >
+                            <span class="glyphicon  glyphicon-user" aria-hidden="true"></span>
+                            作者：<span th:text="${article.user.name}">lqhao</span> |
+                            <span class="glyphicon glyphicon glyphicon-calendar" aria-hidden="true"></span>
 
-                        发布时间：<span th:text="${#dates.format(article.getGmtCreate(),'yyyy-MM-dd HH:mm:ss')}">2019-07-16</span> |
-                        <span class="glyphicon glyphicon-signal" aria-hidden="true"></span>
-                        阅读数：<span th:text="${article.viewCount}">20</span>
-                        <br>
-                    </P>
-<!--                    -->
-                    <p class="blogtext" th:text="${article.decription}">
-                         comparator和comparable都是用来实现集合中元素的排序比较的。Comparator位于包java.util下，而Comparable位于包java.lang下。他们之间的区别在于用法上。Comparator 是一个专用的比较器，当这个对象不支持自比较或者自比较函数不能满足你的要求时，你可以写一个比较器来完成两个对象之间大小的比较。Comparable 是一个对象本身就已经支持自比较所需要实现的接口（如 String、Integer 自己就可以完成比较大小操作，已经实现了Comparable接口），对自己写的类实现这一接口来实现按自己规则排序。总结起来就是comparator在外。comparable在内...
-                    </p>
-                    <p><h5><a th:href="'/Aritle/'+${article.id}" class="blogtext bottom-box btn-aaaa">阅读全文<span class="glyphicon glyphicon-menu-right"></span></a></h5></p>
-                    <a class="btn-aaaa" th:href="'/categories?tag='+${tag}" th:each="tag:${article.tag.split(',')}">
+                            发布时间：<span th:text="${#dates.format(article.getGmtCreate(),'yyyy-MM-dd HH:mm:ss')}">2019-07-16</span> |
+                            <span class="glyphicon glyphicon-signal" aria-hidden="true"></span>
+                            阅读数：<span th:text="${article.viewCount}">20</span>
+                            <br>
+                        </P>
+                        <!--                    -->
+                        <p class="blogtext" th:text="${article.decription}">
+                            comparator和comparable都是用来实现集合中元素的排序比较的。Comparator位于包java.util下，而Comparable位于包java.lang下。他们之间的区别在于用法上。Comparator 是一个专用的比较器，当这个对象不支持自比较或者自比较函数不能满足你的要求时，你可以写一个比较器来完成两个对象之间大小的比较。Comparable 是一个对象本身就已经支持自比较所需要实现的接口（如 String、Integer 自己就可以完成比较大小操作，已经实现了Comparable接口），对自己写的类实现这一接口来实现按自己规则排序。总结起来就是comparator在外。comparable在内...
+                        </p>
+                        <p><h5><a th:href="'/Aritle/'+${article.id}" class="blogtext bottom-box btn-aaaa">阅读全文<span class="glyphicon glyphicon-menu-right"></span></a></h5></p>
+                        <a class="btn-aaaa" th:href="'/categories?tag='+${tag}" th:each="tag:${article.tag.split(',')}">
                         <span class="label label-info question-tag ">
                             <span class=" question-tag glyphicon glyphicon-tags"></span>
                             <span class="label label-info" th:text="${tag}">java</span>
                         </span>
-                    </a>
+                        </a>
+                    </div>
                 </div>
-            </div>
-            <div>
-            <nav aria-label="Page navigation " class="PageStyle-blog" >
-                <ul class="pagination">
-                    <li>
-                        <a  onclick="ajaxBlog(this)"
-                            style="cursor: pointer"
-                            th:attr="pageNo=1"
-                            aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a onclick="ajaxBlog(this)"
-                           style="cursor: pointer"
-                           th:attr="pageNo=${pageResult.pageNo-1}"
-                             aria-label="Previous">
-                            <span aria-hidden="true">&lt;</span>
-                        </a>
-                    </li>
-                    <li th:class="${pageResult.pageNo==page}?'active':''" th:each="page:${pageResult.pages}">
-                        <a
-                                style="cursor: pointer"
-                                th:text="${page}"
-                                th:attr="pageNo=${page}"
-                                onclick="ajaxBlog(this)"
-                        ></a>
-                    </li>
-                    <li>
-                        <a
-                                style="cursor: pointer"
-                                th:attr="pageNo=${pageResult.pageNo+1}"
-                                onclick="ajaxBlog(this)"
-                                aria-label="Previous">
-                            <span aria-hidden="true">&gt;</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a
-                                style="cursor: pointer"
-                                th:attr="pageNo=${pageResult.pageCount}"
-                                onclick="ajaxBlog(this)"
-                                aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-            </div>
             </div>
         </div>
 
@@ -255,8 +207,8 @@
             </div>
             <div class="textbox bg-danger boxShadow" >
                 <div class="laoMei text-center">
-                <p>没有如果</p>
-                <p>错过便是错过。</p>
+                    <p>没有如果</p>
+                    <p>错过便是错过。</p>
                 </div>
             </div>
             <div class="textbox color-aaaa boxShadow">
