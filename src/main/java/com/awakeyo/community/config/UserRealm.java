@@ -61,17 +61,22 @@ public class UserRealm extends AuthorizingRealm {
            return null;
        }
        String password=String.valueOf(userToken.getPassword());
+       //token登陆
+       //为了配合jwttoken验证，所以拦截器处token登陆的时候，
+        // 从数据库中拿到md5加密的密码 和token中的username组成uptoken，来验证，其实是保证了一定通过。
        if (user.getPassword().equals(password)){
            //通过token验证
            SimpleAuthenticationInfo info=new SimpleAuthenticationInfo(user,user.getPassword(),getName());
            return info;
        }
+       //这里是账号密码扽路
        //账号密码验证
         String salt = user.getSalt();
-//        System.out.println(userToken.getUsername()+"===="+userToken.getPassword().toString());
+       //md5盐值加密
         String encodedPassword = ShiroMd5Util.shiroEncryption(password,salt);
-//        System.out.println("密码："+encodedPassword);
+        //用加密后的密码跟数据库进行比较
         userToken.setPassword(encodedPassword.toCharArray());
+        //
         SimpleAuthenticationInfo info=new SimpleAuthenticationInfo(user,user.getPassword(),getName());
 //        info.setCredentialsSalt(ByteSource.Util.bytes(user.getSalt()));
         return info;

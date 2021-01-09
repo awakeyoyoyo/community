@@ -88,6 +88,7 @@ public class UserService {
             }
 
             String salt = new SecureRandomNumberGenerator().nextBytes().toString();
+            //传入盐值加密密码
             String encodedPassword = ShiroMd5Util.shiroEncryption(registerDto.getPassword(),salt);
 
             User user=new User();

@@ -2,7 +2,6 @@ package com.awakeyo.community.util;
 
 import com.awakeyo.community.pojo.Article;
 import com.github.pagehelper.util.StringUtil;
-import org.apache.commons.io.FileUtils;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;

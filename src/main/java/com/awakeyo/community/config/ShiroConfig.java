@@ -55,6 +55,7 @@ public class ShiroConfig {
 
         return securityManager;
     }
+
 //    @Bean("hashedCredentialsMatcher")
 //    public HashedCredentialsMatcher hashedCredentialsMatcher() {
 //        HashedCredentialsMatcher hashedCredentialsMatcher = new HashedCredentialsMatcher();
